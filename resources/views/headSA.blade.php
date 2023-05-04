@@ -28,8 +28,8 @@
                 <span id="close" class="material-symbols-outlined col-end-10 cursor-pointer">close</span>
                 <span class="material-symbols-outlined col-end-1">folder_open</span>
                 <h3 class="col-start-2 col-span-9 font-extralight text-lg">Administracion</h3>
-                <h3 class="col-start-3 font-extralight">Usuarios</h3>
-                <h3 class="col-start-3 font-extralight">Carreras</h3>
+                <a class="col-start-3 font-extralight cursor-pointer">Usuarios</a>
+                <a class="col-start-3 font-extralight cursor-pointer">Carreras</a>
              </div>
          </div>
          <div id="main" class="w-full">

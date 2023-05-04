@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class indicador extends Model
 {
     use HasFactory;
+    public function variable(){
+        return $this->belongsTo(variable::class);
+    }
 }

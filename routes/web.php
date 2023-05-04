@@ -52,3 +52,6 @@ Route::get('/calificar_area', function () {
 Route::get('/menu_superadmin', function () {
     return view('menu_superadmin');
 });
+Route::get('/reporte_carreras', function () {
+    return view('reporte_carreras');
+});

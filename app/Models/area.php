@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class area extends Model
 {
     use HasFactory;
+    public function variables(){
+        return $this->hasMany(variable::class);
+    }
+    public function gestion(){
+        return $this->belongsTo(gestion::class);
+    }
 }

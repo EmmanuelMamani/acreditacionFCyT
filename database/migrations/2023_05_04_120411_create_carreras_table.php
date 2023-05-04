@@ -16,6 +16,7 @@ class CreateCarrerasTable extends Migration
         Schema::create('carreras', function (Blueprint $table) {
             $table->id();
             $table->string("name");
+            $table->integer('codigo');
             $table->boolean('activo')->default(true);
             $table->timestamps();
         });

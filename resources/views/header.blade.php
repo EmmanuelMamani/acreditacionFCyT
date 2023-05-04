@@ -28,12 +28,12 @@
                 <span id="close" class="material-symbols-outlined col-end-10 cursor-pointer">close</span>
                 <span class="material-symbols-outlined col-end-1">folder_open</span>
                 <h3 class="col-start-2 col-span-9 font-extralight text-lg">Administracion</h3>
-                <h3 class="col-start-3 font-extralight">Usuarios</h3>
-                <h3 class="col-start-3 font-extralight">Perminos</h3>
-                <h3 class="col-start-3 font-extralight">Roles</h3>
-                <h3 class="col-start-3 font-extralight">Gestiones</h3>
-                <h3 class="col-start-3 font-extralight">Areas</h3>
-                <h3 class="col-start-3 font-extralight">Calificaciones</h3>
+                <h3 class="col-start-3 font-extralight cursor-pointer">Usuarios</h3>
+                <h3 class="col-start-3 font-extralight cursor-pointer">Perminos</h3>
+                <h3 class="col-start-3 font-extralight cursor-pointer">Roles</h3>
+                <h3 class="col-start-3 font-extralight cursor-pointer">Gestiones</h3>
+                <h3 class="col-start-3 font-extralight cursor-pointer">Areas</h3>
+                <h3 class="col-start-3 font-extralight cursor-pointer">Calificaciones</h3>
              </div>
          </div>
          <div id="main" class="w-full">
