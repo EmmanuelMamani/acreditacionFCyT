@@ -43,4 +43,12 @@ Route::get('/reporte_gestiones', function () {
 Route::get('/reporte_areas', function () {
     return view('reporte_areas');
 });
-
+Route::get('/calificar', function () {
+    return view('calificar');
+});
+Route::get('/calificar_area', function () {
+    return view('calificar_area');
+});
+Route::get('/menu_superadmin', function () {
+    return view('menu_superadmin');
+});
