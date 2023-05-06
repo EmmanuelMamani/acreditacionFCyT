@@ -20,10 +20,11 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($areas as $area)
                 <tr class="border-2 border-y-black border-x-white">
-                    <th class="font-thin text-xl">1</th>
-                    <th class="font-thin text-xl">Normas juridicas e institucionales</th>
-                    <th class="font-thin text-xl">0.5</th>
+                    <th class="font-thin text-xl">{{$area->numero_area}}</th>
+                    <th class="font-thin text-xl">{{$area->name}}</th>
+                    <th class="font-thin text-xl">{{$area->valor}}</th>
                     <th>
                         <div class="grid grid-cols-3">
                             <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">description</span>
@@ -32,6 +33,8 @@
                         </div>
                     </th>
                 </tr>
+                @endforeach
+                
             </tbody>
         </table>
     </div>
@@ -59,6 +62,7 @@
         var guardar=document.getElementById("guardar");
         var cancelar=document.getElementById("cancelar");
         guardar.onclick=function(){
+            
             modal.close()
         }
         cancelar.onclick=function(){
