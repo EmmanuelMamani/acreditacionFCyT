@@ -67,6 +67,7 @@ Route::get('/menu_superadmin', function () {return view('menu_superadmin');})->n
 Route::get('/reporte_carreras',[carreraController::class,'reporte_carreras'])->name("reporte_carreras");
 Route::post('/registro_carrera',[carreraController::class,'registro'])->name('registro_carrera');
 Route::post('/eliminar_carrera/{id}',[carreraController::class,'eliminar_carrera'])->name('eliminar_carrera');
+Route::post('/editar_carrera/{id}',[carreraController::class,'editar_carrera'])->name('editar_carrera');
 /*-------------------------------------------------------------------------*/
 
 /*--------------------------------Areas----------------------------------- */
@@ -87,5 +88,8 @@ Route::post('/eliminar_variable/{id}',[variableController::class,'eliminar_varia
 Route::get('/reporte_indicadores',[indicadorController::class,'reporte_indicadores'])->name("reporte_indicadores");
 Route::post('/registro_indicador',[indicadorController::class,'registro'])->name('registro_indicador');
 Route::post('/eliminar_indicador/{id}',[indicadorController::class,'eliminar_indicador'])->name('eliminar_indicador');
+
+
+
 
 /*-------------------------------------------------------------------------*/

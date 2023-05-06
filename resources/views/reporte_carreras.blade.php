@@ -31,7 +31,7 @@
                             <form action="{{route("eliminar_carrera",['id'=>$carrera->id])}}" method="post">
                                 @csrf<button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
                             </form>
-                            <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar({{$carrera->id}})">edit_square</span>
+                            <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar({{$carrera->id}},'{{$carrera->name}}')">edit_square</span>
                         </div>
                     </th>
                 </tr> 
@@ -65,7 +65,7 @@
             <div>
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Editar carrera</h3>
                 <label class="font-thin">Nombre</label><br>
-                <input type="text" name="name" class="bg-zinc-200 rounded-lg w-full p-2"><br>
+                <input type="text" name="name" class="bg-zinc-200 rounded-lg w-full p-2" id="nameE"><br>
                 <div class="grid grid-cols-2 pt-10 gap-5">
                     <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardarE">Guardar</button>
                     <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelarE">Cancelar</a>
@@ -91,10 +91,13 @@
         /*************************************************/
         //Modal editar carrera
         var modal_editar=document.getElementById("modal_editar");
-            function editar(){
+        var nameE=document.getElementById("nameE");
+            function editar(id,name){
                 modal_editar.showModal();
                 var editar=document.getElementById("editar");
-                console.log(editar.innerHTML);
+                nameE.value=name;
+                var ruta="{{route('editar_carrera',['id'=>"+id+"])}}"
+                console.log(ruta);
             }
         guardarE.onclick=function(){
             modal_editar.close()
