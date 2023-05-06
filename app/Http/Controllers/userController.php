@@ -9,6 +9,7 @@ use App\Models\rol;
 use App\Models\User;
 use App\Models\rol_user;
 use App\Http\Requests\userRequest;
+use App\Http\Requests\userEditRequest;
 class userController extends Controller
 {
     //
@@ -63,10 +64,10 @@ class userController extends Controller
         $user->save();
         return redirect('/reporte_usuarios');
     }
-    public function editar($id, Request $request){
+    public function editar($id, userEditRequest $request){
         $user=User::find($id);
-        $user->name=$request->name;
-        $user->password=$request->password;
+        $user->name=$request->nameE;
+        $user->password=$request->passwordE;
         $user->carrera_id=$request->carrera;
         $user->save();
         $rol= rol_user::find($user->rol_user->last()->id);

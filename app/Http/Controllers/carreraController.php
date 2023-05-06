@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\carrera;
 use Illuminate\Http\Request;
 use App\Http\Requests\carreraRequest;
+use App\Http\Requests\carreraEditRequest;
 class carreraController extends Controller
 {
     //
@@ -24,9 +25,9 @@ class carreraController extends Controller
         $carrera->save();
         return redirect('/reporte_carreras');
     }
-    public function editar_carrera($id, Request $request){
+    public function editar_carrera($id, carreraEditRequest $request){
         $carrera = carrera::find($id);
-        $carrera->name=$request->name;
+        $carrera->name=$request->nameE;
         $carrera->save();
         return redirect('/reporte_carreras');
     }

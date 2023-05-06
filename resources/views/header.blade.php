@@ -23,7 +23,7 @@
             <a href="{{route('logout')}}" class="col-end-11 cursor-pointer text-white text-2xl pt-5 font-extralight text-right">logout</a>
             <div class="flex col-end-12 cursor-pointer">
                 <span class="material-symbols-outlined text-white font-extralight pt-5 pl-10 text-4xl">account_circle</span>
-                <span class="text-white text-2xl pt-5 font-extralight">Administrador</span>
+                <span class="text-white text-2xl pt-5 font-extralight">{{Auth::user()->name}}</span>
             </div>
         </div>
      </div>
@@ -36,7 +36,7 @@
                 @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
                 <a href="{{route('reporte_carreras')}}" class="col-start-3 font-extralight cursor-pointer">Carreras</a>
                 <a href="{{route('reporte_usuarios')}}" class="col-start-3 font-extralight cursor-pointer">Usuarios</a>
-                <h3 class="col-start-3 font-extralight cursor-pointer">Roles</h3>
+                <a href="{{route('reporte_roles')}}" class="col-start-3 font-extralight cursor-pointer">Roles</a>
                 <h3 class="col-start-3 font-extralight cursor-pointer">Areas</h3>
                 <h3 class="col-start-3 font-extralight cursor-pointer">Variables</h3>
                 <h3 class="col-start-3 font-extralight cursor-pointer">Indicadores</h3>

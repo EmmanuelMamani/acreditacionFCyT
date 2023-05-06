@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class carreraRequest extends FormRequest
+class userEditRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,18 +24,15 @@ class carreraRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>["required","string"],
-            'codigo'=>['required','integer','unique:carreras,codigo']
+            'name'=>['required','string'],
+            'password'=>['required']
         ];
     }
-
     public function messages(){
         return[
-            'name.required'=> 'el nombre de carrera es obligatorio',
+            'name.required'=> 'el nombre de usuario es obligatorio',
             'name.string'=>'Solo se aceptan caracteres literales',
-            'codigo.required'=>'El codigo es obligatorio',
-            'codigo.integer'=> 'El codigo debe ser un numero entero',
-            'codigo.unique'=> 'Ya existe una carrera con ese codigo'
+            'password.required'=>'La contraseña es obligatoria',
         ];
     }
 }

@@ -24,7 +24,7 @@ class userRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>['required','string','unique:users,name'],
+            'name'=>['required','string'],
             'email'=>['required','unique:users,email'],
             'password'=>['required','same:confirmacion']
         ];
@@ -33,7 +33,6 @@ class userRequest extends FormRequest
         return[
             'name.required'=> 'el nombre de usuario es obligatorio',
             'name.string'=>'Solo se aceptan caracteres literales',
-            'name.unique'=>'Ya existe un usuario con ese nombre',
             'email.required'=>'El email es obligatorio',
             'email.unique'=>'Ya existe un usuario con ese email',
             'password.required'=>'La contraseña es obligatoria',
