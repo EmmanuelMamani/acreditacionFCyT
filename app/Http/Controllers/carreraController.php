@@ -25,10 +25,9 @@ class carreraController extends Controller
         return redirect('/reporte_carreras');
     }
     public function editar_carrera($id, Request $request){
-        echo $id;
-        /*$carrera = carrera::find($id);
+        $carrera = carrera::find($id);
         $carrera->name=$request->name;
         $carrera->save();
-        return redirect('/reporte_carreras');*/
+        return redirect('/reporte_carreras');
     }
 }

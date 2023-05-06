@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\carreraController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -66,3 +67,9 @@ Route::post('/registro_carrera',[carreraController::class,'registro'])->name('re
 Route::post('/eliminar_carrera/{id}',[carreraController::class,'eliminar_carrera'])->name('eliminar_carrera');
 Route::post('/editar_carrera/{id}',[carreraController::class,'editar_carrera'])->name('editar_carrera');
 /*-------------------------------------------------------------------------*/
+/*********************************Usuarios************************************/
+Route::get('/reporte_usuarios',[userController::class,'reporte_usuarios'])->name("reporte_usuarios");
+Route::get('/reporte_usuarios_carrera',[userController::class,'reporte_usuarios_carrera'])->name("reporte_usuarios_carrera");
+Route::post('/registro_usuario',[userController::class,'registrar'])->name("registro_usuario");
+Route::post('/eliminar_usuario/{id}',[userController::class,'eliminar'])->name("eliminar_usuario");
+Route::post('/editar_usuario/{id}',[userController::class,'editar'])->name("editar_usuario");

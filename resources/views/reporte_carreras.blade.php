@@ -96,12 +96,9 @@
                 modal_editar.showModal();
                 var editar=document.getElementById("editar");
                 nameE.value=name;
-                var ruta="{{route('editar_carrera',['id'=>"+id+"])}}"
-                console.log(ruta);
+                editar.action="/editar_carrera/"+id
+                console.log(editar.action);
             }
-        guardarE.onclick=function(){
-            modal_editar.close()
-        }
         cancelarE.onclick=function(){
             modal_editar.close()
         }

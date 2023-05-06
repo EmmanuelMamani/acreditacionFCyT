@@ -1,4 +1,4 @@
-@extends("headSA")
+@extends("header")
 @section("main")
     <div class="grid grid-cols-12 pb-10 pt-10 pl-20 ">
         <div class="flex col-start-2 col-span-10 mb-0">
@@ -11,6 +11,5 @@
             <h3>Variables:56</h3>
         </div>
     </div>
-    {{Auth::user()}}
-    <a href="{{route('logout')}}">logout</a>
+
 @endsection

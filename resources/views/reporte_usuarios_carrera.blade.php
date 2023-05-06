@@ -17,7 +17,6 @@
                     <th>Nombre</th>
                     <th>Email</th>
                     <th>Rol</th>
-                    <th>Carrera</th>
                     <th>Accion</th>
                 </tr>
             </thead>
@@ -28,11 +27,6 @@
                     <th class="font-thin text-xl">{{$usuario->name}}</th>
                     <th class="font-thin text-xl">{{$usuario->email}}</th>
                     <th class="font-thin text-xl">{{$usuario->rol_user->last()->rol->name}}</th>
-                    @if ($usuario->carrera_id==NULL)
-                    <th class="font-thin text-xl">Sin carrera</th>
-                    @else
-                    <th class="font-thin text-xl">{{$usuario->carrera->name}}</th>
-                    @endif
                     <th>
                         <div class="grid grid-cols-2">
                             <form action="{{route('eliminar_usuario',['id'=>$usuario->id])}}" method="post">
@@ -79,9 +73,7 @@
                 </select><br>
                 <label class="font-thin">Lista de carreras</label><br>
                 <select name="carrera" class="bg-zinc-200 rounded-lg w-full p-2">
-                    @foreach ($carreras as $carrera)
-                        <option value="{{$carrera->id}}">{{$carrera->name}}</option>
-                    @endforeach
+                    <option value="{{Auth::user()->carrera->id}}">{{Auth::user()->carrera->name}}</option>
                 </select><br>
                 <div class="grid grid-cols-2 pt-10 gap-5">
                     <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
@@ -101,7 +93,6 @@
                 @if ($errors->has('name'))
                 <span class="text-red-700">{{ $errors->first('name') }}</span>
                 @endif <br>
-                
                 <label class="font-thin">Contraseña</label><br>
                 <input type="password" name="password" class="bg-zinc-200 rounded-lg w-full p-2"><br>
                 @if ($errors->has('password'))
@@ -115,9 +106,7 @@
                 </select><br>
                 <label class="font-thin">Lista de carreras</label><br>
                 <select name="carrera" class="bg-zinc-200 rounded-lg w-full p-2">
-                    @foreach ($carreras as $carrera)
-                        <option value="{{$carrera->id}}">{{$carrera->name}}</option>
-                    @endforeach
+                        <option value="{{Auth::user()->carrera->id}}">{{Auth::user()->carrera->name}}</option>
                 </select><br>
                 <div class="grid grid-cols-2 pt-10 gap-5">
                     <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardarE">Guardar</button>
