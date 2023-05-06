@@ -64,4 +64,5 @@ Route::get('/menu_superadmin', function () {return view('menu_superadmin');})->n
 Route::get('/reporte_carreras',[carreraController::class,'reporte_carreras'])->name("reporte_carreras");
 Route::post('/registro_carrera',[carreraController::class,'registro'])->name('registro_carrera');
 Route::post('/eliminar_carrera/{id}',[carreraController::class,'eliminar_carrera'])->name('eliminar_carrera');
+Route::post('/editar_carrera/{id}',[carreraController::class,'editar_carrera'])->name('editar_carrera');
 /*-------------------------------------------------------------------------*/
