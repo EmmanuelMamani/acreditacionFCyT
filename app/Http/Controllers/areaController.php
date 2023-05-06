@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\areaRequest;
 use App\Models\area;
 use Illuminate\Http\Request;
 
@@ -19,9 +20,14 @@ class areaController extends Controller
     }
 
    
-    public function registro(Request $request)
+    public function registro(areaRequest $request)
     {
-        //
+        $area= new area();
+        $area->name=$request->descripcion;
+        $area->valor=$request->ponderacion;
+        $area->save();
+
+        return redirect('reporte_areas');        
     }
 
     public function editar_area($id)
