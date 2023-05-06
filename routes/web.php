@@ -65,3 +65,20 @@ Route::get('/reporte_carreras',[carreraController::class,'reporte_carreras'])->n
 Route::post('/registro_carrera',[carreraController::class,'registro'])->name('registro_carrera');
 Route::post('/eliminar_carrera/{id}',[carreraController::class,'eliminar_carrera'])->name('eliminar_carrera');
 /*-------------------------------------------------------------------------*/
+
+/*--------------------------------Areas----------------------------------- */
+
+Route::get('/reporte_áreas',[Controller::class,'reporte_carreras'])->name("reporte_carreras");
+Route::post('/registro_carrera',[carreraController::class,'registro'])->name('registro_carrera');
+Route::post('/eliminar_carrera/{id}',[carreraController::class,'eliminar_carrera'])->name('eliminar_carrera');
+/*-------------------------------------------------------------------------*/
+
+/*--------------------------------Variables----------------------------------- */
+
+/*-------------------------------------------------------------------------*/
+
+
+/*--------------------------------Indicadores----------------------------------- */
+
+
+/*-------------------------------------------------------------------------*/
