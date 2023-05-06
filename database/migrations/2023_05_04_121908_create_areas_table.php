@@ -18,7 +18,6 @@ class CreateAreasTable extends Migration
             $table->integer('numero_area');
             $table->string('name');
             $table->integer('valor');
-            $table->integer('gestion_id');
             $table->boolean('activo')->default(true);
             $table->timestamps();
         });

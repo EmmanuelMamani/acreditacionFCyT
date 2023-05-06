@@ -11,7 +11,7 @@ class gestion extends Model
     public function carrera(){
         return $this->belongsTo(carrera::class);
     }
-    public function areas(){
-        return $this->hasMany(area::class);
+    public function calificaciones(){
+        return $this->hasMany(calificacion::class);
     }
 }

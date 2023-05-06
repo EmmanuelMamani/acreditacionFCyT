@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\userController;
+use App\Http\Controllers\carreraController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('login');
-});
 Route::get('/menu_admin', function () {
     return view('menu_admin');
 });
@@ -49,9 +47,21 @@ Route::get('/calificar', function () {
 Route::get('/calificar_area', function () {
     return view('calificar_area');
 });
-Route::get('/menu_superadmin', function () {
-    return view('menu_superadmin');
-});
+
 Route::get('/reporte_carreras', function () {
     return view('reporte_carreras');
 });
+/**--------------------------------login ----------------------**/
+Route::post('/',[userController::class,'autentificacion'])->name('login');
+Route::get('/logout',[userController::class,'logout'])->name('logout');
+Route::get('/', function () {return view('login');})->name('login');
+/*----------------------------------------------------------------- */
+
+/*-----------------------------menu-superadmin---------------------*/
+Route::get('/menu_superadmin', function () {return view('menu_superadmin');})->name("menu_superadmin");
+/*------------------------------------------------------------------*/
+/*---------------------------------carreras-------------------------- */
+Route::get('/reporte_carreras',[carreraController::class,'reporte_carreras'])->name("reporte_carreras");
+Route::post('/registro_carrera',[carreraController::class,'registro'])->name('registro_carrera');
+Route::post('/eliminar_carrera/{id}',[carreraController::class,'eliminar_carrera'])->name('eliminar_carrera');
+/*-------------------------------------------------------------------------*/

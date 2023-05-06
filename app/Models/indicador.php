@@ -11,4 +11,7 @@ class indicador extends Model
     public function variable(){
         return $this->belongsTo(variable::class);
     }
+    public function calificaciones(){
+        return $this->hasMany(calificacion::class);
+    }
 }

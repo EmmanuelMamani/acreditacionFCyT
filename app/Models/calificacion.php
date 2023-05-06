@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class area extends Model
+class calificacion extends Model
 {
     use HasFactory;
-    public function variables(){
-        return $this->hasMany(variable::class);
+    public function gestion(){
+        return $this->belongsTo(gestion::class);
     }
 }

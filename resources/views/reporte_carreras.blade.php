@@ -20,39 +20,63 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($carreras as $key=>$carrera )
                 <tr class="border-2 border-y-black border-x-white">
-                    <th class="font-thin text-xl">1</th>
-                    <th class="font-thin text-xl">411702</th>
-                    <th class="font-thin text-xl">Ingenieria en sistemas</th>
+                    <th class="font-thin text-xl">{{$key+1}}</th>
+                    <th class="font-thin text-xl">{{$carrera->codigo}}</th>
+                    <th class="font-thin text-xl">{{$carrera->name}}</th>
                     <th>
                         <div class="grid grid-cols-3">
                             <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">description</span>
-                            <span class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</span>
-                            <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer">edit_square</span>
+                            <form action="{{route("eliminar_carrera",['id'=>$carrera->id])}}" method="post">
+                                @csrf<button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
+                            </form>
+                            <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar({{$carrera->id}})">edit_square</span>
                         </div>
                     </th>
-                </tr>
+                </tr> 
+                @endforeach
+
             </tbody>
         </table>
     </div>
 
 
     <dialog id="modal" class="w-1/3 rounded-lg px-20">
-        <div>
-            <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Agregar nueva carrera</h3>
-            <label class="font-thin">Nombre</label><br>
-            <input type="text" name="descripcion" class="bg-zinc-200 rounded-lg w-full p-2"><br>
-            <label class="font-thin">Codigo</label><br>
-            <input type="text" name="ponderacion" class="bg-zinc-200 rounded-lg w-full p-2"><br>
-            <div class="grid grid-cols-2 pt-10 gap-5">
-                <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
-                <button class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelar">Cancelar</button>
+        <form action="{{route('registro_carrera')}}" method="post">
+            @csrf
+            <div>
+                <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Agregar nueva carrera</h3>
+                <label class="font-thin">Nombre</label><br>
+                <input type="text" name="name" class="bg-zinc-200 rounded-lg w-full p-2"><br>
+                <label class="font-thin">Codigo</label><br>
+                <input type="text" name="codigo" class="bg-zinc-200 rounded-lg w-full p-2"><br>
+                <div class="grid grid-cols-2 pt-10 gap-5">
+                    <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
+                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelar">Cancelar</a>
+                </div>
             </div>
-        </div>
+        </form>
+    </dialog>
+
+    <dialog id="modal_editar" class="w-1/3 rounded-lg px-20">
+        <form action="" method="post" id="editar">
+            @csrf
+            <div>
+                <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Editar carrera</h3>
+                <label class="font-thin">Nombre</label><br>
+                <input type="text" name="name" class="bg-zinc-200 rounded-lg w-full p-2"><br>
+                <div class="grid grid-cols-2 pt-10 gap-5">
+                    <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardarE">Guardar</button>
+                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelarE">Cancelar</a>
+                </div>
+            </div>
+        </form>
     </dialog>
 @endsection
 @section("js")
     <script>
+        //Modal registrar carrera
         var agregar=document.getElementById("agregar");
         var modal=document.getElementById("modal");
         agregar.onclick=function(){modal.showModal()}
@@ -63,6 +87,20 @@
         }
         cancelar.onclick=function(){
             modal.close()
+        }
+        /*************************************************/
+        //Modal editar carrera
+        var modal_editar=document.getElementById("modal_editar");
+            function editar(){
+                modal_editar.showModal();
+                var editar=document.getElementById("editar");
+                console.log(editar.innerHTML);
+            }
+        guardarE.onclick=function(){
+            modal_editar.close()
+        }
+        cancelarE.onclick=function(){
+            modal_editar.close()
         }
     </script>
 @endsection

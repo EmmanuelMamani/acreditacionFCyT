@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateIndicadorsTable extends Migration
+class CreateCalificacionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateIndicadorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('indicadors', function (Blueprint $table) {
+        Schema::create('calificacions', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion');
-            $table->integer('numero_indicador');
-            $table->string('tipo');
-            $table->integer('valor');
-            $table->integer('variable_id');
-            $table->boolean('activo')->default(true);
+            $table->integer('calificacion');
+            $table->integer('gestion_id');
+            $table->integer('indicador_id');
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ class CreateIndicadorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('indicadors');
+        Schema::dropIfExists('calificacions');
     }
 }
