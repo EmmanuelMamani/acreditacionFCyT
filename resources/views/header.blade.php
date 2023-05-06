@@ -15,10 +15,15 @@
                 <span class="material-symbols-outlined text-white text-2xl pt-5 font-extralight ml-10 cursor-pointer" id="menu">menu</span>
                 <h3 class="text-white font-thin pt-5 pl-10 text-3xl">SIS-EA</h3>
             </div>
-            <div class="col-end-11 cursor-pointer text-white text-2xl pt-5 font-extralight text-right">Inicio</div>
+            @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
+            <a href="/menu_superadmin" class="col-end-10 cursor-pointer text-white text-2xl pt-5 font-extralight text-right">Inicio</a>
+            @else
+            <a href="/menu_admin" class="col-end-10 cursor-pointer text-white text-2xl pt-5 font-extralight text-right">Inicio</a>
+            @endif
+            <a href="{{route('logout')}}" class="col-end-11 cursor-pointer text-white text-2xl pt-5 font-extralight text-right">logout</a>
             <div class="flex col-end-12 cursor-pointer">
                 <span class="material-symbols-outlined text-white font-extralight pt-5 pl-10 text-4xl">account_circle</span>
-                <span class="text-white text-2xl pt-5 font-extralight">Administrador</span>
+                <span class="text-white text-2xl pt-5 font-extralight">{{Auth::user()->name}}</span>
             </div>
         </div>
      </div>
@@ -28,12 +33,19 @@
                 <span id="close" class="material-symbols-outlined col-end-10 cursor-pointer">close</span>
                 <span class="material-symbols-outlined col-end-1">folder_open</span>
                 <h3 class="col-start-2 col-span-9 font-extralight text-lg">Administracion</h3>
-                <h3 class="col-start-3 font-extralight cursor-pointer">Usuarios</h3>
-                <h3 class="col-start-3 font-extralight cursor-pointer">Perminos</h3>
-                <h3 class="col-start-3 font-extralight cursor-pointer">Roles</h3>
-                <h3 class="col-start-3 font-extralight cursor-pointer">Gestiones</h3>
+                @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
+                <a href="{{route('reporte_carreras')}}" class="col-start-3 font-extralight cursor-pointer">Carreras</a>
+                <a href="{{route('reporte_usuarios')}}" class="col-start-3 font-extralight cursor-pointer">Usuarios</a>
+                <a href="{{route('reporte_roles')}}" class="col-start-3 font-extralight cursor-pointer">Roles</a>
                 <h3 class="col-start-3 font-extralight cursor-pointer">Areas</h3>
+                <h3 class="col-start-3 font-extralight cursor-pointer">Variables</h3>
+                <h3 class="col-start-3 font-extralight cursor-pointer">Indicadores</h3>
+                @endif
+                @if (Auth::user()->rol_user->last()->rol->name == 'administrador')
+                <a href="{{route('reporte_usuarios_carrera')}}" class="col-start-3 font-extralight cursor-pointer">Usuarios</a>
+                <h3 class="col-start-3 font-extralight cursor-pointer">Gestiones</h3>
                 <h3 class="col-start-3 font-extralight cursor-pointer">Calificaciones</h3>
+                @endif
              </div>
          </div>
          <div id="main" class="w-full">

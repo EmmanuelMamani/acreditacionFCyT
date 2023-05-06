@@ -3,9 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\carreraController;
+
 use App\Http\Controllers\areaController;
 use App\Http\Controllers\indicadorController;
 use App\Http\Controllers\variableController;
+
+use App\Http\Controllers\rolController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -70,6 +74,7 @@ Route::post('/eliminar_carrera/{id}',[carreraController::class,'eliminar_carrera
 Route::post('/editar_carrera/{id}',[carreraController::class,'editar_carrera'])->name('editar_carrera');
 /*-------------------------------------------------------------------------*/
 
+
 /*--------------------------------Areas----------------------------------- */
 
 Route::get('/reporte_areas',[areaController::class,'reporte_areas'])->name("reporte_areas");
@@ -93,3 +98,16 @@ Route::post('/eliminar_indicador/{id}',[indicadorController::class,'eliminar_ind
 
 
 /*-------------------------------------------------------------------------*/
+
+/*********************************Usuarios************************************/
+Route::get('/reporte_usuarios',[userController::class,'reporte_usuarios'])->name("reporte_usuarios");
+Route::get('/reporte_usuarios_carrera',[userController::class,'reporte_usuarios_carrera'])->name("reporte_usuarios_carrera");
+Route::post('/registro_usuario',[userController::class,'registrar'])->name("registro_usuario");
+Route::post('/eliminar_usuario/{id}',[userController::class,'eliminar'])->name("eliminar_usuario");
+Route::post('/editar_usuario/{id}',[userController::class,'editar'])->name("editar_usuario");
+
+/*********************************roles*****************************************/
+Route::get('/reporte_roles',[rolController::class,'reporte'])->name("reporte_roles");
+Route::post('/registro_rol',[rolController::class,'registrar'])->name("registro_rol");
+Route::post('/eliminar_rol/{id}',[rolController::class,'eliminar'])->name("eliminar_rol");
+

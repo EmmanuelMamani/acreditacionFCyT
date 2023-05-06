@@ -49,8 +49,14 @@
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Agregar nueva carrera</h3>
                 <label class="font-thin">Nombre</label><br>
                 <input type="text" name="name" class="bg-zinc-200 rounded-lg w-full p-2"><br>
+                @if ($errors->has('name'))
+                <span class="text-red-700">{{ $errors->first('name') }}</span>
+                @endif <br>
                 <label class="font-thin">Codigo</label><br>
                 <input type="text" name="codigo" class="bg-zinc-200 rounded-lg w-full p-2"><br>
+                @if ($errors->has('codigo'))
+                <span class="text-red-700">{{ $errors->first('codigo') }}</span>
+                @endif <br>
                 <div class="grid grid-cols-2 pt-10 gap-5">
                     <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
                     <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelar">Cancelar</a>
@@ -65,7 +71,10 @@
             <div>
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Editar carrera</h3>
                 <label class="font-thin">Nombre</label><br>
-                <input type="text" name="name" class="bg-zinc-200 rounded-lg w-full p-2" id="nameE"><br>
+                <input type="text" name="nameE" class="bg-zinc-200 rounded-lg w-full p-2" id="nameE"><br>
+                @if ($errors->has('nameE'))
+                <span class="text-red-700">{{ $errors->first('nameE') }}</span>
+                @endif <br>
                 <div class="grid grid-cols-2 pt-10 gap-5">
                     <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardarE">Guardar</button>
                     <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelarE">Cancelar</a>
@@ -96,12 +105,9 @@
                 modal_editar.showModal();
                 var editar=document.getElementById("editar");
                 nameE.value=name;
-                var ruta="{{route('editar_carrera',['id'=>"+id+"])}}"
-                console.log(ruta);
+                editar.action="/editar_carrera/"+id
+                console.log(editar.action);
             }
-        guardarE.onclick=function(){
-            modal_editar.close()
-        }
         cancelarE.onclick=function(){
             modal_editar.close()
         }
