@@ -28,8 +28,10 @@
                     <th>
                         <div class="grid grid-cols-3">
                             <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">description</span>
-                            <span class="material-symbols-outlined font-extralight text-3xl cursor-pointer" >delete</span>
-                            <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar()">edit_square</span>
+                            <form action="{{route("eliminar_area",['id'=>$area->id])}}" method="post">
+                                @csrf<button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
+                            </form>
+                            <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar({{$area->id}},'{{$area->name}}',{{$area->valor}})">edit_square</span>
                         </div>
                     </th>
                 </tr>
@@ -39,7 +41,7 @@
         </table>
     </div>
 
-
+<!----------------------------AGREGAR------------------------------------------------>
     <dialog id="modal" class="w-1/3 rounded-lg px-20">
         <form action="{{route('registro_area')}}" method="post">
             @csrf
@@ -62,20 +64,23 @@
         </div>
     </form>
     </dialog>
+    <!----------------------------FIN AGREGAR------------------------------------------------>
+
+<!----------------------------EDITAR------------------------------------------------>
     <dialog id="modal_editar" class="w-1/3 rounded-lg px-20">
         <form action="" method="post" id="editar">
             @csrf
             <div>
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Editar área</h3>
                 <label class="font-thin">Descripción</label><br>
-                <input type="text" name="EditDescripcion" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('EditDescripcion')}}"><br>
+                <input type="text" name="EditDescripcion" id="EditDescripcion" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('EditDescripcion')}}"><br>
                 @if ($errors->has('EditDescripcion') )
                 <span class="error text-danger"> {{ $errors->first('EditDescripcion') }}</span>
                 @endif
                 <label class="font-thin">Ponderación</label><br>
-                <input type="text" name="EditPonderacion" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('EditPonderacion')}}"><br>
+                <input type="text" name="EditPonderacion" id="EditPonderacion" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('EditPonderacion')}}"><br>
                 @if ($errors->has('EditPonderacion'))
-                <span class="error text-danger"> {{ $errors->first('EditPponderacion') }}</span>
+                <span class="error text-danger"> {{ $errors->first('EditPonderacion') }}</span>
                 @endif
                 <div class="grid grid-cols-2 pt-10 gap-5">
                     <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardarE">Guardar</button>
@@ -84,7 +89,10 @@
             </div>
         </form>
     </dialog>
-    @if ($errors->has('descripcion' || $errors->has('ponderacion')))
+    <!-------------------------------FIN EDITAR--------------------------------------------->
+
+    <!------------------ABRIR MODAL DE REGISTRO----------------------------------->
+    @if ($errors->has('descripcion') || $errors->has('ponderacion'))
            
             <script>
                 var modal=document.getElementById("modal");
@@ -92,7 +100,9 @@
             </script>
             
     @endif
-    @if ($errors->has('EditDescripcion' || $errors->has('EditPonderacion')))
+
+    <!-----------------------ABRIR MODAL DE EDICION---------------------------->
+    @if ($errors->has('EditDescripcion') || $errors->has('EditPonderacion'))
            
             <script>
                 var modal_editar=document.getElementById("modal_editar");
@@ -103,35 +113,30 @@
 @endsection
 @section("js")
     <script>
-        //Modal registrar
+        //Modal registrar-----------------------------------------
         var agregar=document.getElementById("agregar");
         var modal=document.getElementById("modal");
         agregar.onclick=function(){modal.showModal()}
         var guardar=document.getElementById("guardar");
         var cancelar=document.getElementById("cancelar");
-        guardar.onclick=function(){
-
-            modal.close()
-        }
+        
         cancelar.onclick=function(){
             
             modal.close()
         }
-         //Modal editar 
+         //Modal editar ------------------------------------------
          var modal_editar=document.getElementById("modal_editar");
-        var nameE=document.getElementById("nameE");
-            function editar(id,name){
+        var descripcionE=document.getElementById("EditDescripcion");
+        var ponderacionE=document.getElementById("EditPonderacion");
+            function editar(id,name,ponderacion){
                 modal_editar.showModal();
+
+                descripcionE.value=name;
+                ponderacionE.value=ponderacion;
+
                 var editar=document.getElementById("editar");
-                nameE.value=name;
-                var ruta="{{route('editar_carrera',['id'=>"+id+"])}}"
-                console.log(ruta);
+                editar.action="/editar_area/"+id
             }
-        guardarE.onclick=function(){
-            modal_editar.close()
-        }
-        cancelarE.onclick=function(){
-            modal_editar.close()
-        }
+        
     </script>
 @endsection
