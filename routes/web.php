@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\carreraController;
 use App\Http\Controllers\rolController;
+use App\Http\Controllers\gestionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,13 +15,7 @@ use App\Http\Controllers\rolController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/menu_admin', function () {
-    return view('menu_admin');
-});
-Route::get('/reporte_usuarios', function () {
-    return view('reporte_usuarios');
-});
+Route::get('/menu_admin',function(){return view('menu_admin');});
 Route::get('/detalle_area', function () {
     return view('detalle_area');
 });
@@ -30,14 +25,8 @@ Route::get('/detalle_variable', function () {
 Route::get('/detalle_indicador', function () {
     return view('detalle_indicador');
 });
-Route::get('/reporte_roles', function () {
-    return view('reporte_roles');
-});
 Route::get('/permisos', function () {
     return view('permisos');
-});
-Route::get('/reporte_gestiones', function () {
-    return view('reporte_gestiones');
 });
 Route::get('/reporte_areas', function () {
     return view('reporte_areas');
@@ -47,10 +36,6 @@ Route::get('/calificar', function () {
 });
 Route::get('/calificar_area', function () {
     return view('calificar_area');
-});
-
-Route::get('/reporte_carreras', function () {
-    return view('reporte_carreras');
 });
 /**--------------------------------login ----------------------**/
 Route::post('/',[userController::class,'autentificacion'])->name('login');
@@ -78,3 +63,7 @@ Route::post('/editar_usuario/{id}',[userController::class,'editar'])->name("edit
 Route::get('/reporte_roles',[rolController::class,'reporte'])->name("reporte_roles");
 Route::post('/registro_rol',[rolController::class,'registrar'])->name("registro_rol");
 Route::post('/eliminar_rol/{id}',[rolController::class,'eliminar'])->name("eliminar_rol");
+/******************************gestiones****************************************/
+Route::get('/reporte_gestiones',[gestionController::class,'reporte'])->name("reporte_gestiones");
+Route::post('/registro_gestion',[gestionController::class,'registrar'])->name("registro_gestion");
+Route::post('/activar_gestion/{id}',[gestionController::class,'activar'])->name("activar_gestion");

@@ -67,7 +67,7 @@ class userController extends Controller
     public function editar($id, userEditRequest $request){
         $user=User::find($id);
         $user->name=$request->nameE;
-        $user->password=$request->passwordE;
+        $user->password=bcrypt($request->passwordE);
         $user->carrera_id=$request->carrera;
         $user->save();
         $rol= rol_user::find($user->rol_user->last()->id);

@@ -15,7 +15,7 @@ class CreateGestionsTable extends Migration
     {
         Schema::create('gestions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->integer('año');
             $table->integer('carrera_id');
             $table->boolean('activo')->default(true);
             $table->timestamps();
