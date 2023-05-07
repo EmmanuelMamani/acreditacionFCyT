@@ -28,7 +28,7 @@
                     <th>
                         <div class="grid grid-cols-3">
                             <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">description</span>
-                            <form action="{{route("eliminar_carrera",['id'=>$carrera->id])}}" method="post">
+                            <form class="Eliminar" action="{{route("eliminar_carrera",['id'=>$carrera->id])}}" method="post">
                                 @csrf<button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
                             </form>
                             <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar({{$carrera->id}},'{{$carrera->name}}')">edit_square</span>
@@ -66,7 +66,7 @@
     </dialog>
 
     <dialog id="modal_editar" class="w-1/3 rounded-lg px-20">
-        <form action="" method="post" id="editar">
+        <form action="" method="post" id="editar" class="Editar">
             @csrf
             <div>
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Editar carrera</h3>
@@ -84,6 +84,8 @@
     </dialog>
 @endsection
 @section("js")
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script>
         //Modal registrar carrera
         var agregar=document.getElementById("agregar");
@@ -108,8 +110,50 @@
                 editar.action="/editar_carrera/"+id
                 console.log(editar.action);
             }
+        var guardar=document.getElementById("guardarE"); 
+        guardarE.onclick=function(){
+            modal_editar.close()
+        }
         cancelarE.onclick=function(){
             modal_editar.close()
         }
+        /**********************************************************/
+        //Confirmacion de eliminacion
+        $('.Eliminar').submit(function(e){
+            e.preventDefault();
+            Swal.fire({
+            title: '¿Estás seguro que quieres eliminar la carrera?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                  this.submit();
+            }
+            })
+      });
+      /******************************************************************/
+      //Confirmacion de edicion
+      $('.Editar').submit(function(e){
+            e.preventDefault();
+            Swal.fire({
+            title: '¿Estás seguro que quieres guardar los cambios?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                  this.submit();
+            }else{
+                modal_editar.showModal();
+            }
+            })
+      });
     </script>
 @endsection

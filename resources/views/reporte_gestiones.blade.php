@@ -32,7 +32,7 @@
                     <th>
                         <div class="grid grid-cols-3">
                             <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">description</span>
-                            <form action="{{route('activar_gestion',['id'=>$gestion->id])}}" method="post">
+                            <form class="Activar" action="{{route('activar_gestion',['id'=>$gestion->id])}}" method="post">
                                 @csrf
                                 <button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">check_circle</button>
                             </form>
@@ -65,6 +65,8 @@
     </dialog>
 @endsection
 @section("js")
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script>
         var agregar=document.getElementById("agregar");
         var modal=document.getElementById("modal");
@@ -77,5 +79,23 @@
         cancelar.onclick=function(){
             modal.close()
         }
+    
+          //Confirmacion de activacion
+          $('.Activar').submit(function(e){
+            e.preventDefault();
+            Swal.fire({
+            title: '¿Estás seguro que quieres activar la gestion?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                  this.submit();
+            }
+            })
+      });
     </script>
 @endsection
