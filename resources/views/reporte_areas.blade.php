@@ -20,49 +20,123 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach ($areas as $area)
                 <tr class="border-2 border-y-black border-x-white">
-                    <th class="font-thin text-xl">1</th>
-                    <th class="font-thin text-xl">Normas juridicas e institucionales</th>
-                    <th class="font-thin text-xl">0.5</th>
+                    <th class="font-thin text-xl">{{$loop->index+1}}</th>
+                    <th class="font-thin text-xl">{{$area->name}}</th>
+                    <th class="font-thin text-xl">{{$area->valor}}</th>
                     <th>
                         <div class="grid grid-cols-3">
                             <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">description</span>
-                            <span class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</span>
-                            <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer">edit_square</span>
+                            <form action="{{route("eliminar_area",['id'=>$area->id])}}" method="post">
+                                @csrf<button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
+                            </form>
+                            <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar({{$area->id}},'{{$area->name}}',{{$area->valor}})">edit_square</span>
                         </div>
                     </th>
                 </tr>
+                @endforeach
+                
             </tbody>
         </table>
     </div>
 
-
+<!----------------------------AGREGAR------------------------------------------------>
     <dialog id="modal" class="w-1/3 rounded-lg px-20">
+        <form action="{{route('registro_area')}}" method="post">
+            @csrf
         <div>
             <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Agregar nueva area</h3>
             <label class="font-thin">Descripcion</label><br>
-            <input type="text" name="descripcion" class="bg-zinc-200 rounded-lg w-full p-2"><br>
+            <input type="text" name="descripcion" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('descripcion')}}"><br>
+            @if ($errors->has('descripcion') )
+            <span class="error text-danger"> {{ $errors->first('descripcion') }}</span>
+            @endif
             <label class="font-thin">Ponderacion</label><br>
-            <input type="text" name="ponderacion" class="bg-zinc-200 rounded-lg w-full p-2"><br>
+            <input type="text" name="ponderacion" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('ponderacion')}}"><br>
+            @if ($errors->has('ponderacion'))
+            <span class="error text-danger"> {{ $errors->first('ponderacion') }}</span>
+            @endif
             <div class="grid grid-cols-2 pt-10 gap-5">
                 <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
-                <button class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelar">Cancelar</button>
+                <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelar" href="reporte_areas">Cancelar</a>
             </div>
         </div>
+    </form>
     </dialog>
+    <!----------------------------FIN AGREGAR------------------------------------------------>
+
+<!----------------------------EDITAR------------------------------------------------>
+    <dialog id="modal_editar" class="w-1/3 rounded-lg px-20">
+        <form action="" method="post" id="editar">
+            @csrf
+            <div>
+                <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Editar área</h3>
+                <label class="font-thin">Descripción</label><br>
+                <input type="text" name="EditDescripcion" id="EditDescripcion" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('EditDescripcion')}}"><br>
+                @if ($errors->has('EditDescripcion') )
+                <span class="error text-danger"> {{ $errors->first('EditDescripcion') }}</span>
+                @endif
+                <label class="font-thin">Ponderación</label><br>
+                <input type="text" name="EditPonderacion" id="EditPonderacion" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('EditPonderacion')}}"><br>
+                @if ($errors->has('EditPonderacion'))
+                <span class="error text-danger"> {{ $errors->first('EditPonderacion') }}</span>
+                @endif
+                <div class="grid grid-cols-2 pt-10 gap-5">
+                    <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardarE">Guardar</button>
+                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelarE" href="reporte_areas">Cancelar</a>
+                </div>
+            </div>
+        </form>
+    </dialog>
+    <!-------------------------------FIN EDITAR--------------------------------------------->
+
+    <!------------------ABRIR MODAL DE REGISTRO----------------------------------->
+    @if ($errors->has('descripcion') || $errors->has('ponderacion'))
+           
+            <script>
+                var modal=document.getElementById("modal");
+                modal.showModal()
+            </script>
+            
+    @endif
+
+    <!-----------------------ABRIR MODAL DE EDICION---------------------------->
+    @if ($errors->has('EditDescripcion') || $errors->has('EditPonderacion'))
+           
+            <script>
+                var modal_editar=document.getElementById("modal_editar");
+                modal_editar.showModal()
+            </script>
+            
+    @endif
 @endsection
 @section("js")
     <script>
+        //Modal registrar-----------------------------------------
         var agregar=document.getElementById("agregar");
         var modal=document.getElementById("modal");
         agregar.onclick=function(){modal.showModal()}
         var guardar=document.getElementById("guardar");
         var cancelar=document.getElementById("cancelar");
-        guardar.onclick=function(){
-            modal.close()
-        }
+        
         cancelar.onclick=function(){
+            
             modal.close()
         }
+         //Modal editar ------------------------------------------
+         var modal_editar=document.getElementById("modal_editar");
+        var descripcionE=document.getElementById("EditDescripcion");
+        var ponderacionE=document.getElementById("EditPonderacion");
+            function editar(id,name,ponderacion){
+                modal_editar.showModal();
+
+                descripcionE.value=name;
+                ponderacionE.value=ponderacion;
+
+                var editar=document.getElementById("editar");
+                editar.action="/editar_area/"+id
+            }
+        
     </script>
 @endsection

@@ -3,8 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\carreraController;
+
+use App\Http\Controllers\areaController;
+use App\Http\Controllers\indicadorController;
+use App\Http\Controllers\variableController;
 use App\Http\Controllers\rolController;
 use App\Http\Controllers\gestionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,9 +33,6 @@ Route::get('/detalle_indicador', function () {
 Route::get('/permisos', function () {
     return view('permisos');
 });
-Route::get('/reporte_areas', function () {
-    return view('reporte_areas');
-});
 Route::get('/calificar', function () {
     return view('calificar');
 });
@@ -52,6 +54,35 @@ Route::post('/registro_carrera',[carreraController::class,'registro'])->name('re
 Route::post('/eliminar_carrera/{id}',[carreraController::class,'eliminar_carrera'])->name('eliminar_carrera');
 Route::post('/editar_carrera/{id}',[carreraController::class,'editar_carrera'])->name('editar_carrera');
 /*-------------------------------------------------------------------------*/
+
+
+/*--------------------------------Areas----------------------------------- */
+
+Route::get('/reporte_areas',[areaController::class,'reporte_areas'])->name("reporte_areas");
+Route::post('/registro_area',[areaController::class,'registro'])->name('registro_area');
+Route::post('/editar_area/{id}',[areaController::class,'editar_area'])->name('editar_area');
+Route::post('/eliminar_area/{id}',[areaController::class,'eliminar_area'])->name('eliminar_area');
+/*-------------------------------------------------------------------------*/
+
+/*--------------------------------Variables----------------------------------- */
+Route::get('/reporte_variables',[variableController::class,'reporte_variables'])->name("reporte_variables");
+Route::post('/registro_variable',[variableController::class,'registro'])->name('registro_variable');
+Route::post('/editar_variable/{id}',[varibleController::class,'editar_variable'])->name('editar_variable');
+Route::post('/eliminar_variable/{id}',[variableController::class,'eliminar_variable'])->name('eliminar_variable');
+/*-------------------------------------------------------------------------*/
+
+
+/*--------------------------------Indicadores----------------------------------- */
+Route::get('/reporte_indicadores',[indicadorController::class,'reporte_indicadores'])->name("reporte_indicadores");
+Route::post('/registro_indicador',[indicadorController::class,'registro'])->name('registro_indicador');
+Route::post('/editar_indicador/{id}',[indicadorController::class,'editar_indicador'])->name('editar_indicador');
+Route::post('/eliminar_indicador/{id}',[indicadorController::class,'eliminar_indicador'])->name('eliminar_indicador');
+
+
+
+
+/*-------------------------------------------------------------------------*/
+
 /*********************************Usuarios************************************/
 Route::get('/reporte_usuarios',[userController::class,'reporte_usuarios'])->name("reporte_usuarios");
 Route::get('/reporte_usuarios_carrera',[userController::class,'reporte_usuarios_carrera'])->name("reporte_usuarios_carrera");
@@ -63,7 +94,9 @@ Route::post('/editar_usuario/{id}',[userController::class,'editar'])->name("edit
 Route::get('/reporte_roles',[rolController::class,'reporte'])->name("reporte_roles");
 Route::post('/registro_rol',[rolController::class,'registrar'])->name("registro_rol");
 Route::post('/eliminar_rol/{id}',[rolController::class,'eliminar'])->name("eliminar_rol");
+
 /******************************gestiones****************************************/
 Route::get('/reporte_gestiones',[gestionController::class,'reporte'])->name("reporte_gestiones");
 Route::post('/registro_gestion',[gestionController::class,'registrar'])->name("registro_gestion");
 Route::post('/activar_gestion/{id}',[gestionController::class,'activar'])->name("activar_gestion");
+

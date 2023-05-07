@@ -11,4 +11,7 @@ class area extends Model
     public function variables(){
         return $this->hasMany(variable::class);
     }
+
+    
+
 }
