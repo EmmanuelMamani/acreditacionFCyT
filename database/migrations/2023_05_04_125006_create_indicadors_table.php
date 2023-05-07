@@ -15,11 +15,13 @@ class CreateIndicadorsTable extends Migration
     {
         Schema::create('indicadors', function (Blueprint $table) {
             $table->id();
-            $table->string('descripcion');
-            $table->integer('numero_indicador');
-            $table->string('tipo');
-            $table->integer('valor');
             $table->integer('variable_id');
+            $table->integer('numero_indicador');
+            $table->string('descripcion');
+            $table->enum('tipo',['RMA','RC']);
+            $table->integer('peso');
+            $table->enum('tipo_evaluacion',['SIMPLE','COMPUESTO']);
+            $table->integer('valor');
             $table->boolean('activo')->default(true);
             $table->timestamps();
         });

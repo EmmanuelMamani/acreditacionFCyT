@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\indicador;
+use App\Models\variable;
 use Illuminate\Http\Request;
 
 class indicadorController extends Controller
@@ -11,9 +13,10 @@ class indicadorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function reporte_indicadores()
+    public function reporte_indicadores($id)
     {
-        //
+        $variable=variable::find($id);
+        return view('detalle_variable',['variable'=>$variable]);
     }
 
   

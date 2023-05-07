@@ -16,6 +16,7 @@ class CreateAreasTable extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->integer('numero_area');
             $table->decimal('valor', $precision = 2, $scale = 2);;
             $table->boolean('activo')->default(true);
             $table->timestamps();
