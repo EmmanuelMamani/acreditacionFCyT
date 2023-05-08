@@ -26,6 +26,7 @@ class areaController extends Controller
         $area= new area();
         $area->name=$request->descripcion;
         $area->valor=$request->ponderacion;
+        $area->numero_area=$request->numero;
         $area->save();
 
         return redirect('reporte_areas');        
