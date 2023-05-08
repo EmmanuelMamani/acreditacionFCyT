@@ -16,20 +16,7 @@ class indicador extends Model
         return $this->hasMany(calificacion::class);
     }
 
-    public function evaluadores(){
-        return $this->hasMany(evaluadore::class);
-    }
-
-    public function crearEvaluadores(){
-        $times = 1;
-        if ($this->tipo_evaluacion=="COMPUESTO") {
-            $times = 2;
-        }
-
-        $assessments = Collection::times($times, function () {
-            return new evaluadore();
-        });
-
-        $this->evaluadores()->saveMany($assessments);
+    public function criterios(){
+        return $this->belongsToMany(criterio::class);
     }
 }

@@ -81,11 +81,16 @@
                 <option value="RC" @if(old('tipo_indicador') == "RC") selected @endif >RC </option>
             </select><br>
 
-            <label class="font-thin">Tipo de de calificación</label><br>
-            <select name="tipo_calificacion" >
-                <option value="SIMPLE" @if(old('tipo_calificacion') == "SIMPLE") selected @endif>SIMPLE</option>
-                <option value="COMPUESTO" @if(old('tipo_calificacion') == "COMPUESTO") selected @endif>COMPUESTO</option>
-            </select><br>
+            <label class="font-thin">Criterios de calificación</label><br>
+            @foreach ($criterios as $criterio)
+                <label>
+                <input type="checkbox" name="criterios[]" value="{{ $criterio->id }}" > {{$criterio->nombre}}
+               </label><br>
+            @endforeach
+            @if ($errors->has('criterios') )
+            <span class="error text-danger"> {{ $errors->first('criterios') }}</span><br>
+            @endif
+            
 
             <div class="grid grid-cols-2 pt-10 gap-5">
                 <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>

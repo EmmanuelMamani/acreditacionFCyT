@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEvaluadoresTable extends Migration
+class CreateCriteriosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreateEvaluadoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('evaluadores', function (Blueprint $table) {
+        Schema::create('criterios', function (Blueprint $table) {
             $table->id();
-            $table->integer('indicador_id');
+            $table->string('nombre');
+            $table->string('descripcion');
+            $table->boolean('activo')->default(true);
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreateEvaluadoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('evaluadores');
+        Schema::dropIfExists('criterios');
     }
 }
