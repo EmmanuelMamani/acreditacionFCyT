@@ -24,9 +24,23 @@ class indicadorRequest extends FormRequest
     public function rules()
     {
         return [
-            'numero_indicador'=>[],
-            'descripcion'=>[],
+            'numero_indicador'=>['bail','required','integer','between:0,100'],
+            'descripcion'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ ()]+$/u','min:3','max:60'],
         ];
     }
-    
+
+    public function messages(){
+     
+        return [
+             'descripcion.required'=> 'El nombre de variable es obligatorio',
+             'descripcion.regex'=>'Solo se aceptan caracteres literales',
+             'descripcion.min'=>'El tamaño del nombre debere ser min 3',
+             'descripcion.max'=>'El tamaño del nombre debere ser max 60',
+             'numero_indicador.required'=>'El campo es obligatorio',
+             'numero_indicador.integer'=> 'El campo debe ser un número entero',
+             'numero_indicador.between'=> 'El debe ser un número mayor a 0',
+         ];
+ 
+     }
+
 }

@@ -58,7 +58,7 @@
 
      <!----------------------------AGREGAR------------------------------------------------>
     <dialog id="modal" class="w-1/3 rounded-lg px-20">
-        <form action="{{route('registro_variable',['id'=>$variable->id])}}" method="post">
+        <form action="{{route('registro_indicador',['id'=>$variable->id])}}" method="post">
             @csrf
         <div>
             <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Agregar nuevo indicador</h3>
@@ -77,14 +77,14 @@
             
             <label class="font-thin">Tipo de indicador</label><br>
             <select name="tipo_indicador" >
-                <option value="RMA" @selected(old('tipo_indicador') == 'RMA')>RMA</option>
-                <option value="RC"@selected(old('RC') == 'tipo_indicador')>RC</option>
+                <option value="RMA" @if(old('tipo_indicador') == "RMA") selected @endif>RMA </option>
+                <option value="RC" @if(old('tipo_indicador') == "RC") selected @endif >RC </option>
             </select><br>
 
             <label class="font-thin">Tipo de de calificación</label><br>
             <select name="tipo_calificacion" >
-                <option value="SIMPLE" @selected(old('tipo_calificacion') == 'SIMPLE')>SIMPLE</option>
-                <option value="COMPUESTO" @selected(old('tipo_calificacion') == 'COMPUESTO')>COMPUESTO</option>
+                <option value="SIMPLE" @if(old('tipo_calificacion') == "SIMPLE") selected @endif>SIMPLE</option>
+                <option value="COMPUESTO" @if(old('tipo_calificacion') == "COMPUESTO") selected @endif>COMPUESTO</option>
             </select><br>
 
             <div class="grid grid-cols-2 pt-10 gap-5">
@@ -118,7 +118,7 @@
                 <label class="font-thin">Tipo de indicador</label><br>
                 <select name="EditTipo_indicador" id="EditTipo_indicador">
                     <option value="RMA" @selected(old('EditTipo_indicador') == 'RMA')>RMA</option>
-                    <option value="RC"@selected(old('RC') == 'EditTipo_indicador')>RC</option>
+                    <option value="RC"@selected(old('EditTipo_indicador') == 'RC')>RC</option>
                 </select><br>
     
                 <label class="font-thin">Tipo de de calificación</label><br>
@@ -138,7 +138,7 @@
     <!-------------------------------FIN EDITAR--------------------------------------------->
 
     <!------------------ABRIR MODAL DE REGISTRO----------------------------------->
-    @if ($errors->has('descripcion') || $errors->has('numero_variable'))
+    @if ($errors->has('descripcion') || $errors->has('numero_indicador'))
            
             <script>
                 var modal=document.getElementById("modal");
@@ -149,14 +149,14 @@
     @endif
 
     <!-----------------------ABRIR MODAL DE EDICION---------------------------->
-    @if ($errors->has('EditDescripcion') || $errors->has('EditNumero_variable'))
+    @if ($errors->has('EditDescripcion') || $errors->has('EditNumero_indicador'))
            
             <script>
                 var modal_editar=document.getElementById("modal_editar");
                 modal_editar.showModal();
               
                 var editar=document.getElementById("editar");
-                editar.action="/editar_variable/"+{{$errors->first('idar')}}+"/"+{{$errors->first('id')}}
+                editar.action="/editar_variable/"+{{$errors->first('id')}}
                 
             </script>
             
@@ -187,9 +187,9 @@
                 EditTipo_indicador.innerHTML='';
 
                 if(tipo=='RMA'){
-                    EditTipo_indicador.innerHTML="<option value='RMA' @selected(old('EditTipo_indicador') == 'RMA') selected>RMA</option> <option value='RC'@selected(old('RC') == 'EditTipo_indicador')>RC</option>";
+                    EditTipo_indicador.innerHTML="<option value='RMA' @selected(old('EditTipo_indicador') == 'RMA') selected>RMA</option> <option value='RC'@selected(old('EditTipo_indicador') == 'RC')>RC</option>";
                 }else{
-                    EditTipo_indicador.innerHTML="<option value='RMA' @selected(old('EditTipo_indicador') == 'RMA')>RMA</option> <option value='RC'@selected(old('RC') == 'EditTipo_indicador') selected>RC</option>";
+                    EditTipo_indicador.innerHTML="<option value='RMA' @selected(old('EditTipo_indicador') == 'RMA')>RMA</option> <option value='RC'@selected(old('EditTipo_indicador') == 'RC') selected>RC</option>";
                 }
                 
                 if (tipo_evaluacion=='SIMPLE') {

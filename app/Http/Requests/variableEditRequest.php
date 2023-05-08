@@ -8,12 +8,7 @@ use Illuminate\Validation\ValidationException;
 
 class variableEditRequest extends FormRequest
 {
-    public $idar;
-
-    public function __construct()
-    {
-        $this->idar = $this->route('idar');
-    }
+    
     /**
      * Determine if the user is authorized to make this request.
      *

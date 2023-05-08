@@ -15,7 +15,7 @@ class CreateEvaluadoresTable extends Migration
     {
         Schema::create('evaluadores', function (Blueprint $table) {
             $table->id();
-            $table->integer('indicadors_id');
+            $table->integer('indicador_id');
             $table->timestamps();
         });
     }
