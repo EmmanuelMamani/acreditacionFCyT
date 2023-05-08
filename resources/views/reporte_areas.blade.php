@@ -47,6 +47,11 @@
             @csrf
         <div>
             <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Agregar nueva area</h3>
+            <label class="font-thin">Numero de area</label><br>
+            <input type="number" name="numero" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('numero')}}"><br>
+            @if ($errors->has('numero') )
+            <span class="error text-danger"> {{ $errors->first('numero') }}</span>
+            @endif
             <label class="font-thin">Descripcion</label><br>
             <input type="text" name="descripcion" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('descripcion')}}"><br>
             @if ($errors->has('descripcion') )

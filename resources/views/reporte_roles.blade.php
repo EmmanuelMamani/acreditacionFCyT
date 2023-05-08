@@ -25,7 +25,7 @@
                     <th class="font-thin text-xl">{{$rol->name}}</th>
                     <th>
                         <div class="grid grid-cols-1">
-                            <form action="{{route('eliminar_rol',['id'=>$rol->id])}}" method="post"> @csrf
+                            <form class="Eliminar" action="{{route('eliminar_rol',['id'=>$rol->id])}}" method="post"> @csrf
                                 <button class="material-symbols-outlined font-extralight text-3xl">delete</button>
                             </form>
                         </div>
@@ -56,6 +56,8 @@
     </dialog>
 @endsection
 @section("js")
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script>
         var agregar=document.getElementById("agregar");
         var modal=document.getElementById("modal");
@@ -68,5 +70,23 @@
         cancelar.onclick=function(){
             modal.close()
         }
+
+            //Confirmacion de eliminacion
+            $('.Eliminar').submit(function(e){
+            e.preventDefault();
+            Swal.fire({
+            title: '¿Estás seguro que quieres eliminar el rol?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                  this.submit();
+            }
+            })
+      });
     </script>
 @endsection

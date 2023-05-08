@@ -29,7 +29,7 @@
                     <th class="font-thin text-xl">{{$usuario->rol_user->last()->rol->name}}</th>
                     <th>
                         <div class="grid grid-cols-2">
-                            <form action="{{route('eliminar_usuario',['id'=>$usuario->id])}}" method="post">
+                            <form class="Eliminar" action="{{route('eliminar_usuario',['id'=>$usuario->id])}}" method="post">
                                 @csrf
                                 <button class="material-symbols-outlined font-extralight text-3xl">delete</button>
                             </form>
@@ -85,7 +85,7 @@
 
     <dialog id="modalE" class="w-1/3 rounded-lg px-20">
         <div>
-            <form action="" method="post" id="editar">
+            <form class="Editar" action="" method="post" id="editar">
                 @csrf
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Editar usuario</h3>
                 <label class="font-thin">Nombre de usuario</label><br>
@@ -117,6 +117,8 @@
     </dialog>
 @endsection
 @section("js")
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script>
         /*****Registrar usuario******/
         var agregar=document.getElementById("agregar");
@@ -134,6 +136,7 @@
         /*********Editar usuario***********************/
         var modalE=document.getElementById("modalE");
         var cancelarE=document.getElementById("cancelarE");
+        var guardarE=document.getElementById("guardarE");
         function editar(id,name){
                 modalE.showModal();
                 var nameE=document.getElementById("nameE");
@@ -142,8 +145,48 @@
                 editar.action="/editar_usuario/"+id
                 console.log(editar.action);
             }
+        guardarE.onclick=function(){
+            modalE.close()
+        }
         cancelarE.onclick=function(){
             modalE.close()
         }
+        //Confirmacion de eliminacion
+        $('.Eliminar').submit(function(e){
+            e.preventDefault();
+            Swal.fire({
+            title: '¿Estás seguro que quieres eliminar el usuario?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                  this.submit();
+            }
+            })
+      });
+      /******************************************************************/
+      //Confirmacion de edicion
+      $('.Editar').submit(function(e){
+            e.preventDefault();
+            Swal.fire({
+            title: '¿Estás seguro que quieres guardar los cambios?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                  this.submit();
+            }else{
+                modalE.showModal();
+            }
+            })
+      });
     </script>
 @endsection
