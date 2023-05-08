@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\indicadorEditRequest;
+use App\Http\Requests\indicadorRequest;
 use App\Models\indicador;
 use App\Models\variable;
 use Illuminate\Http\Request;
@@ -20,12 +22,12 @@ class indicadorController extends Controller
     }
 
   
-    public function registro(Request $request)
+    public function registro(indicadorRequest $request)
     {
-        //
+        
     }
 
-    public function editar_indicador($id)
+    public function editar_indicador(indicadorEditRequest $request,$id)
     {
         //
     }

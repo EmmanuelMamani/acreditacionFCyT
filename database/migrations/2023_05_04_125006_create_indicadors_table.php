@@ -21,7 +21,6 @@ class CreateIndicadorsTable extends Migration
             $table->enum('tipo',['RMA','RC']);
             $table->integer('peso');
             $table->enum('tipo_evaluacion',['SIMPLE','COMPUESTO']);
-            $table->integer('valor');
             $table->boolean('activo')->default(true);
             $table->timestamps();
         });
