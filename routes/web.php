@@ -46,7 +46,7 @@ Route::get('/', function () {return view('login');})->name('login');
 /*----------------------------------------------------------------- */
 
 /*-----------------------------menu-superadmin---------------------*/
-Route::get('/menu_superadmin', function () {return view('menu_superadmin');})->name("menu_superadmin");
+Route::get('/menu_superadmin', [userController::class,'menu_superadmin'])->name("menu_superadmin");
 /*------------------------------------------------------------------*/
 /*---------------------------------carreras-------------------------- */
 Route::get('/reporte_carreras',[carreraController::class,'reporte_carreras'])->name("reporte_carreras");

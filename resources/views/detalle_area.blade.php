@@ -22,7 +22,7 @@
     <div class="flex justify-center">
         <div class="w-5/6 mt-10 grid grid-cols-10">
              <h3 class="p-2 cursor-pointer">Variables</h3>
-             <div class="flex justify-center items-center bg-sky-950 text-white p-2 rounded-xl col-start-10" id="agregar">
+             <div class="flex justify-center items-center bg-sky-950 text-white p-2 rounded-xl col-start-10 cursor-pointer" id="agregar">
                  <span class="material-symbols-outlined">add</span>
                  <span>Agregar</span>
              </div>
@@ -43,7 +43,11 @@
                     <th class="font-thin text-xl">{{$area->numero_area.'.'.$variable->numero_variable}}</th>
                     <th class="font-thin text-xl text-left">{{$variable->name}}</th>
                     <th>
-                        <div class="grid grid-cols-2">
+                        <div class="grid grid-cols-3">
+                            <form action="{{route('reporte_indicadores',['id'=>$variable->id])}}" method="get">
+                            @csrf
+                            <button class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">description</button>
+                            </form>
                             <form action="{{route("eliminar_variable",['id'=>$variable->id,'idar'=>$area->id])}}" method="post">
                                 @csrf
                                 <button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>

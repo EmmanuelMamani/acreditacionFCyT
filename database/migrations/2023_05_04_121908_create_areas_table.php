@@ -17,7 +17,7 @@ class CreateAreasTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('numero_area');
-            $table->decimal('valor', $precision = 2, $scale = 2);;
+            $table->double('valor',8,2);
             $table->boolean('activo')->default(true);
             $table->timestamps();
         });

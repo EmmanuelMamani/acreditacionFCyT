@@ -8,17 +8,26 @@ use App\Models\carrera;
 use App\Models\rol;
 use App\Models\User;
 use App\Models\rol_user;
+use App\Models\area;
+use App\Models\variable;
 use App\Http\Requests\userRequest;
 use App\Http\Requests\userEditRequest;
 class userController extends Controller
 {
     //
+    public function menu_superadmin(){
+        $areas=area::all()->where('activo',1);
+        $carreras=carrera::all()->where('activo',1);
+        $variables=variable::all()->where('activo',1)->count();
+        return view('menu_superadmin',['areas'=>$areas,'carreras'=>$carreras,'variables'=>$variables]);
+    }
+
     public function autentificacion(Request $request){
         $credentials=request()->only('email','password');
         if(Auth::attempt($credentials)){
             request()->session()->regenerate();
             if(Auth::user()->rol_user->last()->rol->name=="superadmin"){
-                return redirect()->intended('/menu_superadmin');
+                return redirect('/menu_superadmin');
             }
             if(Auth::user()->rol_user->last()->rol->name=="administrador"){
                 return redirect()->intended('/menu_admin');
