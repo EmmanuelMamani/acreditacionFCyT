@@ -25,15 +25,19 @@ class areaRequest extends FormRequest
     {
         return [
             'descripcion'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ ()]+$/u','min:3','max:60'],
-            'ponderacion'=>['bail','required','numeric']
+            'ponderacion'=>['bail','required','numeric','between:0,10']
         ];
     }
     public function messages(){
         return[
-            'descripcion.required'=> 'El nombre de area es obligatorio',
+            'descripcion.required'=> 'El nombre de variable es obligatorio',
             'descripcion.regex'=>'Solo se aceptan caracteres literales',
-            'ponderacion.required'=>'La ponderacion es obligatoria',
-            'ponderación.numeric'=> 'La ponderacion debe ser un número'
+            'descripcion.min'=>'El tamaño del nombre debere ser min 3',
+            'descripcion.max'=>'El tamaño del nombre debere ser max 60',
+            'ponderacion.required'=>'La ponderación es obligatoria',
+            'ponderacion.numeric'=> 'El campo debe ser un número',
+            'ponderacion.between'=> 'La ponderacion debe ser un número mayor a 0 y menor que 10'
+
         ];
     }
 }

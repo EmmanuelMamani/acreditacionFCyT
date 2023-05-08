@@ -2,8 +2,8 @@
 @section("main")
     <div class="grid grid-cols-3 pb-10 pt-10 pl-20">
         <div class="flex">
-            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">10</div>
-            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-xl font-thin pl-10">Normas juridicas e institucionales</h1></div>
+            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{$area->numero_area}}</div>
+            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-xl font-thin pl-10">{{$area->name}}</h1></div>
         </div> 
         <div class="flex">
             <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">20</div>
@@ -15,14 +15,14 @@
         </div>
     </div>
     <div class="bg-slate-200 grid grid-cols-12 py-4 shadow shadow-slate-400 mb-10">
-        <div class="col-start-2 col-span-3">Normas juridicas e insitucionales</div>
+        <div class="col-start-2 col-span-3">{{$area->name}}</div>
     </div>
 
 
     <div class="flex justify-center">
         <div class="w-5/6 mt-10 grid grid-cols-10">
              <h3 class="p-2 cursor-pointer">Variables</h3>
-             <div class="flex justify-center items-center bg-sky-950 text-white p-2 rounded-xl col-start-10">
+             <div class="flex justify-center items-center bg-sky-950 text-white p-2 rounded-xl col-start-10" id="agregar">
                  <span class="material-symbols-outlined">add</span>
                  <span>Agregar</span>
              </div>
@@ -38,27 +38,128 @@
                  </tr>
              </thead>
              <tbody>
-                 <tr class="border-2 border-y-black border-x-white">
-                     <th class="font-thin text-xl">1.1</th>
-                     <th class="font-thin text-xl text-left">Estatuto organico de la universidad</th>
-                     <th>
-                         <div class="grid grid-cols-2">
-                             <span class="material-symbols-outlined font-extralight text-3xl">delete</span>
-                             <span class="material-symbols-outlined font-extralight text-3xl">edit_square</span>
-                         </div>
-                     </th>
-                 </tr>
-                 <tr class="border-2 border-y-black border-x-white">
-                     <th class="font-thin text-xl">1.2</th>
-                     <th class="font-thin text-xl text-left">Resoluciones que autorizan el funcionmiento del programa</th>
-                     <th>
-                         <div class="grid grid-cols-2">
-                             <span class="material-symbols-outlined font-extralight text-3xl">delete</span>
-                             <span class="material-symbols-outlined font-extralight text-3xl">edit_square</span>
-                         </div>
-                     </th>
-                 </tr>
+                @foreach ($variables as $variable)
+                <tr class="border-2 border-y-black border-x-white">
+                    <th class="font-thin text-xl">{{$area->numero_area.'.'.$variable->numero_variable}}</th>
+                    <th class="font-thin text-xl text-left">{{$variable->name}}</th>
+                    <th>
+                        <div class="grid grid-cols-2">
+                            <form action="{{route("eliminar_variable",['id'=>$variable->id,'idar'=>$area->id])}}" method="post">
+                                @csrf
+                                <button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
+                            </form>
+       
+                            <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar2({{$area->id}},{{$variable->id}},'{{$variable->name}}',{{$variable->numero_variable}})">edit_square</span>
+                        </div>
+                    </th>
+                </tr>
+                @endforeach
              </tbody>
          </table>
      </div>
+
+     <!----------------------------AGREGAR------------------------------------------------>
+    <dialog id="modal" class="w-1/3 rounded-lg px-20">
+        <form action="{{route('registro_variable',['id'=>$area->id])}}" method="post">
+            @csrf
+        <div>
+            <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Agregar nueva variable</h3>
+
+            <label class="font-thin">Número de variable</label><br>
+            <input type="text" name="numero_variable" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('numero_variable')}}"><br>
+            @if ($errors->has('numero_variable'))
+            <span class="error text-danger"> {{ $errors->first('numero_variable') }}</span><br>
+            @endif
+
+            <label class="font-thin">Descripcion</label><br>
+            <input type="text" name="descripcion" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('descripcion')}}"><br>
+            @if ($errors->has('descripcion') )
+            <span class="error text-danger"> {{ $errors->first('descripcion') }}</span><br>
+            @endif
+            
+            <div class="grid grid-cols-2 pt-10 gap-5">
+                <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
+                <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelar" href="/reporte_variables/{{$area->id}}">Cancelar</a>
+            </div>
+        </div>
+    </form>
+    </dialog>
+    <!----------------------------FIN AGREGAR------------------------------------------------>
+
+    <!----------------------------EDITAR------------------------------------------------>
+    <dialog id="modal_editar" class="w-1/3 rounded-lg px-20">
+        <form action="" method="post" id="editar">
+            @csrf
+            <div>
+                <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Editar variable</h3>
+                <label class="font-thin">Descripción</label><br>
+                <input type="text" name="EditDescripcion" id="EditDescripcion" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('EditDescripcion')}}"><br>
+                @if ($errors->has('EditDescripcion') )
+                <span class="error text-danger"> {{ $errors->first('EditDescripcion') }}</span><br>
+                @endif
+                <label class="font-thin">Número de variable</label><br>
+                <input type="text" name="EditNumero_variable" id="EditNumero_variable" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('EditNumero_variable')}}"><br>
+                @if ($errors->has('EditNumero_variable'))
+                <span class="error text-danger"> {{ $errors->first('EditNumero_variable') }}</span><br>
+                @endif
+                <div class="grid grid-cols-2 pt-10 gap-5">
+                    <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardarE">Guardar</button>
+                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelarE" href="/reporte_variables/{{$area->id}}">Cancelar</a>
+                </div>
+            </div>
+        </form>
+    </dialog>
+    <!-------------------------------FIN EDITAR--------------------------------------------->
+
+    <!------------------ABRIR MODAL DE REGISTRO----------------------------------->
+    @if ($errors->has('descripcion') || $errors->has('numero_variable'))
+           
+            <script>
+                var modal=document.getElementById("modal");
+                modal.showModal()
+                
+            </script>
+            
+    @endif
+
+    <!-----------------------ABRIR MODAL DE EDICION---------------------------->
+    @if ($errors->has('EditDescripcion') || $errors->has('EditNumero_variable'))
+           
+            <script>
+                var modal_editar=document.getElementById("modal_editar");
+                modal_editar.showModal();
+              
+                var editar=document.getElementById("editar");
+                editar.action="/editar_variable/"+{{$errors->first('idar')}}+"/"+{{$errors->first('id')}}
+                
+            </script>
+            
+    @endif
+
+@endsection
+@section("js")
+    <script>
+        //Modal registrar-----------------------------------------
+        var agregar=document.getElementById("agregar");
+        var modal=document.getElementById("modal");
+        agregar.onclick=function(){modal.showModal()}
+        var guardar=document.getElementById("guardar");
+        var cancelar=document.getElementById("cancelar");
+        
+        
+         //Modal editar ------------------------------------------
+        var modal_editar=document.getElementById("modal_editar");
+        var descripcionE=document.getElementById("EditDescripcion");
+        var numero_variableE=document.getElementById("EditNumero_variable");
+            function editar2(idarea,id,name,numero){
+                modal_editar.showModal();
+
+                descripcionE.value=name;
+                numero_variableE.value=numero;
+
+                var editar=document.getElementById("editar");
+                editar.action="/editar_variable/"+idarea+"/"+id
+            }
+        
+    </script>
 @endsection

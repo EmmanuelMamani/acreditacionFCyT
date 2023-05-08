@@ -45,9 +45,9 @@ class areaController extends Controller
     public function eliminar_area($id)
     {
         $area= area::find($id);
-        $area->activo=false;
+        $this->eliminar($area);
         $this->eliminacionCascada($area->variables);
-        $area->save();
+        
         return redirect('/reporte_areas');
     }
 

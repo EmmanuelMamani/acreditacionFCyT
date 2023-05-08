@@ -65,21 +65,18 @@ Route::post('/eliminar_area/{id}',[areaController::class,'eliminar_area'])->name
 /*-------------------------------------------------------------------------*/
 
 /*--------------------------------Variables----------------------------------- */
-Route::get('/reporte_variables',[variableController::class,'reporte_variables'])->name("reporte_variables");
-Route::post('/registro_variable',[variableController::class,'registro'])->name('registro_variable');
-Route::post('/editar_variable/{id}',[varibleController::class,'editar_variable'])->name('editar_variable');
-Route::post('/eliminar_variable/{id}',[variableController::class,'eliminar_variable'])->name('eliminar_variable');
+Route::get('/reporte_variables/{id}',[variableController::class,'reporte_variables'])->name("reporte_variables");
+Route::post('/registro_variable/{id}',[variableController::class,'registro'])->name('registro_variable');
+Route::post('/editar_variable/{idar}/{id}',[variableController::class,'editar_variable'])->name('editar_variable');
+Route::post('/eliminar_variable/{idar}/{id}',[variableController::class,'eliminar_variable'])->name('eliminar_variable');
 /*-------------------------------------------------------------------------*/
 
 
 /*--------------------------------Indicadores----------------------------------- */
-Route::get('/reporte_indicadores',[indicadorController::class,'reporte_indicadores'])->name("reporte_indicadores");
+Route::get('/reporte_indicadores/{id}',[indicadorController::class,'reporte_indicadores'])->name("reporte_indicadores");
 Route::post('/registro_indicador',[indicadorController::class,'registro'])->name('registro_indicador');
 Route::post('/editar_indicador/{id}',[indicadorController::class,'editar_indicador'])->name('editar_indicador');
 Route::post('/eliminar_indicador/{id}',[indicadorController::class,'eliminar_indicador'])->name('eliminar_indicador');
-
-
-
 
 /*-------------------------------------------------------------------------*/
 
