@@ -51,21 +51,49 @@ class indicadorController extends Controller
             $indicador_criterio->save();
         }
     }
+
+    private function eliminarCriterios($criterios,$id){
+        foreach ($criterios as $criterio) {
+            $indicador_criterio=indicador_criterio::where('criterio_id',$criterio)->where('indicador_id',$id)->get();
+            $indicador_criterio[0]->activo=0;
+            $indicador_criterio[0]->save();
+        }
+    }
+
     public function editar_indicador(indicadorEditRequest $request,$id)
     {
         $indicador=indicador::find($id);
-        $indicador->numero_indicador=$request->numero_indicador;
-        $indicador->descripcion= $request->descripcion;
-        $indicador->tipo_evaluacion=$request->tipo_calificacion;
-        $indicador->peso=$request->tipo_indicador=='RMA'? 2 : 1;
-
-        
-
+        $indicador->numero_indicador=$request->EditNumero_indicador;
+        $indicador->descripcion= $request->EditDescripcion;
+        $indicador->tipo=$request->EditTipo_indicador;
+        $indicador->peso=$request->EditTipo_indicador=='RMA'? 2 : 1;
         $indicador->save();
+
+        $criteriosActuales=$indicador->criterios;
+        $criteriosActuales=$criteriosActuales->keyBy("id")->keys();
+   
+       
+        $this->asignarCriterios(collect($request->EditCriterios)->diff($criteriosActuales),$id);
+        $this->eliminarCriterios($criteriosActuales->diff($request->EditCriterios),$id);
+
+        return redirect(route('reporte_indicadores',['id'=>$indicador->variable->id]));
     }
 
     public function eliminar_indicador($id)
     {
-        //
+        $indicador=indicador::find($id);
+        $indicador->activo=0;
+        $indicador->save();
+       
+        $this->eliminarCascada($indicador->criterios);
+        return redirect(route('reporte_indicadores',['id'=>$indicador->variable->id]));
+    }
+
+    private function eliminarCascada($criterios){
+        foreach ($criterios as $criterio) {
+            $indicador_criterio=indicador_criterio::find($criterio->pivot->id);
+            $indicador_criterio->activo=0;      
+            $indicador_criterio->save();     
+        }
     }
 }

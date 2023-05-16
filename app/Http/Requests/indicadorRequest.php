@@ -26,6 +26,7 @@ class indicadorRequest extends FormRequest
         return [
             'numero_indicador'=>['bail','required','integer','between:0,100'],
             'descripcion'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ ()]+$/u','min:3','max:60'],
+            'criterios'=>['bail','required']
         ];
     }
 
@@ -39,6 +40,7 @@ class indicadorRequest extends FormRequest
              'numero_indicador.required'=>'El campo es obligatorio',
              'numero_indicador.integer'=> 'El campo debe ser un número entero',
              'numero_indicador.between'=> 'El debe ser un número mayor a 0',
+             'criterios.required'=>'Debe elegir minimamente un criterio'
          ];
  
      }

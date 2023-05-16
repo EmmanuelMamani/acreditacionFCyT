@@ -26,7 +26,7 @@ class calificarController extends Controller
                     $suma_criterios=0;
                    // echo $indicador->descripcion.'<br>';
                    // echo "ponderacion criterios ".$criterios.'<br>';
-                    foreach($indicador->criterios as $criterio){
+                    foreach($indicador->criterios_indicadores as $criterio){
                         foreach($criterio->calificaciones as $calificacion){
                             if($calificacion->gestion_id==$gestion->id){
                                 $suma_criterios+=$calificacion->calificacion;

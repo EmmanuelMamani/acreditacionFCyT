@@ -9,6 +9,6 @@ class criterio extends Model
 {
     use HasFactory;
     public function indicadores(){
-        return $this->belongsToMany(indicador::class);
+        return $this->belongsToMany(indicador::class,'indicador_criterios')->withPivot('activo','id');
     }
 }

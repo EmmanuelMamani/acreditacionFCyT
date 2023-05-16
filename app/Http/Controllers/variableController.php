@@ -13,9 +13,8 @@ class variableController extends Controller
     
     public function reporte_variables($id)
     {
-        $variables=variable::where('activo',1)->where('area_id',$id)->get();
         $area=area::find($id);
-        return view('detalle_area',['variables'=>$variables,'area'=>$area]);
+        return view('detalle_area',['area'=>$area]);
     }
 
     public function registro(variableRequest $request,$id)
@@ -28,19 +27,20 @@ class variableController extends Controller
 
         return redirect(route('reporte_variables',['id'=>$id]));
     }
-    public function editar_variable(variableEditRequest $request,$idar,$id){
+    public function editar_variable(variableEditRequest $request,$id){
 
         $variable=variable::find($id);
         $variable->numero_variable=$request->EditNumero_variable;
         $variable->name=$request->EditDescripcion;
         $variable->save();
 
-        return redirect(route('reporte_variables',['id'=>$idar]));
+        return redirect(route('reporte_variables',['id'=>$variable->area->id]));
     }
 
-    public function eliminar_variable($idArea,$id)
+    public function eliminar_variable($id)
     {
         $variable=variable::find($id);
+        $idArea=$variable->area->id;
         $this->eliminar($variable);
         $this->eliminar_indicadores($variable->indicadores);
 

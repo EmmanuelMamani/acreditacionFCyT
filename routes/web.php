@@ -68,9 +68,9 @@ Route::post('/eliminar_area/{id}',[areaController::class,'eliminar_area'])->name
 /*--------------------------------Variables----------------------------------- */
 Route::get('/reporte_variables/{id}',[variableController::class,'reporte_variables'])->name("reporte_variables");
 Route::post('/registro_variable/{id}',[variableController::class,'registro'])->name('registro_variable');
-Route::post('/editar_variable/{idar}/{id}',[variableController::class,'editar_variable'])->name('editar_variable');
-Route::post('/eliminar_variable/{idar}/{id}',[variableController::class,'eliminar_variable'])->name('eliminar_variable');
-/*-------------------------------------------------------------------------*/
+Route::post('/editar_variable/{id}',[variableController::class,'editar_variable'])->name('editar_variable');
+Route::post('/eliminar_variable/{id}',[variableController::class,'eliminar_variable'])->name('eliminar_variable');
+/*-----------------------------------------------------------------------------*/
 
 
 /*--------------------------------Indicadores----------------------------------- */

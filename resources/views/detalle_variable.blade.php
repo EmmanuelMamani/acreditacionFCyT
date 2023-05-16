@@ -10,7 +10,9 @@
             <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-sm font-thin pl-10">{{$variable->name}}</h1></div>
         </div>
         <div class="flex">
-            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{$variable->indicadores->count()}}</div>
+
+            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{($variable->indicadores->where('activo',1))->count()}}</div>
+
             <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-2xl font-thin pl-5">Indicadores</h1></div>
         </div>
     </div>
@@ -40,16 +42,23 @@
              </thead>
              <tbody>
                 @foreach ($variable->indicadores as $indicador)
+                    @if ($indicador->activo==1)
                     <tr class="border-2 border-y-black border-x-white">
                         <th class="font-thin text-xl">{{$variable->area->numero_area}}.{{$variable->numero_variable}}.{{$indicador->numero_indicador}}</th>
                         <th class="font-thin text-xl text-left">{{$indicador->descripcion}}</th>
                         <th>
                             <div class="grid grid-cols-2">
-                                <span class="material-symbols-outlined font-extralight text-3xl">delete</span>
-                                <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar({{$indicador->id}},{{$indicador->numero_indicador}},'{{$indicador->descripcion}}','{{$indicador->tipo}}','{{$indicador->tipo_evaluacion}}')">edit_square</span>
+                                <form action="{{route("eliminar_indicador",['id'=>$indicador->id])}}" method="post">
+                                    @csrf
+                                    <button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
+                                </form>
+                                
+                                <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar({{$indicador->id}},{{$indicador->numero_indicador}},'{{$indicador->descripcion}}','{{$indicador->tipo}}',{{$indicador->criterios}})">edit_square</span>
                             </div>
                         </th>
                     </tr>
+                    @endif
+                    
                 @endforeach
                
              </tbody>
@@ -81,10 +90,18 @@
                 <option value="RC" @if(old('tipo_indicador') == "RC") selected @endif >RC </option>
             </select><br>
 
-            <label class="font-thin">Criterios de calificación</label><br>
+            <label class="font-thin">Criterios de calificación </label><br>
             @foreach ($criterios as $criterio)
                 <label>
-                <input type="checkbox" name="criterios[]" value="{{ $criterio->id }}" > {{$criterio->nombre}}
+                <input type="checkbox" name="criterios[]" value="{{ $criterio->id }}"
+                @if (old('criterios')!=null)
+                    @foreach (old('criterios') as $item)
+                        @if ($criterio->id==$item)
+                checked
+                        @endif
+                    @endforeach
+                @endif
+                > {{$criterio->nombre}}
                </label><br>
             @endforeach
             @if ($errors->has('criterios') )
@@ -122,15 +139,27 @@
                 
                 <label class="font-thin">Tipo de indicador</label><br>
                 <select name="EditTipo_indicador" id="EditTipo_indicador">
-                    <option value="RMA" @selected(old('EditTipo_indicador') == 'RMA')>RMA</option>
-                    <option value="RC"@selected(old('EditTipo_indicador') == 'RC')>RC</option>
+                    <option value="RMA" @if(old('EditTipo_indicador') == "RMA") selected @endif>RMA</option>
+                    <option value="RC"@if(old('EditTipo_indicador') == "RC") selected @endif>RC</option>
                 </select><br>
     
-                <label class="font-thin">Tipo de de calificación</label><br>
-                <select name="EditTipo_calificacion" id="EditTipo_calificacion">
-                    <option value="SIMPLE" @selected(old('EditTipo_calificacion') == 'SIMPLE')>SIMPLE</option>
-                    <option value="COMPUESTO" @selected(old('EditTipo_calificacion') == 'COMPUESTO')>COMPUESTO</option>
-                </select><br>
+                <label class="font-thin">Criterios de calificación</label><br>
+                @foreach ($criterios as $criterio)
+                <label>
+                <input type="checkbox" name="EditCriterios[]" value="{{ $criterio->id }}"
+                @if (old('EditCriterios')!=null)
+                    @foreach (old('EditCriterios') as $item)
+                        @if ($criterio->id==$item)
+                checked
+                        @endif
+                    @endforeach
+                @endif
+                > {{$criterio->nombre}}
+               </label><br>
+            @endforeach
+                @if ($errors->has('EditCriterios') )
+                <span class="error text-danger"> {{ $errors->first('EditCriterios') }}</span><br>
+                @endif
                
     
                 <div class="grid grid-cols-2 pt-10 gap-5">
@@ -154,15 +183,15 @@
     @endif
 
     <!-----------------------ABRIR MODAL DE EDICION---------------------------->
-    @if ($errors->has('EditDescripcion') || $errors->has('EditNumero_indicador'))
+    @if ($errors->has('EditDescripcion') || $errors->has('EditNumero_indicador') || $errors->has('EditCriterios'))
            
             <script>
                 var modal_editar=document.getElementById("modal_editar");
                 modal_editar.showModal();
               
                 var editar=document.getElementById("editar");
-                editar.action="/editar_variable/"+{{$errors->first('id')}}
-                
+                editar.action="/editar_indicador/"+{{$errors->first('id')}}
+                console.log(editar.action);
             </script>
             
     @endif
@@ -180,15 +209,15 @@
         var EditNumero_indicador=document.getElementById("EditNumero_indicador");
         var EditDescripcion=document.getElementById("EditDescripcion");
         var EditTipo_indicador=document.getElementById("EditTipo_indicador");
-        var EditTipo_calificacion=document.getElementById("EditTipo_calificacion");
-            function editar(id,numero_indicador,descripcion,tipo,tipo_evaluacion){
+        var EditCriterios=document.getElementsByName("EditCriterios[]");
+            function editar(id,numero_indicador,descripcion,tipo,criterios){
                 modal_editar.showModal();
 
 
                 EditDescripcion.value=descripcion;
                 EditNumero_indicador.value=numero_indicador;
 
-                EditTipo_calificacion.innerHTML='';
+                
                 EditTipo_indicador.innerHTML='';
 
                 if(tipo=='RMA'){
@@ -197,16 +226,16 @@
                     EditTipo_indicador.innerHTML="<option value='RMA' @selected(old('EditTipo_indicador') == 'RMA')>RMA</option> <option value='RC'@selected(old('EditTipo_indicador') == 'RC') selected>RC</option>";
                 }
                 
-                if (tipo_evaluacion=='SIMPLE') {
-                    EditTipo_calificacion.innerHTML="<option value='SIMPLE' @selected(old('EditTipo_calificacion') == 'SIMPLE') selected>SIMPLE</option><option value='COMPUESTO' @selected(old('EditTipo_calificacion') == 'COMPUESTO')>COMPUESTO</option>";
-                }else{
-                    EditTipo_calificacion.innerHTML="<option value='SIMPLE' @selected(old('EditTipo_calificacion') == 'SIMPLE')>SIMPLE</option><option value='COMPUESTO' @selected(old('EditTipo_calificacion') == 'COMPUESTO') selected>COMPUESTO</option>";
-                }
-               
-
-
-
-
+                console.log(criterios);
+                EditCriterios.forEach(element => {
+                    
+                    criterios.forEach(element1 => {
+                        
+                        if(element.value==element1.id && element1.pivot.activo==1){
+                            element.checked=true;
+                        }
+                    });
+                });
                 var editar=document.getElementById("editar");
                 editar.action="/editar_indicador/"+id
             }
