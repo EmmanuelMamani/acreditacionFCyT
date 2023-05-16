@@ -22,7 +22,7 @@ class variableEditRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'idar'=>$this->route('idar').'',
+            
             'id'=>$this->route('id').''
         ]);
     }
@@ -38,7 +38,7 @@ class variableEditRequest extends FormRequest
             
             'EditDescripcion'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ ()]+$/u','min:3','max:60'],
             'EditNumero_variable'=>['bail','required','integer','between:0,100'],
-            'idar'=>['required'],
+          
             'id'=>['required'],
         ];      
        
@@ -54,7 +54,7 @@ class variableEditRequest extends FormRequest
             'EditNumero_variable.required'=>'El campo es obligatorio',
             'EditNumero_variable.integer'=> 'El campo debe ser un número entero',
             'EditNumero_variable.between'=> 'El debe ser un número mayor a 0',
-            'idar.required'=>$this->route('idar'),
+          
             'id.required'=>$this->route('id')
         ];
 
@@ -66,7 +66,7 @@ class variableEditRequest extends FormRequest
        
         $validator->after(function ($validator) {
             if ($this->hasErrorsInFields(['EditDescripcion', 'EditNumero_variable'])) {
-                $validator->errors()->add('idar', $this->route('idar'));
+              
                 $validator->errors()->add('id', $this->route('id'));
                 
             }

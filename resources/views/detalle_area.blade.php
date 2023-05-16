@@ -38,22 +38,19 @@
                  </tr>
              </thead>
              <tbody>
-                @foreach ($variables as $variable)
+                @foreach ($area->variables as $variable)
                 <tr class="border-2 border-y-black border-x-white">
                     <th class="font-thin text-xl">{{$area->numero_area.'.'.$variable->numero_variable}}</th>
-                    <th class="font-thin text-xl text-left">{{$variable->name}}</th>
+                    <th class="font-thin text-xl text-left"><a href="{{route('reporte_indicadores',['id'=>$variable->id])}}">{{$variable->name}}</a></th>
                     <th>
                         <div class="grid grid-cols-3">
-                            <form action="{{route('reporte_indicadores',['id'=>$variable->id])}}" method="get">
-                            @csrf
-                            <button class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">description</button>
-                            </form>
-                            <form action="{{route("eliminar_variable",['id'=>$variable->id,'idar'=>$area->id])}}" method="post">
+                            
+                            <form action="{{route("eliminar_variable",['id'=>$variable->id])}}" method="post">
                                 @csrf
                                 <button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
                             </form>
        
-                            <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar2({{$area->id}},{{$variable->id}},'{{$variable->name}}',{{$variable->numero_variable}})">edit_square</span>
+                            <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar2({{$variable->id}},'{{$variable->name}}',{{$variable->numero_variable}})">edit_square</span>
                         </div>
                     </th>
                 </tr>
@@ -134,7 +131,7 @@
                 modal_editar.showModal();
               
                 var editar=document.getElementById("editar");
-                editar.action="/editar_variable/"+{{$errors->first('idar')}}+"/"+{{$errors->first('id')}}
+                editar.action="/editar_variable/"+{{$errors->first('id')}}
                 
             </script>
             
@@ -155,14 +152,14 @@
         var modal_editar=document.getElementById("modal_editar");
         var descripcionE=document.getElementById("EditDescripcion");
         var numero_variableE=document.getElementById("EditNumero_variable");
-            function editar2(idarea,id,name,numero){
+            function editar2(id,name,numero){
                 modal_editar.showModal();
 
                 descripcionE.value=name;
                 numero_variableE.value=numero;
 
                 var editar=document.getElementById("editar");
-                editar.action="/editar_variable/"+idarea+"/"+id
+                editar.action="/editar_variable/"+id
             }
         
     </script>

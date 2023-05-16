@@ -17,6 +17,6 @@ class indicador extends Model
     }
 
     public function criterios(){
-        return $this->belongsToMany(criterio::class);
+        return $this->belongsToMany(criterio::class,'indicador_criterios')->withPivot('activo','id');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
 
 class indicadorEditRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class indicadorEditRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     public function prepareForValidation()
@@ -31,8 +32,9 @@ class indicadorEditRequest extends FormRequest
     public function rules()
     {
         return [
-            'numero_indicador'=>['bail','required','integer','between:0,100'],
-            'descripcion'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ ()]+$/u','min:3','max:60'],
+            'EditNumero_indicador'=>['bail','required','integer','between:0,100'],
+            'EditDescripcion'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ ()]+$/u','min:3','max:60'],
+            'EditCriterios'=>['bail','required'],
             'id'=>'required',
         ];
     }
@@ -40,13 +42,15 @@ class indicadorEditRequest extends FormRequest
     public function messages(){
      
         return [
-             'descripcion.required'=> 'El nombre de variable es obligatorio',
-             'descripcion.regex'=>'Solo se aceptan caracteres literales',
-             'descripcion.min'=>'El tamaño del nombre debere ser min 3',
-             'descripcion.max'=>'El tamaño del nombre debere ser max 60',
-             'numero_indicador.required'=>'El campo es obligatorio',
-             'numero_indicador.integer'=> 'El campo debe ser un número entero',
-             'numero_indicador.between'=> 'El debe ser un número mayor a 0',
+             'EditDescripcion.required'=> 'El nombre de variable es obligatorio',
+             'EditDescripcion.regex'=>'Solo se aceptan caracteres literales',
+             'EditDescripcion.min'=>'El tamaño del nombre debere ser min 3',
+             'EditDescripcion.max'=>'El tamaño del nombre debere ser max 60',
+             'EditNumero_indicador.required'=>'El campo es obligatorio',
+             'EditNumero_indicador.integer'=> 'El campo debe ser un número entero',
+             'EditNumero_indicador.between'=> 'El debe ser un número mayor a 0',
+             'EditCriterios.required'=>'Debe elegir minimamente un criterio',
+             'id.required'=>$this->route('id')
          ];
  
      }
@@ -55,7 +59,7 @@ class indicadorEditRequest extends FormRequest
      {
         
          $validator->after(function ($validator) {
-             if ($this->hasErrorsInFields(['descripcion', 'numero_indicador'])) {
+             if ($this->hasErrorsInFields(['EditDescripcion', 'EditNumero_indicador','EditCriterios'])) {
                  $validator->errors()->add('id', $this->route('id'));
              }
          });
