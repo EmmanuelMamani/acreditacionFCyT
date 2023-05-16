@@ -44,7 +44,7 @@
                 @if (Auth::user()->rol_user->last()->rol->name == 'administrador')
                 <a href="{{route('reporte_usuarios_carrera')}}" class="col-start-3 font-extralight cursor-pointer">Usuarios</a>
                 <a href="{{route('reporte_gestiones')}}" class="col-start-3 font-extralight cursor-pointer">Gestiones</a>
-                <h3 class="col-start-3 font-extralight cursor-pointer">Calificaciones</h3>
+                <a href="{{route('calificacion')}}" class="col-start-3 font-extralight cursor-pointer">Calificaciones</a>
                 @endif
              </div>
          </div>

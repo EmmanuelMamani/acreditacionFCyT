@@ -11,25 +11,25 @@
                 <tr>
                     <th>#</th>
                     <th>Descripcion</th>
-                    <th>Promedio Area</th>
                     <th>Porcentaje Area</th>
                     <th>Ponderación</th>
-                    <th>Porcentaje Area</th>
+                    <th>Nota Area</th>
                     <th>Accion</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach ($areas as $area )
                 <tr class="border-2 border-y-black border-x-white">
-                    <th class="font-thin text-xl">1</th>
-                    <th class="font-thin text-xl">Normas juridicas e institucionales</th>
-                    <th class="font-thin text-xl">3.88</th>
-                    <th class="font-thin text-xl">77.42%</th>
-                    <th class="font-thin text-xl">0.5</th>
-                    <th class="font-thin text-xl">0.5</th>
+                    <th class="font-thin text-xl">{{$area->numero_area}}</th>
+                    <th class="font-thin text-xl">{{$area->name}}</th>
+                    <th class="font-thin text-xl">{{$notas[$loop->index]/$area->valor}}%</th>
+                    <th class="font-thin text-xl">{{$area->valor}}</th>
+                    <th class="font-thin text-xl">{{$notas[$loop->index]}}</th>
                     <th>
-                            <span class="material-symbols-outlined font-extralight text-3xl cursor-pointer">check_circle</span>
+                            <a href="{{route('ver_calificar_area',['id'=>$area->id])}}" class="material-symbols-outlined font-extralight text-3xl cursor-pointer">check_circle</a>
                     </th>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

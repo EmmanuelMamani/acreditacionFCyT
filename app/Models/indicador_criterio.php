@@ -16,5 +16,8 @@ class indicador_criterio extends Model
     public function criterio(){
         return $this->belongsTo(criterio::class);
     }
+    public function calificaciones(){
+        return $this->hasMany(calificacion::class);
+    }
 
 }

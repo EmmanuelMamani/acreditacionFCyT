@@ -17,7 +17,7 @@ class CreateCalificacionsTable extends Migration
             $table->id();
             $table->integer('calificacion')->nullable();
             $table->integer('gestion_id');
-            $table->integer('indicador_id');
+            $table->integer('indicador_criterio_id');
             $table->timestamps();
         });
     }

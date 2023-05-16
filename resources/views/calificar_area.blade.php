@@ -2,7 +2,7 @@
 @section("main")
     <div class="flex justify-center">
        <div class="w-4/6 mt-10">
-            <h3 class="p-2 ">Area #1 Normas juridicas e institucionales</h3>
+            <h3 class="p-2 ">{{"Area #".$area->numero_area." > ".$area->name}}</h3>
        </div>
     </div>
     <div class="flex justify-center">
@@ -12,32 +12,54 @@
                     <th>#</th>
                     <th>Descripcion indicador</th>
                     <th>Tipo de indicador</th>
+                    <th>Criterio</th>
                     <th>Ponderacion</th>
                     <th>Valor</th>
                     <th>Ponderacion x valor</th>
-                    <th>Conclusion</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="border-2 border-y-black border-x-white">
-                    <th class="font-thin text-xl">1.2</th>
-                    <th class="font-thin text-xl">Normas juridicas e institucionales</th>
-                    <th class="font-thin text-xl">RMA</th>
-                    <th class="font-thin text-xl">2</th>
-                    <th class="font-thin text-xl">
-                        <div class="flex">
-                            <input type="radio" name="valor" id=""> <label for="">1</label>
-                            <input type="radio" name="valor" id=""><label for="">2</label>
-                            <input type="radio" name="valor" id=""><label for="">3</label>
-                            <input type="radio" name="valor" id=""><label for="">4</label>
-                            <input type="radio" name="valor" id=""><label for="">5</label>
-                        </div>
-                    </th>
-                    <th class="font-thin text-xl">10</th>
-                    <th>
-                            <button class="bg-sky-950 text-white py-2 px-3 rounded-3xl">Conclusiones</button>
-                    </th>
-                </tr>
+                    @foreach ($area->variables as $variable)
+                    <tr class="border-2 border-y-black border-x-white">
+                    <th class="font-thin text-xl">{{$area->numero_area.".".$variable->numero_variable}}</th>
+                    <th class="font-thin text-xl">{{$variable->name}}</th>
+                    <th class="font-thin text-xl"></th>
+                    <th class="font-thin text-xl"></th>
+                    <th class="font-thin text-xl"></th>
+                    <th class="font-thin text-xl"></th>
+                    </tr>
+                    @foreach ($variable->indicadores as $indicador)
+                    <tr class="border-2 border-y-black border-x-white">
+                        <th class="font-thin text-xl">{{$area->numero_area.".".$variable->numero_variable.".".$indicador->numero_indicador}}</th>
+                        <th class="font-thin text-xl">{{$indicador->descripcion}}</th>
+                        <th class="font-thin text-xl">{{$indicador->tipo}}</th>
+                        <th class="font-thin text-xl"></th>
+                        <th class="font-thin text-xl">{{$indicador->peso}}</th>
+                        <th class="font-thin text-xl"></th>
+                        <th class="font-thin text-xl">{{$indicador->peso*5}}</th>
+                    </tr>
+                    @foreach ($indicador->criterios as $criterio_ind )
+                    <tr class="border-2 border-y-black border-x-white">
+                        <th class="font-thin text-xl"></th>
+                        <th class="font-thin text-xl"></th>
+                        <th class="font-thin text-xl"></th>
+                        <th class="font-thin text-xl">{{$criterio_ind->criterio->nombre}}</th>
+                        <th class="font-thin text-xl"></th>
+                        <th class="font-thin text-xl">
+                            <form action="{{route('calificar',['id'=>$criterio_ind->id,'id_area'=>$area->id])}}" class="flex" method="POST"> @csrf
+                                <input type="radio" name="valor" value="1"> <label for="">1</label>
+                                <input type="radio" name="valor" value="2"><label for="">2</label>
+                                <input type="radio" name="valor" value="3"><label for="">3</label>
+                                <input type="radio" name="valor" value="4"><label for="">4</label>
+                                <input type="radio" name="valor" value="5"><label for="">5</label>
+                                <button class="material-symbols-outlined font-extralight text-3xl cursor-pointer ml-2">check_circle</button>
+                            </form>
+                        </th>
+                        <th class="font-thin text-xl"></th>
+                    </tr>
+                    @endforeach
+                    @endforeach
+                    @endforeach
             </tbody>
         </table>
     </div>

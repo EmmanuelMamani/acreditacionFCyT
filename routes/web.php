@@ -9,6 +9,7 @@ use App\Http\Controllers\indicadorController;
 use App\Http\Controllers\variableController;
 use App\Http\Controllers\rolController;
 use App\Http\Controllers\gestionController;
+use App\Http\Controllers\calificarController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,12 +34,12 @@ Route::get('/detalle_indicador', function () {
 Route::get('/permisos', function () {
     return view('permisos');
 });
-Route::get('/calificar', function () {
-    return view('calificar');
-});
-Route::get('/calificar_area', function () {
-    return view('calificar_area');
-});
+
+/*-------------------------------Calificacion------------------ */
+Route::get('/calificacion',[calificarController::class,'reporte'])->name('calificacion');
+Route::get('/ver_calificar_area/{id}',[calificarController::class,'ver_calificar_area'])->name('ver_calificar_area');
+Route::post('/calificar/{id}/{id_area}',[calificarController::class,'calificar'])->name('calificar');
+/*-------------------------------------------------------------------*/
 /**--------------------------------login ----------------------**/
 Route::post('/',[userController::class,'autentificacion'])->name('login');
 Route::get('/logout',[userController::class,'logout'])->name('logout');
