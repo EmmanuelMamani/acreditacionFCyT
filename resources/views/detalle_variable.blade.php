@@ -24,10 +24,13 @@
     <div class="flex justify-center">
         <div class="w-5/6 mt-5 grid grid-cols-10">
              <h3 class="p-2 cursor-pointer">Indicadores</h3>
+             @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
              <div class="flex justify-center items-center bg-sky-950 text-white p-2 rounded-xl col-start-10" id="agregar">
-                 <span class="material-symbols-outlined">add</span>
-                 <span>Agregar</span>
-             </div>
+                <span class="material-symbols-outlined">add</span>
+                <span>Agregar</span>
+            </div>
+             @endif
+
             
         </div>
      </div>
@@ -37,7 +40,10 @@
                  <tr>
                      <th>#</th>
                      <th class="text-left">Nombre</th>
-                     <th>Accion</th>
+                     @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
+                     <th>Accion</th>  
+                     @endif
+
                  </tr>
              </thead>
              <tbody>
@@ -46,6 +52,7 @@
                     <tr class="border-2 border-y-black border-x-white">
                         <th class="font-thin text-xl">{{$variable->area->numero_area}}.{{$variable->numero_variable}}.{{$indicador->numero_indicador}}</th>
                         <th class="font-thin text-xl text-left">{{$indicador->descripcion}}</th>
+                        @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
                         <th>
                             <div class="grid grid-cols-2">
                                 <form action="{{route("eliminar_indicador",['id'=>$indicador->id])}}" method="post">
@@ -56,6 +63,7 @@
                                 <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar({{$indicador->id}},{{$indicador->numero_indicador}},'{{$indicador->descripcion}}','{{$indicador->tipo}}',{{$indicador->criterios}})">edit_square</span>
                             </div>
                         </th>
+                        @endif
                     </tr>
                     @endif
                     

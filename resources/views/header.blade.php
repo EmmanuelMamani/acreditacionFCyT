@@ -38,8 +38,6 @@
                 <a href="{{route('reporte_usuarios')}}" class="col-start-3 font-extralight cursor-pointer">Usuarios</a>
                 <a href="{{route('reporte_roles')}}" class="col-start-3 font-extralight cursor-pointer">Roles</a>
                 <a href="{{route('reporte_areas')}}" class="col-start-3 font-extralight cursor-pointer">Areas</a>
-                <h3 class="col-start-3 font-extralight cursor-pointer">Variables</h3>
-                <h3 class="col-start-3 font-extralight cursor-pointer">Indicadores</h3>
                 @endif
                 @if (Auth::user()->rol_user->last()->rol->name == 'administrador')
                 <a href="{{route('reporte_usuarios_carrera')}}" class="col-start-3 font-extralight cursor-pointer">Usuarios</a>

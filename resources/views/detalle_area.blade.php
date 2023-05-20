@@ -6,7 +6,7 @@
             <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-xl font-thin pl-10">{{$area->name}}</h1></div>
         </div> 
         <div class="flex">
-            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">20</div>
+            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{$area->variables->count()}}</div>
             <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-2xl font-thin">Variables</h1></div>
         </div>
         <div class="flex">
@@ -22,10 +22,12 @@
     <div class="flex justify-center">
         <div class="w-5/6 mt-10 grid grid-cols-10">
              <h3 class="p-2 cursor-pointer">Variables</h3>
+             @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
              <div class="flex justify-center items-center bg-sky-950 text-white p-2 rounded-xl col-start-10 cursor-pointer" id="agregar">
-                 <span class="material-symbols-outlined">add</span>
-                 <span>Agregar</span>
-             </div>
+                <span class="material-symbols-outlined">add</span>
+                <span>Agregar</span>
+            </div>
+             @endif
         </div>
      </div>
      <div class="flex justify-center">
@@ -34,7 +36,9 @@
                  <tr>
                      <th>#</th>
                      <th class="text-left">Nombre</th>
+                     @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
                      <th>Accion</th>
+                     @endif
                  </tr>
              </thead>
              <tbody>
@@ -42,6 +46,7 @@
                 <tr class="border-2 border-y-black border-x-white">
                     <th class="font-thin text-xl">{{$area->numero_area.'.'.$variable->numero_variable}}</th>
                     <th class="font-thin text-xl text-left"><a href="{{route('reporte_indicadores',['id'=>$variable->id])}}">{{$variable->name}}</a></th>
+                    @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
                     <th>
                         <div class="grid grid-cols-3">
                             
@@ -53,6 +58,7 @@
                             <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar2({{$variable->id}},'{{$variable->name}}',{{$variable->numero_variable}})">edit_square</span>
                         </div>
                     </th>
+                    @endif
                 </tr>
                 @endforeach
              </tbody>

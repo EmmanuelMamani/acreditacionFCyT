@@ -21,7 +21,7 @@ use App\Http\Controllers\calificarController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/menu_admin',function(){return view('menu_admin');});
+Route::get('/menu_admin',[userController::class,'menu_admin'])->name('menu_admin');
 Route::get('/detalle_area', function () {
     return view('detalle_area');
 });
