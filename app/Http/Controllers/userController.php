@@ -12,9 +12,16 @@ use App\Models\area;
 use App\Models\variable;
 use App\Http\Requests\userRequest;
 use App\Http\Requests\userEditRequest;
+use App\Models\indicador;
 class userController extends Controller
 {
     //
+    public function menu_admin(){
+        $areas=area::all()->where('activo',1);
+        $variables=variable::all()->where('activo',1)->count();
+        $indicadores=indicador::all()->where('activo',1)->count();
+        return view('menu_admin',['areas'=>$areas,'variables'=>$variables,'indicadores'=>$indicadores]);
+    }
     public function menu_superadmin(){
         $areas=area::all()->where('activo',1);
         $carreras=carrera::all()->where('activo',1);
