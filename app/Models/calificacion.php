@@ -11,4 +11,7 @@ class calificacion extends Model
     public function gestion(){
         return $this->belongsTo(gestion::class);
     }
+    public function inidicador_criterio(){
+        return $this->belongsTo(inidicador_criterio::class);
+    }
 }
