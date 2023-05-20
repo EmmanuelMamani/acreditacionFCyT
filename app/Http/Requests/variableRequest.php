@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\numeroVariable;
 use Illuminate\Foundation\Http\FormRequest;
 
 class variableRequest extends FormRequest
@@ -27,7 +28,7 @@ class variableRequest extends FormRequest
     {
         return [
             'descripcion'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ ()]+$/u','min:3','max:60'],
-            'numero_variable'=>['bail','required','integer','between:0,100']
+            'numero_variable'=>['bail','required','integer','between:0,100',new numeroVariable($this->route('id'))]
         ];
     }
 

@@ -10,6 +10,8 @@ use App\Models\indicador_criterio;
 use App\Models\variable;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isEmpty;
+
 class indicadorController extends Controller
 {
     /**
@@ -45,10 +47,17 @@ class indicadorController extends Controller
 
     private function asignarCriterios($criterios,$id){
         foreach ($criterios as $criterio) {
-            $indicador_criterio=new indicador_criterio();
-            $indicador_criterio->indicador_id=$id;
-            $indicador_criterio->criterio_id=$criterio;
-            $indicador_criterio->save();
+            $indicador_criterio=indicador_criterio::where('criterio_id',$criterio)->where('indicador_id',$id)->get();
+            if(isEmpty($indicador_criterio)){
+                $indicador_criterio=new indicador_criterio();
+                $indicador_criterio->indicador_id=$id;
+                $indicador_criterio->criterio_id=$criterio;
+                $indicador_criterio->save();
+            }else{
+                $indicador_criterio[0]->activo=0;
+                $indicador_criterio[0]->save();
+            }
+            
         }
     }
 

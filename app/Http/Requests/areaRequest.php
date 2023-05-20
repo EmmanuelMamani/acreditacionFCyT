@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\numeroArea;
 use Illuminate\Foundation\Http\FormRequest;
 
 class areaRequest extends FormRequest
@@ -26,7 +27,7 @@ class areaRequest extends FormRequest
         return [
             'descripcion'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ ()]+$/u','min:3','max:60'],
             'ponderacion'=>['bail','required','numeric','between:0,10'],
-            'numero'=>['bail','required','integer']
+            'numero'=>['bail','required','integer',new numeroArea]
         ];
     }
     public function messages(){
