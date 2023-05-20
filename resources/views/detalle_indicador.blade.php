@@ -2,20 +2,20 @@
 @section("main")
     <div class="grid grid-cols-3 pb-10 pt-10 pl-20">
         <div class="flex">
-            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">10</div>
-            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-xl font-thin pl-10">Normas juridicas e institucionales</h1></div>
+            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{$indicador->variable->area->numero_area}}</div>
+            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-xl font-thin pl-10">{{$indicador->variable->area->name}}</h1></div>
         </div> 
         <div class="flex">
-            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">20</div>
-            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-sm font-thin pl-10">Resoluciones que autorizan el funcionamiento del programa</h1></div>
+            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{$indicador->variable->numero_variable}}</div>
+            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-sm font-thin pl-10">{{$indicador->variable->name}}</h1></div>
         </div>
         <div class="flex">
-            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">30</div>
-            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-2xl font-thin pl-5">#</h1></div>
+            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{$indicador->numero_indicador}}</div>
+            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-2xl font-thin pl-5">{{$indicador->descripcion}}</h1></div>
         </div>
     </div>
     <div class="bg-slate-200 grid grid-cols-12 py-4 shadow shadow-slate-400 mb-5">
-        <div class="col-start-2 col-span-6">Normas juridicas e insitucionales > Resoluciones que autorizan el funcionamiento del programa > 1.1.1</div>
+        <div class="col-start-2 col-span-6"><a href="">{{$indicador->variable->area->name}}</a> > <a href="">{{$indicador->variable->name}}</a> > {{$indicador->descripcion}}</div>
     </div>
 
 

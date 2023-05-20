@@ -45,7 +45,7 @@
                     @if ($indicador->activo==1)
                     <tr class="border-2 border-y-black border-x-white">
                         <th class="font-thin text-xl">{{$variable->area->numero_area}}.{{$variable->numero_variable}}.{{$indicador->numero_indicador}}</th>
-                        <th class="font-thin text-xl text-left">{{$indicador->descripcion}}</th>
+                        <th class="font-thin text-xl text-left"><a href="{{route('reporte_archivos',[id=>$indicador->id])}}">{{$indicador->descripcion}}</a></th>
                         <th>
                             <div class="grid grid-cols-2">
                                 <form action="{{route("eliminar_indicador",['id'=>$indicador->id])}}" method="post">
