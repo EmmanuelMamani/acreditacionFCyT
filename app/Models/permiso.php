@@ -11,5 +11,9 @@ class permiso extends Model
     public function permiso_rol(){
         return $this->hasMany(permiso_rol::class);
     }
+
+    public function roles(){
+        return $this->belongsToMany(rol::class,'permiso_rols');
+    }
     
 }

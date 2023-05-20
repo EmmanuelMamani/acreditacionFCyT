@@ -82,6 +82,14 @@ Route::post('/eliminar_indicador/{id}',[indicadorController::class,'eliminar_ind
 
 /*-------------------------------------------------------------------------*/
 
+/*--------------------------------Archivos----------------------------------- */
+Route::get('/reporte_archivos/{id}',[archivoController::class,'reporte_archivos'])->name("reporte_archivos");
+Route::post('/registro_indicador/{id}',[indicadorController::class,'registro'])->name('registro_indicador');
+Route::post('/editar_indicador/{id}',[indicadorController::class,'editar_indicador'])->name('editar_indicador');
+Route::post('/eliminar_indicador/{id}',[indicadorController::class,'eliminar_indicador'])->name('eliminar_indicador');
+
+/*-------------------------------------------------------------------------*/
+
 /*********************************Usuarios************************************/
 Route::get('/reporte_usuarios',[userController::class,'reporte_usuarios'])->name("reporte_usuarios");
 Route::get('/reporte_usuarios_carrera',[userController::class,'reporte_usuarios_carrera'])->name("reporte_usuarios_carrera");
