@@ -10,6 +10,7 @@ use App\Http\Controllers\variableController;
 use App\Http\Controllers\rolController;
 use App\Http\Controllers\gestionController;
 use App\Http\Controllers\calificarController;
+use App\Http\Controllers\permisoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,10 +32,10 @@ Route::get('/detalle_variable', function () {
 Route::get('/detalle_indicador', function () {
     return view('detalle_indicador');
 });
-Route::get('/permisos', function () {
-    return view('permisos');
-});
 
+
+/********************************Permisos ***********************/
+Route::get('/reporte_permisos',[permisoController::class,'reporte'] )->name('reporte_permisos');
 /*-------------------------------Calificacion------------------ */
 Route::get('/calificacion',[calificarController::class,'reporte'])->name('calificacion');
 Route::get('/ver_calificar_area/{id}',[calificarController::class,'ver_calificar_area'])->name('ver_calificar_area');
