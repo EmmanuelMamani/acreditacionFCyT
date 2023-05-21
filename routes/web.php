@@ -36,6 +36,11 @@ Route::get('/detalle_indicador', function () {
 
 /********************************Permisos ***********************/
 Route::get('/reporte_permisos',[permisoController::class,'reporte'] )->name('reporte_permisos');
+Route::post('/registrar_permiso',[permisoController::class,'registrar'])->name('registrar_permiso');
+Route::get('/reporte_permiso_rol',[permisoController::class,'reporte_permiso_rol'])->name('reporte_permiso_rol');
+Route::post('asignar_permiso',[permisoController::class,'asignar_permiso'])->name('asignar_permiso');
+Route::post('/eliminar_asignacion/{id}',[permisoController::class,'eliminar_asignacion'])->name('eliminar_asignacion');
+Route::post('/eliminar_permiso/{id}',[permisoController::class,'eliminar_permiso'])->name('eliminar_permiso');
 /*-------------------------------Calificacion------------------ */
 Route::get('/calificacion',[calificarController::class,'reporte'])->name('calificacion');
 Route::get('/ver_calificar_area/{id}',[calificarController::class,'ver_calificar_area'])->name('ver_calificar_area');

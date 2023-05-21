@@ -15,13 +15,22 @@
                 <tr>
                     <th>#</th>
                     <th>URL</th>
+                    <th>Eliminar</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach ($permisos as $key=>$permiso )
                 <tr class="border-2 border-y-black border-x-white">
-                    <th class="font-thin text-xl">1</th>
-                    <th class="font-thin text-xl">administrador.permisos.index</th>
+                    <th class="font-thin text-xl">{{$key+1}}</th>
+                    <th class="font-thin text-xl">{{$permiso->url}}</th>
+                    <th>
+                        <form class="Eliminar" action="{{route('eliminar_permiso',['id'=>$permiso->id])}}" method="post">
+                            @csrf
+                            <button class="material-symbols-outlined font-extralight text-3xl">delete</button>
+                        </form>
+                    </th>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -29,6 +38,8 @@
 
     <dialog id="modal" class="w-1/3 rounded-lg px-20">
         <div>
+            <form action="{{route('registrar_permiso')}}" method="post">
+            @csrf
             <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Agregar nuevo permiso</h3>
             <label class="font-thin">URL</label><br>
             <input type="text" name="url" class="bg-zinc-200 rounded-lg w-full p-2"><br>
@@ -36,10 +47,13 @@
                 <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
                 <button class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelar">Cancelar</button>
             </div>
+            </form>
         </div>
     </dialog>
 @endsection
 @section("js")
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script>
         var agregar=document.getElementById("agregar");
         var modal=document.getElementById("modal");
@@ -52,5 +66,23 @@
         cancelar.onclick=function(){
             modal.close()
         }
+
+        //----------------------Confirmacion Eliminar--------------------
+        $('.Eliminar').submit(function(e){
+            e.preventDefault();
+            Swal.fire({
+            title: '¿Estás seguro que quieres eliminar el permiso?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                  this.submit();
+            }
+            })
+      });
     </script>
 @endsection
