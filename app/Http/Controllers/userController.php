@@ -13,6 +13,7 @@ use App\Models\variable;
 use App\Http\Requests\userRequest;
 use App\Http\Requests\userEditRequest;
 use App\Models\indicador;
+use App\Models\gestion;
 class userController extends Controller
 {
     //
@@ -20,7 +21,44 @@ class userController extends Controller
         $areas=area::all()->where('activo',1);
         $variables=variable::all()->where('activo',1)->count();
         $indicadores=indicador::all()->where('activo',1)->count();
-        return view('menu_admin',['areas'=>$areas,'variables'=>$variables,'indicadores'=>$indicadores]);
+        $gestion=gestion::all()->where('carrera_id', Auth::user()->carrera_id)->where('activo',true)->last();
+        $notas=[];
+        if($gestion != null){
+            foreach ($areas as $area){
+                $valor_area=$area->valor; //ponderacion de un area
+                $ponderacion_indicadores=0;//ponderacion de los indicadores
+                $suma_indicadores=0;//suma total de calificaciones
+                foreach($area->variables as $variable){
+                    foreach($variable->indicadores as $indicador){
+                        $ponderacion_indicadores+=$indicador->peso;//sumamos todos los indicadores para sacar su ponderacion
+                        $peso_indicador=$indicador->peso;//ponderacion de un indicador
+                        $criterios=$indicador->criterios->count();//numero de criterios por indicador
+                        $suma_criterios=0;
+                       // echo $indicador->descripcion.'<br>';
+                       // echo "ponderacion criterios ".$criterios.'<br>';
+                        foreach($indicador->criterios_indicadores as $criterio){
+                            foreach($criterio->calificaciones as $calificacion){
+                                if($calificacion->gestion_id==$gestion->id){
+                                    $suma_criterios+=$calificacion->calificacion;
+                                }
+                            }
+                        }
+                       // echo "suma criterios ".$suma_criterios.'<br>';
+                        $valor=(($suma_criterios/$criterios)/5)*$peso_indicador;
+                        $suma_indicadores+=$valor;
+                      //  echo "valor en el indicador ".$valor.'<br>';
+                    }
+                }
+                $nota= ($suma_indicadores/$ponderacion_indicadores)* $valor_area;
+               // echo "El valor del area es: ".$nota.'<br>';
+                $notas[]=$nota;
+            }
+        }else{
+            for($i=0; $i<$areas->count();$i++){
+                $notas[]=0;
+            }
+        }
+        return view('menu_admin',['areas'=>$areas,'variables'=>$variables,'indicadores'=>$indicadores,'notas'=>$notas]);
     }
     public function menu_superadmin(){
         $areas=area::all()->where('activo',1);

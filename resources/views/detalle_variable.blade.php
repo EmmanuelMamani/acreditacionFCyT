@@ -55,7 +55,6 @@
                         <th class="font-thin text-xl text-left"><a href="{{route('reporte_archivos',['id'=>$indicador->id])}}">{{$indicador->descripcion}}</a></th>
 
                         @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
-
                         <th>
                             <div class="grid grid-cols-2">
                                 <form action="{{route("eliminar_indicador",['id'=>$indicador->id])}}" method="post" class="Eliminar">
