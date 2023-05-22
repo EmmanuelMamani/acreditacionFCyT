@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\carreraController;
-
+use App\Http\Controllers\archivoController;
 use App\Http\Controllers\areaController;
 use App\Http\Controllers\indicadorController;
 use App\Http\Controllers\variableController;
@@ -83,9 +83,10 @@ Route::post('/eliminar_indicador/{id}',[indicadorController::class,'eliminar_ind
 
 /*--------------------------------Archivos----------------------------------- */
 Route::get('/reporte_archivos/{id}',[archivoController::class,'reporte_archivos'])->name("reporte_archivos");
-Route::post('/registro_indicador/{id}',[indicadorController::class,'registro'])->name('registro_indicador');
-Route::post('/editar_indicador/{id}',[indicadorController::class,'editar_indicador'])->name('editar_indicador');
-Route::post('/eliminar_indicador/{id}',[indicadorController::class,'eliminar_indicador'])->name('eliminar_indicador');
+Route::post('/registro_archivos/{id}',[archivoController::class,'registro_archivos'])->name('registro_archivos');
+Route::post('/registro_folder/{id}',[archivoController::class,'registro_folder'])->name('registro_folder');
+Route::post('/eliminar_folder/{id}',[archivoController::class,'eliminar_indicador'])->name('eliminar_indicador');
+Route::post('/eliminar_archivo/{id}',[archivoController::class,'eliminar_indicador'])->name('eliminar_indicador');
 
 /*-------------------------------------------------------------------------*/
 

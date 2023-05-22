@@ -17,9 +17,10 @@ class CreateArchivosTable extends Migration
             $table->id();
             $table->integer('carrera_id')->nullable();
             $table->integer('indicador_id');
-            $table->integer('nombre');
+            $table->string('nombre');
             $table->string('url')->nullable();
             $table->enum('tipo',['archivo','folder']);
+            $table->integer('folder_id')->nullable();
             $table->timestamps();
         });
     }
