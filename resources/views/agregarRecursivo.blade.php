@@ -12,7 +12,10 @@
                                 <th>
                                 <div class="grid grid-cols-3">
                                     <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset($archivo->url) }}"> visibility</a></span>
-                                    <span class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</span>
+                                    <form action="{{route("eliminar_archivo",['id'=>$archivo->id])}}" method="post" class="Eliminar">
+                                        @csrf
+                                        <button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
+                                    </form>
                                     
                                 </div>
                                 </th>
@@ -28,7 +31,10 @@
                             <th>
                             <div class="grid grid-cols-3">
                                 <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer"><a href="{{ asset($archivo->url) }}"> visibility</a></span>
-                                <span class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</span>
+                                <form action="{{route("eliminar_archivo",['id'=>$archivo->id])}}" method="post" class="Eliminar">
+                                    @csrf
+                                    <button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
+                                </form>
                                 
                             </div>
                             </th>
@@ -48,8 +54,11 @@
                                 <th>
                                 <div class="grid grid-cols-3">
                                     <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" onclick="showModal({{$archivo->id}})">add</span>
-                                    <span class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</span>
-                                    <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer">edit_square</span>
+                                    <form action="{{route("eliminar_folder",['id'=>$archivo->id])}}" method="post" class="Eliminar">
+                                        @csrf
+                                        <button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
+                                    </form>
+                                    <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar('{{$archivo->nombre}}','{{$archivo->id}}')">edit_square</span>
                                 </div>
                                 </th>
                             </tr>
@@ -67,8 +76,11 @@
                             <th>
                             <div class="grid grid-cols-3">
                                 <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" onclick="showModal({{$archivo->id}})">add</span>
-                                <span class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</span>
-                                <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer">edit_square</span>
+                                <form action="{{route("eliminar_folder",['id'=>$archivo->id])}}" method="post" class="Eliminar">
+                                    @csrf
+                                    <button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
+                                </form>
+                                <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar('{{$archivo->nombre}}','{{$archivo->id}}')">edit_square</span>
                             </div>
                             </th>
                         </tr>    

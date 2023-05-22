@@ -85,8 +85,9 @@ Route::post('/eliminar_indicador/{id}',[indicadorController::class,'eliminar_ind
 Route::get('/reporte_archivos/{id}',[archivoController::class,'reporte_archivos'])->name("reporte_archivos");
 Route::post('/registro_archivos/{id}',[archivoController::class,'registro_archivos'])->name('registro_archivos');
 Route::post('/registro_folder/{id}',[archivoController::class,'registro_folder'])->name('registro_folder');
-Route::post('/eliminar_folder/{id}',[archivoController::class,'eliminar_indicador'])->name('eliminar_indicador');
-Route::post('/eliminar_archivo/{id}',[archivoController::class,'eliminar_indicador'])->name('eliminar_indicador');
+Route::post('/editar_folder/{id}',[archivoController::class,'editar_folder'])->name('editar_folder');
+Route::post('/eliminar_archivo/{id}',[archivoController::class,'eliminar_archivo'])->name('eliminar_archivo');
+Route::post('/eliminar_folder/{id}',[archivoController::class,'eliminar_folder'])->name('eliminar_folder');
 
 /*-------------------------------------------------------------------------*/
 

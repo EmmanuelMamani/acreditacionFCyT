@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\folderEditRequest;
 use App\Http\Requests\folderRequest;
 use App\Models\archivo;
 use App\Models\indicador;
@@ -47,15 +48,34 @@ class archivoController extends Controller
         
     }
 
-    public function editarFolder(){
+    public function editar_folder(folderEditRequest $request,$id){
+     $folder=archivo::find($id);
+     $folder->nombre=$request->editNombre;
+     $folder->save();
 
+     return redirect(route('reporte_archivos',['id'=>$folder->indicador->id]));
     }
 
-    public function eliminarFolder(){
+    public function eliminar_folder($id){
+        $folder=archivo::find($id);
+        $id_indicador=$folder->indicador->id;
 
+        $folder->delete();
+
+        return redirect(route('reporte_archivos',['id'=>$id_indicador]));
     }
 
-    public function eliminarArchivo(){
+    public function eliminar_archivo($id){
+        $archivo=archivo::find($id);
+        $id_indicador=$archivo->indicador->id;
+       
 
+      
+        Storage::disk('local')->delete('public/files/'.$archivo->nombre);
+        
+        $archivo->delete();
+
+        
+        return redirect(route('reporte_archivos',['id'=>$id_indicador]));
     }
 }
