@@ -51,11 +51,13 @@
                     @if ($indicador->activo==1)
                     <tr class="border-2 border-y-black border-x-white">
                         <th class="font-thin text-xl">{{$variable->area->numero_area}}.{{$variable->numero_variable}}.{{$indicador->numero_indicador}}</th>
-                        <th class="font-thin text-xl text-left"><a href="{{route('reporte_archivos',[id=>$indicador->id])}}">{{$indicador->descripcion}}</a></th>
+
+                        <th class="font-thin text-xl text-left"><a href="{{route('reporte_archivos',['id'=>$indicador->id])}}">{{$indicador->descripcion}}</a></th>
+
                         @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
                         <th>
                             <div class="grid grid-cols-2">
-                                <form action="{{route("eliminar_indicador",['id'=>$indicador->id])}}" method="post">
+                                <form action="{{route("eliminar_indicador",['id'=>$indicador->id])}}" method="post" class="Eliminar">
                                     @csrf
                                     <button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
                                 </form>
@@ -128,7 +130,7 @@
 
     <!----------------------------EDITAR------------------------------------------------>
     <dialog id="modal_editar" class="w-1/3 rounded-lg px-20">
-        <form action="" method="post" id="editar">
+        <form action="" method="post" id="editar" class="Editar">
             @csrf
             <div>
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Editar indicador</h3>
@@ -248,5 +250,43 @@
                 editar.action="/editar_indicador/"+id
             }
         
+//Confirmacion de eliminacion
+$('.Eliminar').submit(function(e){
+            e.preventDefault();
+            Swal.fire({
+            title: '¿Estás seguro que quieres eliminar la variable?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                  this.submit();
+            }
+            })
+      });
+      /******************************************************************/
+      //Confirmacion de edicion
+      $('.Editar').submit(function(e){
+            e.preventDefault();
+            Swal.fire({
+            title: '¿Estás seguro que quieres guardar los cambios?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                  this.submit();
+            }else{
+                modalE.showModal();
+            }
+            })
+      });
+
     </script>
 @endsection
