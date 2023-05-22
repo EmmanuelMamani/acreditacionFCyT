@@ -240,7 +240,7 @@
         guardarC.onclick=function(){
             folder.close()
         }
-        
+
         cancelar.onclick=function(){
             modal.close()
         }
@@ -346,7 +346,7 @@
       });
       /******************************************************************/
       //Confirmacion de edicion
-      
+      /*
       $('.Editar').submit(function(e){
             e.preventDefault();
             Swal.fire({
@@ -364,7 +364,7 @@
                 modalE.showModal();
             }
             })
-      });
+      });*/
     </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
