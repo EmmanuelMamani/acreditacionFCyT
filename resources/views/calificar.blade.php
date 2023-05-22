@@ -14,7 +14,9 @@
                     <th>Porcentaje Area</th>
                     <th>Ponderación</th>
                     <th>Nota Area</th>
-                    <th>Accion</th>
+                    @if ($gestion != null)
+                        <th>Accion</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +28,9 @@
                     <th class="font-thin text-xl">{{$area->valor}}</th>
                     <th class="font-thin text-xl">{{$notas[$loop->index]}}</th>
                     <th>
+                            @if ($gestion != null)
                             <a href="{{route('ver_calificar_area',['id'=>$area->id])}}" class="material-symbols-outlined font-extralight text-3xl cursor-pointer">check_circle</a>
+                            @endif
                     </th>
                 </tr>
                 @endforeach
