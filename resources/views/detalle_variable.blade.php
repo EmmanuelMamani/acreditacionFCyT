@@ -270,6 +270,7 @@ $('.Eliminar').submit(function(e){
       });
       /******************************************************************/
       //Confirmacion de edicion
+      /*
       $('.Editar').submit(function(e){
             e.preventDefault();
             Swal.fire({
@@ -288,6 +289,6 @@ $('.Eliminar').submit(function(e){
             }
             })
       });
-
+*/
     </script>
 @endsection

@@ -188,6 +188,7 @@
       });
       /******************************************************************/
       //Confirmacion de edicion
+      /*
       $('.Editar').submit(function(e){
             e.preventDefault();
             Swal.fire({
@@ -205,7 +206,7 @@
                 modalE.showModal();
             }
             })
-      });
+      });*/
         
     </script>
 
