@@ -196,7 +196,7 @@
                 <label class="font-thin">Nombre de la carpeta</label><br>
                 <input type="text" name="editNombre" id="editNombre" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('editNombre')}}"><br>
                 @error('editNombre')
-                <span class="error text-danger"> {{ $message }}</span><br>
+                <span class="text-red-700"> {{ $message }}</span><br>
                 @enderror
                 <div class="grid grid-cols-2 pt-10 gap-5">
                     <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardarC">Guardar</button>

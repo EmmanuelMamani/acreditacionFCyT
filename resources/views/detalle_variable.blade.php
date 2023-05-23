@@ -85,13 +85,13 @@
             <label class="font-thin">Número de indicador</label><br>
             <input type="text" name="numero_indicador" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('numero_indicador')}}"><br>
             @if ($errors->has('numero_indicador'))
-            <span class="error text-danger"> {{ $errors->first('numero_indicador') }}</span><br>
+            <span class="text-red-700"> {{ $errors->first('numero_indicador') }}</span><br>
             @endif
 
             <label class="font-thin">Descripcion</label><br>
             <input type="text" name="descripcion" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('descripcion')}}"><br>
             @if ($errors->has('descripcion') )
-            <span class="error text-danger"> {{ $errors->first('descripcion') }}</span><br>
+            <span class="text-red-700"> {{ $errors->first('descripcion') }}</span><br>
             @endif
             
             <label class="font-thin">Tipo de indicador</label><br>
@@ -115,7 +115,7 @@
                </label><br>
             @endforeach
             @if ($errors->has('criterios') )
-            <span class="error text-danger"> {{ $errors->first('criterios') }}</span><br>
+            <span class="text-red-700"> {{ $errors->first('criterios') }}</span><br>
             @endif
             
 
@@ -138,13 +138,13 @@
                 <label class="font-thin">Número de indicador</label><br>
                 <input type="text" name="EditNumero_indicador"  id="EditNumero_indicador" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('EditNumero_indicador')}}"><br>
                 @if ($errors->has('EditNumero_indicador'))
-                <span class="error text-danger"> {{ $errors->first('EditNumero_indicador') }}</span><br>
+                <span class="text-red-700"> {{ $errors->first('EditNumero_indicador') }}</span><br>
                 @endif
     
                 <label class="font-thin">Descripcion</label><br>
                 <input type="text" name="EditDescripcion" id="EditDescripcion" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('EditDescripcion')}}"><br>
                 @if ($errors->has('EditDescripcion') )
-                <span class="error text-danger"> {{ $errors->first('EditDescripcion') }}</span><br>
+                <span class="text-red-700"> {{ $errors->first('EditDescripcion') }}</span><br>
                 @endif
                 
                 <label class="font-thin">Tipo de indicador</label><br>
@@ -168,7 +168,7 @@
                </label><br>
             @endforeach
                 @if ($errors->has('EditCriterios') )
-                <span class="error text-danger"> {{ $errors->first('EditCriterios') }}</span><br>
+                <span class="text-red-700"> {{ $errors->first('EditCriterios') }}</span><br>
                 @endif
                
     
