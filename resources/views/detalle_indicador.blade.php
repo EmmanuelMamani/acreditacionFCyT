@@ -109,7 +109,7 @@
                                 </th>
                             </tr>
                             
-                            @includeWhen($archivo->archivos->isNotEmpty(), 'agregarRecursivo', ['archivos' => $archivo->archivos])
+                            @includeWhen($archivo->archivos->isNotEmpty(), 'agregarRecursivo', ['archivos' => $archivo->archivos,'id_folder'=>$archivo->id])
                             
                         @endif
                     
@@ -150,7 +150,7 @@
              </tbody>
          </table>
      </div>
-    
+    <!---------------MODAL de registro de archivos--------------------->
      <dialog id="modal" class="w-1/3 rounded-lg px-20">
         <div>
             <form action="{{ route('registro_archivos',['id'=>$indicador->id])}}" method="POST" id="form">
@@ -171,7 +171,7 @@
                 <label class="font-thin" for="inputFolder" >Nombre </label><br>
                 <input type="text" name="nombre_archivo" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('nombre_archivo')}}"><br>
                 @error('nombre_archivo')
-                <span class="error text-danger"> {{ $message }}</span><br>
+                <span class="text-red-700"> {{ $message }}</span><br>
                 @enderror
             </div><br>
 <!----------input de archivos------------------->

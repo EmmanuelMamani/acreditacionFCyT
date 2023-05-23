@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\numeroArea;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 class areaEditRequest extends FormRequest
@@ -33,6 +34,7 @@ class areaEditRequest extends FormRequest
         return [
             'EditDescripcion'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ ()]+$/u','min:3','max:60'],
             'EditPonderacion'=>['bail','required','numeric'],
+            'numero'=>['bail','required','integer',new numeroArea],
             'id'=>'required',
         ];
     }

@@ -75,13 +75,13 @@
             <label class="font-thin">Número de variable</label><br>
             <input type="text" name="numero_variable" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('numero_variable')}}"><br>
             @if ($errors->has('numero_variable'))
-            <span class="error text-danger"> {{ $errors->first('numero_variable') }}</span><br>
+            <span class="text-red-700"> {{ $errors->first('numero_variable') }}</span><br>
             @endif
 
             <label class="font-thin">Descripcion</label><br>
             <input type="text" name="descripcion" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('descripcion')}}"><br>
             @if ($errors->has('descripcion') )
-            <span class="error text-danger"> {{ $errors->first('descripcion') }}</span><br>
+            <span class="text-red-700"> {{ $errors->first('descripcion') }}</span><br>
             @endif
             
             <div class="grid grid-cols-2 pt-10 gap-5">
@@ -102,12 +102,12 @@
                 <label class="font-thin">Descripción</label><br>
                 <input type="text" name="EditDescripcion" id="EditDescripcion" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('EditDescripcion')}}"><br>
                 @if ($errors->has('EditDescripcion') )
-                <span class="error text-danger"> {{ $errors->first('EditDescripcion') }}</span><br>
+                <span class="text-red-700"> {{ $errors->first('EditDescripcion') }}</span><br>
                 @endif
                 <label class="font-thin">Número de variable</label><br>
                 <input type="text" name="EditNumero_variable" id="EditNumero_variable" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('EditNumero_variable')}}"><br>
                 @if ($errors->has('EditNumero_variable'))
-                <span class="error text-danger"> {{ $errors->first('EditNumero_variable') }}</span><br>
+                <span class="text-red-700"> {{ $errors->first('EditNumero_variable') }}</span><br>
                 @endif
                 <div class="grid grid-cols-2 pt-10 gap-5">
                     <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardarE">Guardar</button>
