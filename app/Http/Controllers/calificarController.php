@@ -43,7 +43,11 @@ class calificarController extends Controller
                             }
                         }
                        // echo "suma criterios ".$suma_criterios.'<br>';
+                       if($criterios!=0){
                         $valor=(($suma_criterios/$criterios)/5)*$peso_indicador;
+                       } else{
+                        $valor=0;
+                       }
                         $suma_indicadores+=$valor;
                       //  echo "valor en el indicador ".$valor.'<br>';
                     }
