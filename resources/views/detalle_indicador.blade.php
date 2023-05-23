@@ -7,11 +7,11 @@
         </div> 
         <div class="flex">
             <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{$indicador->variable->numero_variable}}</div>
-            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-sm font-thin pl-10">{{$indicador->variable->name}}</h1></div>
+            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-sm font-thin pl-12">{{$indicador->variable->name}}</h1></div>
         </div>
         <div class="flex">
             <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{$indicador->numero_indicador}}</div>
-            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-2xl font-thin pl-5">{{$indicador->descripcion}}</h1></div>
+            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-sm font-thin pl-12">{{$indicador->descripcion}}</h1></div>
         </div>
     </div>
     <div class="bg-slate-200 grid grid-cols-12 py-4 shadow shadow-slate-400 mb-5">
@@ -48,7 +48,7 @@
                         @if ($archivo->carrera_id==Auth::user()->carrera_id)
                             <tr class="border-2 border-y-black border-x-white">
                                 <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
-                                <th class="font-thin text-xl text-left"><a href="{{ asset($archivo->url) }}">{{$archivo->nombre}}</a></th>
+                                <th class="font-thin text-xl text-left"><a href="{{ asset($archivo->url) }}" target="_blank" >{{$archivo->nombre}}</a></th>
                                 <th>
                                 <div class="grid grid-cols-3">
                                     <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset($archivo->url) }}"> visibility</a></span>
@@ -68,10 +68,10 @@
                 
                         <tr class="border-2 border-y-black border-x-white">
                             <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
-                            <th class="font-thin text-xl text-left"><a href="{{ asset($archivo->url) }}">{{$archivo->nombre}}</a></th>
+                            <th class="font-thin text-xl text-left"><a href="{{ asset($archivo->url) }}" target="_blank" >{{$archivo->nombre}}</a></th>
                             <th>
                             <div class="grid grid-cols-3">
-                                <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset($archivo->url) }}"> visibility</a></span>
+                                <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset($archivo->url) }}" target="_blank" > visibility</a></span>
                                 <!------------Boton para eliminar archivos------------->
                                 <form action="{{route("eliminar_archivo",['id'=>$archivo->id])}}" method="post" class="Eliminar">
                                     @csrf

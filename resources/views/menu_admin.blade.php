@@ -55,7 +55,7 @@
                         pointBorderColor: "#fff",
                         pointBackgroundColor: "rgba(179,181,198,1)",
                         // data: [3.50,3.20,3.45,3.74,3.41,3.21,2.64,3.0,3.0,4.10]
-                        data: {{ json_encode($notas) }},
+                        data: {{ json_encode($notasP) }},
                     }
                 ]
             },
@@ -64,7 +64,7 @@
                     ticks: {
                         beginAtZero: true,
                         min: 0,
-                        max: 10,
+                        max: 5,
                         stepSize: 1
                     },
                     pointLabels: {

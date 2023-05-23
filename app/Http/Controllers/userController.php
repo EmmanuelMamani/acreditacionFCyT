@@ -23,6 +23,7 @@ class userController extends Controller
         $indicadores=indicador::all()->where('activo',1)->count();
         $gestion=gestion::all()->where('carrera_id', Auth::user()->carrera_id)->where('activo',true)->last();
         $notas=[];
+        $notasP=[];
         if($gestion != null){
             foreach ($areas as $area){
                 $valor_area=$area->valor; //ponderacion de un area
@@ -57,13 +58,15 @@ class userController extends Controller
                 $nota= ($suma_indicadores/$ponderacion_indicadores)* $valor_area;
                // echo "El valor del area es: ".$nota.'<br>';
                 $notas[]=$nota;
+                $notasP[]=($nota/$valor_area)*5;
             }
         }else{
             for($i=0; $i<$areas->count();$i++){
                 $notas[]=0;
+                $notasP[]=0;
             }
         }
-        return view('menu_admin',['areas'=>$areas,'variables'=>$variables,'indicadores'=>$indicadores,'notas'=>$notas]);
+        return view('menu_admin',['areas'=>$areas,'variables'=>$variables,'indicadores'=>$indicadores,'notas'=>$notas,'notasP'=>$notasP]);
     }
     public function menu_superadmin(){
         $areas=area::all()->where('activo',1);
