@@ -9,10 +9,15 @@ use App\Models\indicador;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\permiso_rol;
+use App\Models\permiso;
 
 class archivoController extends Controller
 {
     public function reporte_archivos($id){
+        if(!$this->restriccion('reporte_archivos')){
+            return redirect('/sin_permiso');
+        }
         $indicador=indicador::find($id);
         $archivos=archivo::where('folder_id',NULL)->where('indicador_id',$id)->get();
         return view('detalle_indicador',['indicador'=>$indicador,'archivos'=>$archivos]);
@@ -20,6 +25,9 @@ class archivoController extends Controller
 
     
     public function registro_folder(folderRequest $request,$id){
+        if(!$this->restriccion('registro_folder')){
+            return redirect('/sin_permiso');
+        }
         $folder=new archivo();
         $folder->nombre=$request->nombre_archivo;
         $folder->carrera_id=Auth::user()->carrera_id;
@@ -35,6 +43,9 @@ class archivoController extends Controller
     }
     
     public function registro_archivos(Request $request,$id){
+        if(!$this->restriccion('registro_archivos')){
+            return redirect('/sin_permiso');
+        }
         $archivo=$request->file('document');
         $folder=new archivo;
         $folder->nombre=$archivo->getClientOriginalName();
@@ -49,6 +60,9 @@ class archivoController extends Controller
     }
 
     public function editar_folder(folderEditRequest $request,$id){
+        if(!$this->restriccion('editar_folder')){
+            return redirect('/sin_permiso');
+        }
      $folder=archivo::find($id);
      $folder->nombre=$request->editNombre;
      $folder->save();
@@ -57,6 +71,9 @@ class archivoController extends Controller
     }
 
     public function eliminar_folder($id){
+        if(!$this->restriccion('eliminar_folder')){
+            return redirect('/sin_permiso');
+        }
         $folder=archivo::find($id);
         $id_indicador=$folder->indicador->id;
 
@@ -66,6 +83,9 @@ class archivoController extends Controller
     }
 
     public function eliminar_archivo($id){
+        if(!$this->restriccion('eliminar_archivo')){
+            return redirect('/sin_permiso');
+        }
         $archivo=archivo::find($id);
         $id_indicador=$archivo->indicador->id;
        
@@ -77,5 +97,15 @@ class archivoController extends Controller
 
         
         return redirect(route('reporte_archivos',['id'=>$id_indicador]));
+    }
+    public function restriccion($ruta){
+        $permitido=true;
+        $rol_id=Auth::user()->rol_user->last()->rol_id;
+        $permiso_id= permiso::all()->where('url',$ruta)->last()->id;
+        $restriccion= permiso_rol::all()->where('permiso_id',$permiso_id)->where('rol_id',$rol_id);
+        if($restriccion == '[]'){
+            $permitido=false; 
+        }
+        return $permitido;
     }
 }

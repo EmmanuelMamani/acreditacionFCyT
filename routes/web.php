@@ -32,6 +32,7 @@ Route::get('/detalle_variable', function () {
 Route::get('/detalle_indicador', function () {
     return view('detalle_indicador');
 });
+Route::get('/sin_permiso',function(){return view('sin_permiso');})->name('sin_permiso');
 
 
 /********************************Permisos ***********************/

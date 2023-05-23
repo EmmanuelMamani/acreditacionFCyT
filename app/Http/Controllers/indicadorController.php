@@ -9,7 +9,9 @@ use App\Models\indicador;
 use App\Models\indicador_criterio;
 use App\Models\variable;
 use Illuminate\Http\Request;
-
+use App\Models\permiso_rol;
+use App\Models\permiso;
+use Illuminate\Support\Facades\Auth;
 use function PHPUnit\Framework\isEmpty;
 
 class indicadorController extends Controller
@@ -21,6 +23,9 @@ class indicadorController extends Controller
      */
     public function reporte_indicadores($id)
     {
+        if(!$this->restriccion('reporte_indicadores')){
+            return redirect('/sin_permiso');
+        }
         $variable=variable::find($id);
         $criterios=criterio::where('activo',1)->get();
         return view('detalle_variable',['variable'=>$variable,'criterios'=>$criterios]);
@@ -29,6 +34,9 @@ class indicadorController extends Controller
   
     public function registro(indicadorRequest $request,$id)
     {
+        if(!$this->restriccion('registro_indicador')){
+            return redirect('/sin_permiso');
+        }
         $indicador=new indicador();
         $indicador->numero_indicador=$request->numero_indicador;
         $indicador->descripcion= $request->descripcion;
@@ -71,6 +79,9 @@ class indicadorController extends Controller
 
     public function editar_indicador(indicadorEditRequest $request,$id)
     {
+        if(!$this->restriccion('editar_indicador')){
+            return redirect('/sin_permiso');
+        }
         $indicador=indicador::find($id);
         $indicador->numero_indicador=$request->EditNumero_indicador;
         $indicador->descripcion= $request->EditDescripcion;
@@ -90,6 +101,9 @@ class indicadorController extends Controller
 
     public function eliminar_indicador($id)
     {
+        if(!$this->restriccion('eliminar_indicador')){
+            return redirect('/sin_permiso');
+        }
         $indicador=indicador::find($id);
         $indicador->activo=0;
         $indicador->save();
@@ -104,5 +118,15 @@ class indicadorController extends Controller
             $indicador_criterio->activo=0;      
             $indicador_criterio->save();     
         }
+    }
+    public function restriccion($ruta){
+        $permitido=true;
+        $rol_id=Auth::user()->rol_user->last()->rol_id;
+        $permiso_id= permiso::all()->where('url',$ruta)->last()->id;
+        $restriccion= permiso_rol::all()->where('permiso_id',$permiso_id)->where('rol_id',$rol_id);
+        if($restriccion == '[]'){
+            $permitido=false; 
+        }
+        return $permitido;
     }
 }

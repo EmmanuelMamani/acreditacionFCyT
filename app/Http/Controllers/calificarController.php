@@ -7,10 +7,15 @@ use Illuminate\Http\Request;
 use App\Models\area;
 use App\Models\gestion;
 use App\Models\calificacion;
+use App\Models\permiso_rol;
+use App\Models\permiso;
 class calificarController extends Controller
 {
     //
     public function reporte(){
+        if(!$this->restriccion('calificacion')){
+            return redirect('/sin_permiso');
+        }
         $gestion=gestion::all()->where('carrera_id', Auth::user()->carrera_id)->where('activo',true)->last();
         $notas=[];
         $areas=area::all();
@@ -68,10 +73,16 @@ class calificarController extends Controller
     }
 
     public function ver_calificar_area($id){
+        if(!$this->restriccion('ver_calificar_area')){
+            return redirect('/sin_permiso');
+        }
         $area=area::find($id);
         return view('calificar_area',['area'=>$area]);
     }
     public function calificar($id,$id_area, Request $request){
+        if(!$this->restriccion('calificar')){
+            return redirect('/sin_permiso');
+        }
         $gestion=gestion::all()->where('carrera_id', Auth::user()->carrera_id)->where('activo',true)->last();
         $calificacion=calificacion::all()->where('indicador_criterio_id',$id)->where('gestion_id',$gestion->id)->last();
         if($calificacion==NULL){
@@ -85,5 +96,15 @@ class calificarController extends Controller
             $calificacion->save();
         }
         return redirect(route('ver_calificar_area',['id'=>$id_area]));
+    }
+    public function restriccion($ruta){
+        $permitido=true;
+        $rol_id=Auth::user()->rol_user->last()->rol_id;
+        $permiso_id= permiso::all()->where('url',$ruta)->last()->id;
+        $restriccion= permiso_rol::all()->where('permiso_id',$permiso_id)->where('rol_id',$rol_id);
+        if($restriccion == '[]'){
+            $permitido=false; 
+        }
+        return $permitido;
     }
 }

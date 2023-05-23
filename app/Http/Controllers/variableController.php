@@ -7,18 +7,27 @@ use App\Http\Requests\variableRequest;
 use App\Models\area;
 use App\Models\variable;
 use Illuminate\Http\Request;
+use App\Models\permiso_rol;
+use App\Models\permiso;
+use Illuminate\Support\Facades\Auth;
 
 class variableController extends Controller
 {
     
     public function reporte_variables($id)
     {
+        if(!$this->restriccion('reporte_variables')){
+            return redirect('/sin_permiso');
+        }
         $area=area::find($id);
         return view('detalle_area',['area'=>$area]);
     }
 
     public function registro(variableRequest $request,$id)
     {
+        if(!$this->restriccion('registro_variable')){
+            return redirect('/sin_permiso');
+        }
         $variable=new variable();
         $variable->numero_variable=$request->numero_variable;
         $variable->name=$request->descripcion;
@@ -28,7 +37,9 @@ class variableController extends Controller
         return redirect(route('reporte_variables',['id'=>$id]));
     }
     public function editar_variable(variableEditRequest $request,$id){
-
+        if(!$this->restriccion('editar_variable')){
+            return redirect('/sin_permiso');
+        }
         $variable=variable::find($id);
         $variable->numero_variable=$request->EditNumero_variable;
         $variable->name=$request->EditDescripcion;
@@ -39,6 +50,9 @@ class variableController extends Controller
 
     public function eliminar_variable($id)
     {
+        if(!$this->restriccion('eliminar_variable')){
+            return redirect('/sin_permiso');
+        }
         $variable=variable::find($id);
         $idArea=$variable->area->id;
         $this->eliminar($variable);
@@ -60,5 +74,14 @@ class variableController extends Controller
             $elemento->activo=0;
             $elemento->save();
     }
-
+    public function restriccion($ruta){
+        $permitido=true;
+        $rol_id=Auth::user()->rol_user->last()->rol_id;
+        $permiso_id= permiso::all()->where('url',$ruta)->last()->id;
+        $restriccion= permiso_rol::all()->where('permiso_id',$permiso_id)->where('rol_id',$rol_id);
+        if($restriccion == '[]'){
+            $permitido=false; 
+        }
+        return $permitido;
+    }
 }
