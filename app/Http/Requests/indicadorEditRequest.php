@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\numeroIndicador;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 
@@ -32,7 +33,7 @@ class indicadorEditRequest extends FormRequest
     public function rules()
     {
         return [
-            'EditNumero_indicador'=>['bail','required','integer','between:0,100'],
+            'EditNumero_indicador'=>['bail','required','integer','between:0,100',new numeroIndicador($this->route('id'))],
             'EditDescripcion'=>['bail','required','string','min:3'],
             'EditCriterios'=>['bail','required'],
             'id'=>'required',

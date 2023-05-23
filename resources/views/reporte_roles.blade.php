@@ -43,17 +43,24 @@
                 @csrf
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Agregar nuevo rol</h3>
                 <label class="font-thin">Nombre del rol</label><br>
-                <input type="text" name="name" class="bg-zinc-200 rounded-lg w-full p-2"><br>
+                <input type="text" name="name" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('name')}}"><br>
                 @if ($errors->has('name'))
                 <span class="text-red-700">{{ $errors->first('name') }}</span>
                 @endif <br>
                 <div class="grid grid-cols-2 pt-10 gap-5">
                     <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
-                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelar">Cancelar</a>
+                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelar" href="{{route('reporte_roles')}}">Cancelar</a>
                 </div>
             </form>
         </div>
     </dialog>
+
+@if ($errors->has('name'))
+    <script>
+        abrir=document.getElementById("modal");
+        abrir.showModal();
+    </script>
+@endif
 @endsection
 @section("js")
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

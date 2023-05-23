@@ -65,7 +65,7 @@
                     
                     
                     @else
-                
+                        @if ($archivo->carrera_id==null)
                         <tr class="border-2 border-y-black border-x-white">
                             <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
                             <th class="font-thin text-xl text-left"><a href="{{ asset($archivo->url) }}" target="_blank" >{{$archivo->nombre}}</a></th>
@@ -80,7 +80,9 @@
                                 
                             </div>
                             </th>
-                        </tr>        
+                        </tr>  
+                        @endif
+                              
 
                     @endif
                 
@@ -116,6 +118,8 @@
                    
                     @else
                     <!----------------cuando el usuario es elsuperadmin------------------>
+                        
+                        @if ($archivo->carrera_id==null)
                         <tr class="border-2 border-y-black border-x-white">
                             <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" onclick="mostrar({{$archivo->id}})">folder</span></th>
                             <th class="font-thin text-xl text-left">{{$archivo->nombre}}</th>
@@ -132,8 +136,8 @@
                                 <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar('{{$archivo->nombre}}','{{$archivo->id}}')">edit_square</span>
                             </div>
                             </th>
-                        </tr>    
-                       
+                        </tr>  
+                        @endif
                         
                         @includeWhen($archivo->archivos->isNotEmpty(), 'agregarRecursivo', ['archivos' => $archivo->archivos,'id_folder'=>$archivo->id])
                         

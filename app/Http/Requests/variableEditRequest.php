@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\numeroVariable;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
@@ -37,7 +38,7 @@ class variableEditRequest extends FormRequest
         return[
             
             'EditDescripcion'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ ()]+$/u','min:3','max:60'],
-            'EditNumero_variable'=>['bail','required','integer','between:0,100'],
+            'EditNumero_variable'=>['bail','required','integer','between:0,100',new numeroVariable($this->route('id'))],
           
             'id'=>['required'],
         ];      

@@ -24,14 +24,14 @@ class rolRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>["required","string"],
+            'name'=>['bail',"required",'regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ]+$/u'],
         ];
     }
 
     public function messages(){
         return[
-            'name.required'=> 'el nombre de carrera es obligatorio',
-            'name.string'=>'Solo se aceptan caracteres literales',
+            'name.required'=> 'El nombre de rol es obligatorio',
+            'name.regex'=>'Solo se aceptan caracteres literales',
         ];
     }
 }

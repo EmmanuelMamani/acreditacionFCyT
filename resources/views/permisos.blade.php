@@ -42,14 +42,25 @@
             @csrf
             <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Agregar nuevo permiso</h3>
             <label class="font-thin">URL</label><br>
-            <input type="text" name="url" class="bg-zinc-200 rounded-lg w-full p-2"><br>
+            <input type="text" name="url" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('url')}}"><br>
+            @error('url')
+            <span class="text-red-700">{{ $message }}</span>
+            @enderror
             <div class="grid grid-cols-2 pt-10 gap-5">
                 <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
-                <button class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelar">Cancelar</button>
+                <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelar" href="{{route('reporte_permisos')}}">Cancelar</a>
             </div>
             </form>
         </div>
     </dialog>
+
+    @if ($errors->has('url'))
+    
+    <script>
+        modalPermisos=document.getElementById('modal');
+        modalPermisos.showModal();
+    </script>
+    @endif
 @endsection
 @section("js")
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
