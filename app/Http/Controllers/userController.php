@@ -29,7 +29,7 @@ class userController extends Controller
                 $ponderacion_indicadores=0;//ponderacion de los indicadores
                 $suma_indicadores=0;//suma total de calificaciones
                 foreach($area->variables as $variable){
-                    foreach($variable->indicadores as $indicador){
+                    foreach($variable->indicadores->where('activo',1) as $indicador){
                         $ponderacion_indicadores+=$indicador->peso;//sumamos todos los indicadores para sacar su ponderacion
                         $peso_indicador=$indicador->peso;//ponderacion de un indicador
                         $criterios=$indicador->criterios->count();//numero de criterios por indicador

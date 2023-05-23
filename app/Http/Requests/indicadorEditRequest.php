@@ -33,7 +33,7 @@ class indicadorEditRequest extends FormRequest
     {
         return [
             'EditNumero_indicador'=>['bail','required','integer','between:0,100'],
-            'EditDescripcion'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ ()]+$/u','min:3','max:60'],
+            'EditDescripcion'=>['bail','required','string','min:3'],
             'EditCriterios'=>['bail','required'],
             'id'=>'required',
         ];
@@ -43,9 +43,9 @@ class indicadorEditRequest extends FormRequest
      
         return [
              'EditDescripcion.required'=> 'El nombre de variable es obligatorio',
-             'EditDescripcion.regex'=>'Solo se aceptan caracteres literales',
+             'EditDescripcion.string'=>'Solo se aceptan caracteres literales',
              'EditDescripcion.min'=>'El tamaño del nombre debere ser min 3',
-             'EditDescripcion.max'=>'El tamaño del nombre debere ser max 60',
+             
              'EditNumero_indicador.required'=>'El campo es obligatorio',
              'EditNumero_indicador.integer'=> 'El campo debe ser un número entero',
              'EditNumero_indicador.between'=> 'El debe ser un número mayor a 0',

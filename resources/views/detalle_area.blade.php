@@ -145,6 +145,8 @@
 
 @endsection
 @section("js")
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script>
         //Modal registrar-----------------------------------------
         var agregar=document.getElementById("agregar");

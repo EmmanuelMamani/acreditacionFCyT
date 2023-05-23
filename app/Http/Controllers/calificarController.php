@@ -20,9 +20,17 @@ class calificarController extends Controller
                 $ponderacion_indicadores=0;//ponderacion de los indicadores
                 $suma_indicadores=0;//suma total de calificaciones
                 foreach($area->variables as $variable){
-                    foreach($variable->indicadores as $indicador){
-                        $ponderacion_indicadores+=$indicador->peso;//sumamos todos los indicadores para sacar su ponderacion
+                   // printf($variable->indicadores);
+                   // $ponderacion_indicadores=$ponderacion_indicadores+ $variable->indicadores->sum('peso');
+                    //printf('<br>');
+                    //printf($ponderacion_indicadores.'-'.$variable->name.'-'.$variable->id);
+                    foreach($variable->indicadores->where('activo',1) as $indicador){
+                       //printf($indicador->peso);
+                        $ponderacion_indicadores=$ponderacion_indicadores+$indicador->peso;//sumamos todos los indicadores para sacar su ponderacion
+                        //printf($ponderacion_indicadores);
                         $peso_indicador=$indicador->peso;//ponderacion de un indicador
+                        //print($indicador->criterios->count().'-'.$indicador->variable);
+                       // printf('<br>');
                         $criterios=$indicador->criterios->count();//numero de criterios por indicador
                         $suma_criterios=0;
                        // echo $indicador->descripcion.'<br>';
@@ -40,6 +48,8 @@ class calificarController extends Controller
                       //  echo "valor en el indicador ".$valor.'<br>';
                     }
                 }
+                //printf('<br>');
+               // printf($ponderacion_indicadores);
                 $nota= ($suma_indicadores/$ponderacion_indicadores)* $valor_area;
                // echo "El valor del area es: ".$nota.'<br>';
                 $notas[]=$nota;
