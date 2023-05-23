@@ -92,7 +92,7 @@
                         
                         @if ($archivo->carrera_id==Auth::user()->carrera_id)
                             <tr class="border-2 border-y-black border-x-white">
-                                <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" onclick="mostrar({{$archivo->id}}">folder</span></th>
+                                <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" onclick="mostrar({{$archivo->id}})">folder</span></th>
                                 <th class="font-thin text-xl text-left">{{$archivo->nombre}}</th>
                                 <th>
                                 <div class="grid grid-cols-3">
