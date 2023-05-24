@@ -118,13 +118,22 @@ class userController extends Controller
         $rol->user_id= User::all()->last()->id;
         $rol->rol_id= $request->rol;
         $rol->save();
-        return redirect('/reporte_usuarios');
+        if(Auth::user()->carrera_id!=null){
+            return redirect('/reporte_usuarios_carrera');
+        }else{
+            return redirect('/reporte_usuarios');
+        }
+       
     }
     public function eliminar($id){
         $user=User::find($id);
         $user->activo=false;
         $user->save();
-        return redirect('/reporte_usuarios');
+        if(Auth::user()->carrera_id!=null){
+            return redirect('/reporte_usuarios_carrera');
+        }else{
+            return redirect('/reporte_usuarios');
+        }
     }
     public function editar($id, userEditRequest $request){
         $user=User::find($id);
@@ -135,6 +144,10 @@ class userController extends Controller
         $rol= rol_user::find($user->rol_user->last()->id);
         $rol->rol_id=$request->rol;
         $rol->save();
-        return redirect('/reporte_usuarios');
+        if(Auth::user()->carrera_id!=null){
+            return redirect('/reporte_usuarios_carrera');
+        }else{
+            return redirect('/reporte_usuarios');
+        }
     }
 }

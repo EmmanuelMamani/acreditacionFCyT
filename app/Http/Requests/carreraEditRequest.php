@@ -24,13 +24,13 @@ class carreraEditRequest extends FormRequest
     public function rules()
     {
         return [
-            'nameE'=>["required","string"],
+            'nameE'=>["required",'regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ ]+$/u'],
         ];
     }
 
     public function messages(){
         return[
-            'nameE.required'=> 'el nombre de carrera es obligatorio',
+            'nameE.regex'=> 'El nombre de carrera es obligatorio',
             'nameE.string'=>'Solo se aceptan caracteres literales',
         ];
     }
