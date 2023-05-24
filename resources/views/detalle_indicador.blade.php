@@ -45,7 +45,7 @@
 
                     @if (Auth::user()->carrera_id!= NULL )
                         
-                        @if ($archivo->carrera_id==Auth::user()->carrera_id)
+                        @if ($archivo->carrera_id==Auth::user()->carrera_id || $archivo->carrera_id==null )
                             <tr class="border-2 border-y-black border-x-white">
                                 <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
                                 <th class="font-thin text-xl text-left"><a href="{{ asset($archivo->url) }}" target="_blank" >{{$archivo->nombre}}</a></th>
@@ -92,7 +92,7 @@
                     <!---------cuando el ususario esta autenticado de alguna carrera------->
                     @if (Auth::user()->carrera_id!= NULL )
                         
-                        @if ($archivo->carrera_id==Auth::user()->carrera_id)
+                        @if ($archivo->carrera_id==Auth::user()->carrera_id || $archivo->carrera_id==null)
                             <tr class="border-2 border-y-black border-x-white">
                                 <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" onclick="mostrar({{$archivo->id}})">folder</span></th>
                                 <th class="font-thin text-xl text-left">{{$archivo->nombre}}</th>

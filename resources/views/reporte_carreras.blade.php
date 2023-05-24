@@ -89,6 +89,15 @@
             agregar.showModal();
         </script>
     @endif
+    @if ($errors->has('nameE'))
+        <script>
+            var modal_editar=document.getElementById('modal_editar');
+            modal_editar.showModal();
+            
+            var editar=document.getElementById('editar');
+            editar.action="/editar_carrera/"+{{$errors->first('id')}};
+        </script>
+    @endif
 @endsection
 @section("js")
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
