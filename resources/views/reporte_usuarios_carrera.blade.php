@@ -49,22 +49,22 @@
                 @csrf
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Agregar nuevo usuario</h3>
                 <label class="font-thin">Nombre de usuario</label><br>
-                <input type="text" name="name" class="bg-zinc-200 rounded-lg w-full p-2"><br>
+                <input type="text" name="name" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('name')}}"><br>
                 @if ($errors->has('name'))
                 <span class="text-red-700">{{ $errors->first('name') }}</span>
                 @endif <br>
                 <label class="font-thin">Correo Electronico</label><br>
-                <input type="text" class="bg-zinc-200 rounded-lg w-full p-2" name="email"><br>
+                <input type="text" class="bg-zinc-200 rounded-lg w-full p-2" name="email" value="{{old('email')}}"><br>
                 @if ($errors->has('email'))
                 <span class="text-red-700">{{ $errors->first('email') }}</span>
                 @endif <br>
                 <label class="font-thin">Contraseña</label><br>
-                <input type="password" name="password" class="bg-zinc-200 rounded-lg w-full p-2"><br>
+                <input type="password" name="password" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('password')}}"><br>
                 @if ($errors->has('password'))
                 <span class="text-red-700">{{ $errors->first('password') }}</span>
                 @endif <br>
                 <label class="font-thin">Confirmar contraseña</label><br>
-                <input type="password" name="confirmacion" class="bg-zinc-200 rounded-lg w-full p-2"><br>
+                <input type="password" name="confirmacion" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('confirmacion')}}"><br>
                 <label class="font-thin">Lista de roles</label><br>
                 <select name="rol" class="bg-zinc-200 rounded-lg w-full p-2">
                     @foreach ($roles as $rol)
@@ -89,15 +89,10 @@
                 @csrf
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Editar usuario</h3>
                 <label class="font-thin">Nombre de usuario</label><br>
-                <input type="text" name="nameE" class="bg-zinc-200 rounded-lg w-full p-2" id="nameE"><br>
+                <input type="text" name="nameE" class="bg-zinc-200 rounded-lg w-full p-2" id="nameE" value="{{old('nameE')}}"><br>
                 @if ($errors->has('nameE'))
-                <span class="text-red-700">{{ $errors->first('nameE') }}</span>
-                @endif <br>
-                <label class="font-thin">Contraseña</label><br>
-                <input type="password" name="passwordE" class="bg-zinc-200 rounded-lg w-full p-2"><br>
-                @if ($errors->has('passwordE'))
-                <span class="text-red-700">{{ $errors->first('passwordE') }}</span>
-                @endif <br>
+                <span class="text-red-700">{{ $errors->first('nameE') }}</span> <br>
+                @endif
                 <label class="font-thin">Lista de roles</label><br>
                 <select name="rol" class="bg-zinc-200 rounded-lg w-full p-2">
                     @foreach ($roles as $rol)
@@ -115,6 +110,22 @@
             </form>
         </div>
     </dialog>
+    @if ($errors->has('name') || $errors->has('email') || $errors->has('password'))
+        <script>
+            
+            registro=document.getElementById('modal');
+            registro.showModal();
+        </script>
+    @endif
+
+    @if ($errors->has('nameE') || $errors->has('passwordE'))
+        <script>
+            var editar=document.getElementById("editar");
+            editar.action="/editar_usuario/"+{{$errors->first('id')}}
+            editar=document.getElementById('modalE');
+            editar.showModal();
+        </script>
+    @endif
 @endsection
 @section("js")
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

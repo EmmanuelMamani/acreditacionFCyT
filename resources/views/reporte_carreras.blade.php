@@ -48,18 +48,18 @@
             <div>
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Agregar nueva carrera</h3>
                 <label class="font-thin">Nombre</label><br>
-                <input type="text" name="name" class="bg-zinc-200 rounded-lg w-full p-2"><br>
+                <input type="text" name="name" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('name')}}"><br>
                 @if ($errors->has('name'))
                 <span class="text-red-700">{{ $errors->first('name') }}</span>
                 @endif <br>
                 <label class="font-thin">Codigo</label><br>
-                <input type="text" name="codigo" class="bg-zinc-200 rounded-lg w-full p-2"><br>
+                <input type="text" name="codigo" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('codigo')}}"><br>
                 @if ($errors->has('codigo'))
                 <span class="text-red-700">{{ $errors->first('codigo') }}</span>
                 @endif <br>
                 <div class="grid grid-cols-2 pt-10 gap-5">
                     <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
-                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelar">Cancelar</a>
+                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelar" href="{{route('reporte_carreras')}}">Cancelar</a>
                 </div>
             </div>
         </form>
@@ -71,17 +71,24 @@
             <div>
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Editar carrera</h3>
                 <label class="font-thin">Nombre</label><br>
-                <input type="text" name="nameE" class="bg-zinc-200 rounded-lg w-full p-2" id="nameE"><br>
+                <input type="text" name="nameE" class="bg-zinc-200 rounded-lg w-full p-2" id="nameE" value="{{old('nameE')}}"><br>
                 @if ($errors->has('nameE'))
                 <span class="text-red-700">{{ $errors->first('nameE') }}</span>
                 @endif <br>
                 <div class="grid grid-cols-2 pt-10 gap-5">
                     <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardarE">Guardar</button>
-                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelarE">Cancelar</a>
+                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelarE" href="{{route('reporte_carreras')}}">Cancelar</a>
                 </div>
             </div>
         </form>
     </dialog>
+
+    @if ($errors->has('name') || $errors->has('codigo'))
+        <script>
+            agregar=document.getElementById("modal");
+            agregar.showModal();
+        </script>
+    @endif
 @endsection
 @section("js")
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

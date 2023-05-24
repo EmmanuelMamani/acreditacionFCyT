@@ -24,15 +24,15 @@ class carreraRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>["required","string"],
+            'name'=>["required",'regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ]+$/u'],
             'codigo'=>['required','integer','unique:carreras,codigo']
         ];
     }
 
     public function messages(){
         return[
-            'name.required'=> 'el nombre de carrera es obligatorio',
-            'name.string'=>'Solo se aceptan caracteres literales',
+            'name.required'=> 'El nombre de carrera es obligatorio',
+            'name.regex'=>'Solo se aceptan caracteres literales',
             'codigo.required'=>'El codigo es obligatorio',
             'codigo.integer'=> 'El codigo debe ser un numero entero',
             'codigo.unique'=> 'Ya existe una carrera con ese codigo'

@@ -16,6 +16,8 @@ class userRequest extends FormRequest
         return true;
     }
 
+    
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -24,19 +26,22 @@ class userRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>['required','string'],
-            'email'=>['required','unique:users,email'],
-            'password'=>['required','same:confirmacion']
+            'name'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ]+$/u'],
+            'email'=>['bail','required','unique:users,email'],
+            'password'=>['bail','required','same:confirmacion','min:5']
         ];
     }
     public function messages(){
         return[
-            'name.required'=> 'el nombre de usuario es obligatorio',
-            'name.string'=>'Solo se aceptan caracteres literales',
+            'name.required'=> 'El nombre de usuario es obligatorio',
+            'name.regex'=>'Solo se aceptan caracteres literales',
             'email.required'=>'El email es obligatorio',
             'email.unique'=>'Ya existe un usuario con ese email',
             'password.required'=>'La contraseña es obligatoria',
-            'password.same'=>'La contraseña no es la misma'
+            'password.same'=>'La contraseña no es la misma',
+            'password.min'=>'Debe tener un tamaño min de 5 caracteres'
         ];
     }
+
+   
 }
