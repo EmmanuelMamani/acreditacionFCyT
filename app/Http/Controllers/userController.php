@@ -135,7 +135,7 @@ class userController extends Controller
         $rol->user_id= User::all()->last()->id;
         $rol->rol_id= $request->rol;
         $rol->save();
-        return redirect('/reporte_usuarios');
+        return redirect('/reporte_usuarios')->with('registrar', 'ok');
     }
     public function eliminar($id){
         if(!$this->restriccion('eliminar_usuario')){

@@ -61,7 +61,7 @@ class calificarController extends Controller
                // printf($ponderacion_indicadores);
                 $nota= ($suma_indicadores/$ponderacion_indicadores)* $valor_area;
                // echo "El valor del area es: ".$nota.'<br>';
-                $notas[]=$nota;
+                $notas[]=round($nota,4);
             }
         }else{
             for($i=0; $i<$areas->count();$i++){

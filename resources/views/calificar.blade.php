@@ -24,7 +24,7 @@
                 <tr class="border-2 border-y-black border-x-white">
                     <th class="font-thin text-xl">{{$area->numero_area}}</th>
                     <th class="font-thin text-xl">{{$area->name}}</th>
-                    <th class="font-thin text-xl">{{$notas[$loop->index]/$area->valor}}%</th>
+                    <th class="font-thin text-xl">{{($notas[$loop->index]/$area->valor)*100}}%</th>
                     <th class="font-thin text-xl">{{$area->valor}}</th>
                     <th class="font-thin text-xl">{{$notas[$loop->index]}}</th>
                     <th>
