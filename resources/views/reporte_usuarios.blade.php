@@ -79,6 +79,7 @@
                 </select><br>
                 <label class="font-thin">Lista de carreras</label><br>
                 <select name="carrera" class="bg-zinc-200 rounded-lg w-full p-2">
+                    <option value="null">Sin carrera</option>
                     @foreach ($carreras as $carrera)
                         <option value="{{$carrera->id}}">{{$carrera->name}}</option>
                     @endforeach

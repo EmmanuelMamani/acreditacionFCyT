@@ -169,7 +169,10 @@
                 var editar=document.getElementById("editar");
                 editar.action="/editar_variable/"+id
             }
-
+            var guardarE=document.getElementById("guardarE");   
+        guardarE.onclick=function(){
+            modal_editar.close()
+        }
 
          //Confirmacion de eliminacion
          $('.Eliminar').submit(function(e){
@@ -190,7 +193,7 @@
       });
       /******************************************************************/
       //Confirmacion de edicion
-      /*
+      
       $('.Editar').submit(function(e){
             e.preventDefault();
             Swal.fire({
@@ -205,10 +208,10 @@
                   if (result.isConfirmed) {
                   this.submit();
             }else{
-                modalE.showModal();
+                modal_editar.showModal();
             }
             })
-      });*/
+      });
         
     </script>
 

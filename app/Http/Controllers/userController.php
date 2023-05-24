@@ -129,16 +129,18 @@ class userController extends Controller
         $user->name=$request->name;
         $user->email=$request->email;
         $user->password=bcrypt($request->password);
-        $user->carrera_id=$request->carrera;
+        if($request->carrera!='null'){
+            $user->carrera_id=$request->carrera;
+        }
         $user->save();
         $rol=new rol_user();
         $rol->user_id= User::all()->last()->id;
         $rol->rol_id= $request->rol;
         $rol->save();
         if(Auth::user()->carrera_id!=null){
-            return redirect('/reporte_usuarios_carrera');
+            return redirect('/reporte_usuarios_carrera')->with('registrar', 'ok');
         }else{
-            return redirect('/reporte_usuarios');
+            return redirect('/reporte_usuarios')->with('registrar', 'ok');
         }
     }
     public function eliminar($id){
@@ -149,9 +151,9 @@ class userController extends Controller
         $user->activo=false;
         $user->save();
         if(Auth::user()->carrera_id!=null){
-            return redirect('/reporte_usuarios_carrera');
+            return redirect('/reporte_usuarios_carrera')->with('eliminar', 'ok');
         }else{
-            return redirect('/reporte_usuarios');
+            return redirect('/reporte_usuarios')->with('eliminar', 'ok');
         }
     }
     public function editar($id, userEditRequest $request){
@@ -167,9 +169,9 @@ class userController extends Controller
         $rol->rol_id=$request->rol;
         $rol->save();
         if(Auth::user()->carrera_id!=null){
-            return redirect('/reporte_usuarios_carrera');
+            return redirect('/reporte_usuarios_carrera')->with('editar', 'ok');
         }else{
-            return redirect('/reporte_usuarios');
+            return redirect('/reporte_usuarios')->with('editar', 'ok');
         }
     }
     public function restriccion($ruta){

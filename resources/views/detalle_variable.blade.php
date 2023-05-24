@@ -173,8 +173,8 @@
                
     
                 <div class="grid grid-cols-2 pt-10 gap-5">
-                    <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
-                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelar" href="/reporte_indicadores/{{$variable->id}}">Cancelar</a>
+                    <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardarE">Guardar</button>
+                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelarE" href="/reporte_indicadores/{{$variable->id}}">Cancelar</a>
                 </div>
             </div>
         </form>
@@ -221,6 +221,10 @@
         var EditNumero_indicador=document.getElementById("EditNumero_indicador");
         var EditDescripcion=document.getElementById("EditDescripcion");
         var EditTipo_indicador=document.getElementById("EditTipo_indicador");
+        var guardarE=document.getElementById("guardarE");   
+        guardarE.onclick=function(){
+            modal_editar.close()
+        }
         var EditCriterios=document.getElementsByName("EditCriterios[]");
             function editar(id,numero_indicador,descripcion,tipo,criterios){
                 modal_editar.showModal();
@@ -271,7 +275,7 @@ $('.Eliminar').submit(function(e){
       });
       /******************************************************************/
       //Confirmacion de edicion
-      /*
+      
       $('.Editar').submit(function(e){
             e.preventDefault();
             Swal.fire({
@@ -286,10 +290,10 @@ $('.Eliminar').submit(function(e){
                   if (result.isConfirmed) {
                   this.submit();
             }else{
-                modalE.showModal();
+                modal_editar.showModal();
             }
             })
       });
-*/
+
     </script>
 @endsection

@@ -88,10 +88,54 @@
  
         Toast.fire({
         icon: 'success',
-        title: 'Registro Exitoso'
+        title: 'Registro exitoso'
         })
         </script>
          @endif
+         @if (session('eliminar')=='ok')
+         <script>
+           const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            iconColor: 'white',
+            customClass: {popup: 'colored-toast'},
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+             }
+            })
+     
+            Toast.fire({
+            icon: 'success',
+            title: 'Eliminado exitoso'
+            })
+            </script>
+             @endif
+             @if (session('editar')=='ok')
+             <script>
+               const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                iconColor: 'white',
+                customClass: {popup: 'colored-toast'},
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                 }
+                })
+         
+                Toast.fire({
+                icon: 'success',
+                title: 'Editado exitoso'
+                })
+                </script>
+                 @endif
      @yield("js")
 </body>
 </html>
