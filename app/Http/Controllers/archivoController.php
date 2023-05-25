@@ -38,7 +38,7 @@ class archivoController extends Controller
 
         
 
-        return redirect(route('reporte_archivos',['id'=>$id]));
+        return redirect(route('reporte_archivos',['id'=>$id]))->with('registrar','ok');
 
     }
     
@@ -67,7 +67,7 @@ class archivoController extends Controller
      $folder->nombre=$request->editNombre;
      $folder->save();
 
-     return redirect(route('reporte_archivos',['id'=>$folder->indicador->id]));
+     return redirect(route('reporte_archivos',['id'=>$folder->indicador->id]))->with('editar', 'ok');
     }
 
     public function eliminar_folder($id){
@@ -79,7 +79,7 @@ class archivoController extends Controller
 
         $folder->delete();
 
-        return redirect(route('reporte_archivos',['id'=>$id_indicador]));
+        return redirect(route('reporte_archivos',['id'=>$id_indicador]))->with('eliminar', 'ok');
     }
 
     public function eliminar_archivo($id){
@@ -96,7 +96,7 @@ class archivoController extends Controller
         $archivo->delete();
 
         
-        return redirect(route('reporte_archivos',['id'=>$id_indicador]));
+        return redirect(route('reporte_archivos',['id'=>$id_indicador]))->with('eliminar', 'ok');
     }
     public function restriccion($ruta){
         $permitido=true;

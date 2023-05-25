@@ -38,7 +38,7 @@ class areaController extends Controller
         $area->numero_area=$request->numero;
         $area->save();
 
-        return redirect('reporte_areas');        
+        return redirect('reporte_areas')->with('registrar','ok');        
     }
 
     public function editar_area($id,areaEditRequest $request)
@@ -51,7 +51,7 @@ class areaController extends Controller
         $area->valor=$request->EditPonderacion;
         $area->save();
 
-        return redirect('reporte_areas');  
+        return redirect('reporte_areas')->with('editar', 'ok');  
     }
 
     
@@ -64,7 +64,7 @@ class areaController extends Controller
         $this->eliminar($area);
         $this->eliminacionCascada($area->variables);
         
-        return redirect('/reporte_areas');
+        return redirect('/reporte_areas')->with('eliminar', 'ok');
     }
 
     private function eliminacionCascada($elementos){

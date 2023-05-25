@@ -26,7 +26,7 @@ class permisoController extends Controller
         $permiso=new permiso();
         $permiso->url=$request->url;
         $permiso->save();
-        return redirect('/reporte_permisos');
+        return redirect('/reporte_permisos')->with('registrar','ok');
     }
     public function reporte_permiso_rol(){
         if(!$this->restriccion('reporte_permiso_rol')){
@@ -45,7 +45,7 @@ class permisoController extends Controller
         $asignacion->permiso_id=$request->permiso;
         $asignacion->rol_id=$request->rol;
         $asignacion->save();
-        return redirect('/reporte_permiso_rol');
+        return redirect('/reporte_permiso_rol')->with('registrar','ok');
     }
     public function eliminar_asignacion($id){
         if(!$this->restriccion('eliminar_asignacion')){
@@ -53,7 +53,7 @@ class permisoController extends Controller
         }
         $asignacion= permiso_rol::find($id);
         $asignacion->delete();
-        return redirect('/reporte_permiso_rol');
+        return redirect('/reporte_permiso_rol')->with('eliminar', 'ok');
     }
     public function eliminar_permiso($id){
         if(!$this->restriccion('reliminar_permiso')){
@@ -66,7 +66,7 @@ class permisoController extends Controller
             $asignacion->delete();
         }
         $permiso->delete();
-        return redirect('/reporte_permisos');
+        return redirect('/reporte_permisos')->with('eliminar', 'ok');
     }
     public function restriccion($ruta){
         $permitido=true;

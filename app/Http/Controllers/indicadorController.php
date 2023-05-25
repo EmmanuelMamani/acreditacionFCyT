@@ -49,7 +49,7 @@ class indicadorController extends Controller
         
 
         
-        return redirect(route('reporte_indicadores',['id'=>$id]));
+        return redirect(route('reporte_indicadores',['id'=>$id]))->with('registrar','ok');
 
     }
 
@@ -96,7 +96,7 @@ class indicadorController extends Controller
         $this->asignarCriterios(collect($request->EditCriterios)->diff($criteriosActuales),$id);
         $this->eliminarCriterios($criteriosActuales->diff($request->EditCriterios),$id);
 
-        return redirect(route('reporte_indicadores',['id'=>$indicador->variable->id]));
+        return redirect(route('reporte_indicadores',['id'=>$indicador->variable->id]))->with('editar', 'ok');
     }
 
     public function eliminar_indicador($id)
@@ -109,7 +109,7 @@ class indicadorController extends Controller
         $indicador->save();
        
         $this->eliminarCascada($indicador->criterios);
-        return redirect(route('reporte_indicadores',['id'=>$indicador->variable->id]));
+        return redirect(route('reporte_indicadores',['id'=>$indicador->variable->id]))->with('eliminar', 'ok');
     }
 
     private function eliminarCascada($criterios){

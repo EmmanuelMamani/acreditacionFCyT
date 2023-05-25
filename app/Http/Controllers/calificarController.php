@@ -95,7 +95,7 @@ class calificarController extends Controller
             $calificacion->calificacion=$request->valor;
             $calificacion->save();
         }
-        return redirect(route('ver_calificar_area',['id'=>$id_area]));
+        return redirect(route('ver_calificar_area',['id'=>$id_area]))->with('registrar','ok');
     }
     public function restriccion($ruta){
         $permitido=true;

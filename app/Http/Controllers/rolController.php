@@ -24,7 +24,7 @@ class rolController extends Controller
         $rol=new rol();
         $rol->name=$request->name;
         $rol->save();
-        return redirect('/reporte_roles');
+        return redirect('/reporte_roles')->with('registrar','ok');
     }
     public function eliminar($id){
         if(!$this->restriccion('eliminar_rol')){
@@ -33,7 +33,7 @@ class rolController extends Controller
         $rol= rol::find($id);
         $rol->activo=false;
         $rol->save();
-        return redirect('/reporte_roles');
+        return redirect('/reporte_roles')->with('eliminar', 'ok');
     }
     public function restriccion($ruta){
         $permitido=true;

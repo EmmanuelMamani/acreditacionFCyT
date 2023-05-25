@@ -34,7 +34,7 @@ class variableController extends Controller
         $variable->area_id=$id;
         $variable->save();
 
-        return redirect(route('reporte_variables',['id'=>$id]));
+        return redirect(route('reporte_variables',['id'=>$id]))->with('registrar','ok');
     }
     public function editar_variable(variableEditRequest $request,$id){
         if(!$this->restriccion('editar_variable')){
@@ -45,7 +45,7 @@ class variableController extends Controller
         $variable->name=$request->EditDescripcion;
         $variable->save();
 
-        return redirect(route('reporte_variables',['id'=>$variable->area->id]));
+        return redirect(route('reporte_variables',['id'=>$variable->area->id]))->with('editar', 'ok');
     }
 
     public function eliminar_variable($id)
@@ -58,7 +58,7 @@ class variableController extends Controller
         $this->eliminar($variable);
         $this->eliminar_indicadores($variable->indicadores);
 
-        return redirect(route('reporte_variables',['id'=>$idArea]));
+        return redirect(route('reporte_variables',['id'=>$idArea]))->with('eliminar', 'ok');
     }
 
     

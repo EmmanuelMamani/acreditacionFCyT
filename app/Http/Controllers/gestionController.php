@@ -38,7 +38,7 @@ class gestionController extends Controller
         $gestion->activo=false;
         $gestion->carrera_id=Auth::user()->carrera->id;
         $gestion->save();
-        return redirect('/reporte_gestiones');
+        return redirect('/reporte_gestiones')->with('registrar','ok');
     }
     public function activar($id){
         if(!$this->restriccion('activar_gestion')){
@@ -52,7 +52,7 @@ class gestionController extends Controller
         $gestion=gestion::find($id);
         $gestion->activo=true;
         $gestion->save();
-        return redirect('/reporte_gestiones');
+        return redirect('/reporte_gestiones')->with('editar', 'ok');
     }
     public function restriccion($ruta){
         $permitido=true;

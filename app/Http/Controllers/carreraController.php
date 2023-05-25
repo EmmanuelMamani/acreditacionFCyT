@@ -26,7 +26,7 @@ class carreraController extends Controller
         $carrera->name= $request->name;
         $carrera->codigo=$request->codigo;
         $carrera->save();
-        return redirect('/reporte_carreras');
+        return redirect('/reporte_carreras')->with('registrar','ok');
     }
     public function eliminar_carrera($id){
         if(!$this->restriccion('eliminar_carrera')){
@@ -35,7 +35,7 @@ class carreraController extends Controller
         $carrera= carrera::find($id);
         $carrera->activo=false;
         $carrera->save();
-        return redirect('/reporte_carreras');
+        return redirect('/reporte_carreras')->with('eliminar', 'ok');
     }
     public function editar_carrera($id, carreraEditRequest $request){
         if(!$this->restriccion('editar_carrera')){
@@ -44,7 +44,7 @@ class carreraController extends Controller
         $carrera = carrera::find($id);
         $carrera->name=$request->nameE;
         $carrera->save();
-        return redirect('/reporte_carreras');
+        return redirect('/reporte_carreras')->with('editar', 'ok');
     }
     public function restriccion($ruta){
         $permitido=true;
