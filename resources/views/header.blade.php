@@ -7,28 +7,25 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- include jQuery library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
-
-    
-
-    
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <title>Menu administrador</title>
 </head>
 <body>
-    <div id="navbar" class="bg-sky-950 h-20">
+    <div id="navbar" class="bg-sky-950 h-20 ">
         <div class="grid grid-cols-12">
             <div class="flex col-span-2">
                 <span class="material-symbols-outlined text-white text-2xl pt-5 font-extralight ml-10 cursor-pointer" id="menu">menu</span>
                 <h3 class="text-white font-thin pt-5 pl-10 text-3xl">SIS-EA</h3>
             </div>
             @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
-            <a href="/menu_superadmin" class="col-end-10 cursor-pointer text-white text-2xl pt-5 font-extralight text-right">Inicio</a>
+            <a href="/menu_superadmin" class="col-end-10 cursor-pointer text-white text-lg pt-5 font-extralight text-right">Inicio</a>
             @else
-            <a href="/menu_admin" class="col-end-10 cursor-pointer text-white text-2xl pt-5 font-extralight text-right">Inicio</a>
+            <a href="/menu_admin" class="col-end-10 cursor-pointer text-white text-lg pt-5 font-extralight text-right">Inicio</a>
             @endif
-            <a href="{{route('logout')}}" class="col-end-11 cursor-pointer text-white text-2xl pt-5 font-extralight text-right">logout</a>
+            <a href="{{route('logout')}}" class="col-end-11 cursor-pointer text-white text-lg pt-5 font-extralight text-right">logout</a>
             <div class="flex col-end-12 cursor-pointer">
                 <span class="material-symbols-outlined text-white font-extralight pt-5 pl-10 text-4xl">account_circle</span>
                 <span class="text-white text-2xl pt-5 font-extralight">{{Auth::user()->name}}</span>
@@ -36,7 +33,7 @@
         </div>
      </div>
      <div id="contenido" class="flex">
-        <div id="sidebar" class="hidden w-1/5">
+        <div id="sidebar" class="hidden w-1/5 shadow-lg shadow-slate-500">
             <div class="grid grid-cols-10 p-5">
                 <span id="close" class="material-symbols-outlined col-end-10 cursor-pointer">close</span>
                 <span class="material-symbols-outlined col-end-1">folder_open</span>
@@ -73,6 +70,72 @@
             menu.style.display="none"
         }
      </script>
+     @if (session('registrar')=='ok')
+     <script>
+       const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        iconColor: 'white',
+        customClass: {popup: 'colored-toast'},
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+         }
+        })
+ 
+        Toast.fire({
+        icon: 'success',
+        title: 'Registro exitoso'
+        })
+        </script>
+         @endif
+         @if (session('eliminar')=='ok')
+         <script>
+           const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            iconColor: 'white',
+            customClass: {popup: 'colored-toast'},
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+             }
+            })
+     
+            Toast.fire({
+            icon: 'success',
+            title: 'Eliminado exitoso'
+            })
+            </script>
+             @endif
+             @if (session('editar')=='ok')
+             <script>
+               const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                iconColor: 'white',
+                customClass: {popup: 'colored-toast'},
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                 }
+                })
+         
+                Toast.fire({
+                icon: 'success',
+                title: 'Editado exitoso'
+                })
+                </script>
+                 @endif
      @yield("js")
 </body>
 </html>

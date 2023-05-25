@@ -239,10 +239,10 @@
         var cancelarC=document.getElementById("cancelarC");
         
         var archivo=document.getElementById("archivo");
-        var folder=document.getElementById("folder");
+        var folder1=document.getElementById("folder");
 
         guardarC.onclick=function(){
-            folder.close()
+            folder1.close()
         }
 
         cancelar.onclick=function(){
@@ -251,7 +251,7 @@
 
         
         cancelarC.onclick=function(){
-            folder.close()
+            folder1.close()
         }
 
 //----------------Abrir modal Editar------------------
@@ -350,7 +350,7 @@
       });
       /******************************************************************/
       //Confirmacion de edicion
-      /*
+      
       $('.Editar').submit(function(e){
             e.preventDefault();
             Swal.fire({
@@ -365,10 +365,10 @@
                   if (result.isConfirmed) {
                   this.submit();
             }else{
-                modalE.showModal();
+                folder1.showModal();
             }
             })
-      });*/
+      });
     </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>

@@ -22,13 +22,13 @@
             <tbody>
                 @foreach ($areas as $area)
                 <tr class="border-2 border-y-black border-x-white">
-                    <th class="font-thin text-xl">{{$loop->index+1}}</th>
+                    <th class="font-thin text-xl"></th>
                     <th class="font-thin text-xl">{{$area->name}}</th>
                     <th class="font-thin text-xl">{{$area->valor}}</th>
                     <th>
                         <div class="grid grid-cols-3">
                             <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">description</span>
-                            <form action="{{route("eliminar_area",['id'=>$area->id])}}" method="post">
+                            <form class="Eliminar" action="{{route("eliminar_area",['id'=>$area->id])}}" method="post" >
                                 @csrf<button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
                             </form>
                             <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar({{$area->id}},'{{$area->name}}',{{$area->valor}})">edit_square</span>
@@ -73,7 +73,7 @@
 
 <!----------------------------EDITAR------------------------------------------------>
     <dialog id="modal_editar" class="w-1/3 rounded-lg px-20">
-        <form action="" method="post" id="editar">
+        <form class="Editar" action="" method="post" id="editar">
             @csrf
             <div>
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Editar área</h3>
@@ -145,6 +145,45 @@
                 var editar=document.getElementById("editar");
                 editar.action="/editar_area/"+id
             }
-        
+            var guardarE=document.getElementById("guardarE");   
+        guardarE.onclick=function(){
+            modal_editar.close()
+        }
+        //Confirmar Eliminacion-----------------------------------
+        $('.Eliminar').submit(function(e){
+            e.preventDefault();
+            Swal.fire({
+            title: '¿Estás seguro que quieres eliminar el area?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                  this.submit();
+            }
+            })
+      });
+      //Confirmacion de editar
+      $('.Editar').submit(function(e){
+            e.preventDefault();
+            Swal.fire({
+            title: '¿Estás seguro que quieres guardar los cambios?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí',
+            cancelButtonText: 'No'
+            }).then((result) => {
+                  if (result.isConfirmed) {
+                  this.submit();
+            }else{
+                modal_editar.showModal();
+            }
+            })
+      });
     </script>
 @endsection

@@ -6,6 +6,9 @@ use App\Http\Requests\areaRequest;
 use App\Http\Requests\areaEditRequest;
 use App\Models\area;
 use Illuminate\Http\Request;
+use App\Models\permiso_rol;
+use App\Models\permiso;
+use Illuminate\Support\Facades\Auth;
 
 class areaController extends Controller
 {
@@ -16,6 +19,9 @@ class areaController extends Controller
      */
     public function reporte_areas()
     {
+        if(!$this->restriccion('reporte_areas')){
+            return redirect('/sin_permiso');
+        }
         $areas=area::where('activo',1)->get();
         return view('reporte_areas',['areas'=>$areas]);
     }
@@ -23,33 +29,42 @@ class areaController extends Controller
    
     public function registro(areaRequest $request)
     {
+        if(!$this->restriccion('registro_area')){
+            return redirect('/sin_permiso');
+        }
         $area= new area();
         $area->name=$request->descripcion;
         $area->valor=$request->ponderacion;
         $area->numero_area=$request->numero;
         $area->save();
 
-        return redirect('reporte_areas');        
+        return redirect('reporte_areas')->with('registrar','ok');        
     }
 
     public function editar_area($id,areaEditRequest $request)
     {
+        if(!$this->restriccion('editar_area')){
+            return redirect('/sin_permiso');
+        }
         $area=area::find($id);
         $area->name=$request->EditDescripcion;
         $area->valor=$request->EditPonderacion;
         $area->save();
 
-        return redirect('reporte_areas');  
+        return redirect('reporte_areas')->with('editar', 'ok');  
     }
 
     
     public function eliminar_area($id)
     {
+        if(!$this->restriccion('eliminar_area')){
+            return redirect('/sin_permiso');
+        }
         $area= area::find($id);
         $this->eliminar($area);
         $this->eliminacionCascada($area->variables);
         
-        return redirect('/reporte_areas');
+        return redirect('/reporte_areas')->with('eliminar', 'ok');
     }
 
     private function eliminacionCascada($elementos){
@@ -65,5 +80,15 @@ class areaController extends Controller
     private function eliminar($elemento){
             $elemento->activo=0;
             $elemento->save();
+    }
+    public function restriccion($ruta){
+        $permitido=true;
+        $rol_id=Auth::user()->rol_user->last()->rol_id;
+        $permiso_id= permiso::all()->where('url',$ruta)->last()->id;
+        $restriccion= permiso_rol::all()->where('permiso_id',$permiso_id)->where('rol_id',$rol_id);
+        if($restriccion == '[]'){
+            $permitido=false; 
+        }
+        return $permitido;
     }
 }

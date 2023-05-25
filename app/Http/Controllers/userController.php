@@ -14,10 +14,15 @@ use App\Http\Requests\userRequest;
 use App\Http\Requests\userEditRequest;
 use App\Models\indicador;
 use App\Models\gestion;
+use App\Models\permiso_rol;
+use App\Models\permiso;
 class userController extends Controller
 {
     //
     public function menu_admin(){
+        if(!$this->restriccion('menu_admin')){
+            return redirect('/sin_permiso');
+        }
         $areas=area::all()->where('activo',1);
         $variables=variable::all()->where('activo',1)->count();
         $indicadores=indicador::all()->where('activo',1)->count();
@@ -69,6 +74,9 @@ class userController extends Controller
         return view('menu_admin',['areas'=>$areas,'variables'=>$variables,'indicadores'=>$indicadores,'notas'=>$notas,'notasP'=>$notasP]);
     }
     public function menu_superadmin(){
+        if(!$this->restriccion('menu_superadmin')){
+            return redirect('/sin_permiso');
+        }
         $areas=area::all()->where('activo',1);
         $carreras=carrera::all()->where('activo',1);
         $variables=variable::all()->where('activo',1)->count();
@@ -97,45 +105,61 @@ class userController extends Controller
         return redirect('/');
     }
     public function reporte_usuarios(){
+        if(!$this->restriccion('reporte_usuarios')){
+            return redirect('/sin_permiso');
+        }
         $usuarios=User::all()->where('activo',true);
         $carreras=carrera::all()->where('activo',true);
         $roles= rol::all()->where('activo',true)->where('name','!=',1);
         return view('reporte_usuarios',['usuarios'=>$usuarios,'carreras'=>$carreras,'roles'=>$roles]);
     }
     public function reporte_usuarios_carrera(){
+        if(!$this->restriccion('reporte_usuarios_carrera')){
+            return redirect('/sin_permiso');
+        }
         $usuarios=User::all()->where('activo',true)->where('carrera_id',Auth::user()->carrera_id);
         $roles= rol::all()->where('activo',true)->where('name','!=',"superadmin");
         return view('reporte_usuarios_carrera',['usuarios'=>$usuarios,'roles'=>$roles]);
     }
     public function registrar(userRequest $request){
+        if(!$this->restriccion('registro_usuario')){
+            return redirect('/sin_permiso');
+        }
         $user= new User();
         $user->name=$request->name;
         $user->email=$request->email;
         $user->password=bcrypt($request->password);
-        $user->carrera_id=$request->carrera;
+        if($request->carrera!='null'){
+            $user->carrera_id=$request->carrera;
+        }
         $user->save();
         $rol=new rol_user();
         $rol->user_id= User::all()->last()->id;
         $rol->rol_id= $request->rol;
         $rol->save();
         if(Auth::user()->carrera_id!=null){
-            return redirect('/reporte_usuarios_carrera');
+            return redirect('/reporte_usuarios_carrera')->with('registrar', 'ok');
         }else{
-            return redirect('/reporte_usuarios');
+            return redirect('/reporte_usuarios')->with('registrar', 'ok');
         }
-       
     }
     public function eliminar($id){
+        if(!$this->restriccion('eliminar_usuario')){
+            return redirect('/sin_permiso');
+        }
         $user=User::find($id);
         $user->activo=false;
         $user->save();
         if(Auth::user()->carrera_id!=null){
-            return redirect('/reporte_usuarios_carrera');
+            return redirect('/reporte_usuarios_carrera')->with('eliminar', 'ok');
         }else{
-            return redirect('/reporte_usuarios');
+            return redirect('/reporte_usuarios')->with('eliminar', 'ok');
         }
     }
     public function editar($id, userEditRequest $request){
+        if(!$this->restriccion('editar_usuario')){
+            return redirect('/sin_permiso');
+        }
         $user=User::find($id);
         $user->name=$request->nameE;
         $user->password=bcrypt($request->passwordE);
@@ -145,9 +169,19 @@ class userController extends Controller
         $rol->rol_id=$request->rol;
         $rol->save();
         if(Auth::user()->carrera_id!=null){
-            return redirect('/reporte_usuarios_carrera');
+            return redirect('/reporte_usuarios_carrera')->with('editar', 'ok');
         }else{
-            return redirect('/reporte_usuarios');
+            return redirect('/reporte_usuarios')->with('editar', 'ok');
         }
+    }
+    public function restriccion($ruta){
+        $permitido=true;
+        $rol_id=Auth::user()->rol_user->last()->rol_id;
+        $permiso_id= permiso::all()->where('url',$ruta)->last()->id;
+        $restriccion= permiso_rol::all()->where('permiso_id',$permiso_id)->where('rol_id',$rol_id);
+        if($restriccion == '[]'){
+            $permitido=false; 
+        }
+        return $permitido;
     }
 }
