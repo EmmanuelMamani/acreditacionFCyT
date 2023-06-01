@@ -1,0 +1,85 @@
+body{
+    font-family: 'Gruppo', sans-serif;
+    font-family: 'Raleway', sans-serif;
+    font-family: 'Space Grotesk', sans-serif;
+}
+#sidebar{
+    display: none;
+    padding: 2%;
+}
+#sidebar, #main{
+    height: 90vh;
+}
+#navbar{
+    background-color:#060926;
+    color: white;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    height: 10vh;
+}
+.contenedor-item{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.icono{
+    font-weight: 100;
+    font-size: 30px;
+}
+.opt-nav{
+    margin-left: 5%;
+    font-size: 20px;
+}
+#titulo{
+    font-size: 25px;
+}
+#menu{
+    margin-left: 10%;
+}
+.funcion{
+    display: block;
+    margin-left: 15%;
+}
+#main{
+    padding: 2%;
+}
+.con-opt-main{
+    border: #060926 5px solid;
+    color: #060926;
+}
+.opt-main{
+    background-color: #060926;
+    padding-left: 80px;
+}
+.con-opt{
+    margin-top: 1%;
+}
+#cont-info,#cont-areas{
+    padding-bottom: 2%;
+    border-bottom: #060926 2px solid;
+}
+.grafica{
+    border: #060926 2px solid;
+    border-radius: 20px;
+    padding: 1%;
+}
+#agregar{
+    background-color: #060926;
+}
+@media (max-width: 1000px){
+    .opt-main{
+        padding-left: 55px;
+    }
+}
+@media (max-width: 600px){
+    .opt-nav{
+        margin-left: 5%;
+        font-size: 12px;
+    }
+    #titulo{
+        font-size: 15px;
+    }
+    .icono,#menu{
+        font-size: 20px;
+    }
+}

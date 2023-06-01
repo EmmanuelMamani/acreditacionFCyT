@@ -1,63 +1,60 @@
 @extends("header")
 @section("main")
-    <div class="grid grid-cols-3 pb-10 pt-10 pl-20">
-        <div class="flex">
-            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{$area->numero_area}}</div>
-            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-xl font-thin pl-10">{{$area->name}}</h1></div>
-        </div> 
-        <div class="flex">
-            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{$area->variables->count()}}</div>
-            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-2xl font-thin">Variables</h1></div>
-        </div>
-        <div class="flex">
-            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{$area->variables->sum(function ($product) {
-                return count($product->indicadores);
-            });}}</div>
-            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-2xl font-thin pl-5">Indicadores</h1></div>
-        </div>
+<div class="grid grid-cols-1 md:grid-cols-3 pb-10">
+    <div class="flex con-opt">
+        <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-2xl font-thin lg:w-20 lg:h-20 lg:text-4xl">{{$area->numero_area}}</div>
+        <div class="opt-main flex items-center  w-full text-white border-white border-8 rounded-3xl h-16 lg:h-20"><h1 class="w-full text-lg font-thin lg:text-2xl">{{$area->name}}</h1></div>
+    </div> 
+    <div class="flex con-opt">
+        <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-2xl font-thin lg:w-20 lg:h-20 lg:text-4xl">{{$area->variables->count()}}</div>
+        <div class="opt-main flex items-center  w-full text-white border-white border-8 rounded-3xl h-16 lg:h-20"><h1 class="w-full text-lg font-thin lg:text-2xl">Variables</h1></div>
     </div>
-    <div class="bg-slate-200 grid grid-cols-12 py-4 shadow shadow-slate-400 mb-10">
-        <div class="col-start-2 col-span-3">{{$area->name}}</div>
+    <div class="flex con-opt">
+        <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-2xl font-thin lg:w-20 lg:h-20 lg:text-4xl">{{$area->variables->sum(function ($product) {return count($product->indicadores);});}}</div>
+        <div class="opt-main flex items-center  w-full text-white border-white border-8 rounded-3xl h-16 lg:h-20"><h1 class="w-full text-lg font-thin lg:text-2xl">Indicadores</h1></div>
+    </div>
+</div>
+    <div class="bg-slate-200  py-4 shadow shadow-slate-400 mb-10">
+        <div class="pl-5">{{$area->name}}</div>
     </div>
 
-
-    <div class="flex justify-center">
-        <div class="w-5/6 mt-10 grid grid-cols-10">
-             <h3 class="p-2 cursor-pointer">Variables</h3>
+        <div class="mt-10 grid grid-cols-10">
+            <div class="col-span-6 md:col-span-8 lg:col-span-9">
+                <h3 class="cursor-pointer text-3xl justify-self-start">Variables</h3>
+            </div>
              @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
-             <div class="flex justify-center items-center bg-sky-950 text-white p-2 rounded-xl col-start-10 cursor-pointer" id="agregar">
+             <div class="flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-1" id="agregar">
                 <span class="material-symbols-outlined">add</span>
                 <span>Agregar</span>
             </div>
              @endif
         </div>
-     </div>
      <div class="flex justify-center">
          <table class="w-5/6 mt-5 border-collapse table-auto">
              <thead class="border-4 border-b-black  border-x-white border-t-white">
                  <tr>
-                     <th>#</th>
-                     <th class="text-left">Nombre</th>
+                     <th class="text-xl">#</th>
+                     <th class="text-left text-xl">Nombre</th>
                      @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
-                     <th>Accion</th>
+                     <th class="text-xl">Accion</th>
                      @endif
                  </tr>
              </thead>
              <tbody>
                 @foreach ($area->variables as $variable)
                 <tr class="border-2 border-y-black border-x-white">
-                    <th class="font-thin text-xl">{{$area->numero_area.'.'.$variable->numero_variable}}</th>
-                    <th class="font-thin text-xl text-left"><a href="{{route('reporte_indicadores',['id'=>$variable->id])}}">{{$variable->name}}</a></th>
+                    <th class="font-thin text-sm lg:text-lg">{{$area->numero_area.'.'.$variable->numero_variable}}</th>
+                    <th class="font-thin text-sm text-left lg:text-lg"><a href="{{route('reporte_indicadores',['id'=>$variable->id])}}">{{$variable->name}}</a></th>
                     @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
                     <th>
                         <div class="grid grid-cols-3">
                             
                             <form action="{{route("eliminar_variable",['id'=>$variable->id])}}" method="post" class="Eliminar">
                                 @csrf
-                                <button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
+                                <button class="material-symbols-outlined font-extralight text-2xl cursor-pointer">delete</button>
                             </form>
        
-                            <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar2({{$variable->id}},'{{$variable->name}}',{{$variable->numero_variable}})">edit_square</span>
+                            <span class="material-symbols-outlined font-extralight text-2xl text-left cursor-pointer" onclick="editar2({{$variable->id}},'{{$variable->name}}',{{$variable->numero_variable}})">edit_square</span>
                         </div>
                     </th>
                     @endif
@@ -68,11 +65,11 @@
      </div>
 
      <!----------------------------AGREGAR------------------------------------------------>
-    <dialog id="modal" class="w-1/3 rounded-lg px-20">
+    <dialog id="modal" class="w-5/6 sm:w-2/3 md:w-1/3 rounded-lg px-3">
         <form action="{{route('registro_variable',['id'=>$area->id])}}" method="post">
             @csrf
         <div>
-            <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Agregar nueva variable</h3>
+            <h3 class="text-center font-thin text-gray-500  text-xl">Agregar nueva variable</h3>
 
             <label class="font-thin">Número de variable</label><br>
             <input type="text" name="numero_variable" class="bg-zinc-200 rounded-lg w-full p-2" value="{{old('numero_variable')}}"><br>
@@ -88,7 +85,7 @@
             
             <div class="grid grid-cols-2 pt-10 gap-5">
                 <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
-                <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelar" href="/reporte_variables/{{$area->id}}">Cancelar</a>
+                <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg text-center" id="cancelar" href="/reporte_variables/{{$area->id}}">Cancelar</a>
             </div>
         </div>
     </form>
@@ -96,7 +93,7 @@
     <!----------------------------FIN AGREGAR------------------------------------------------>
 
     <!----------------------------EDITAR------------------------------------------------>
-    <dialog id="modal_editar" class="w-1/3 rounded-lg px-20">
+    <dialog id="modal_editar" class="w-5/6 sm:w-2/3 md:w-1/3 rounded-lg px-3">
         <form action="" method="post" id="editar" class="Editar">
             @csrf
             <div>
@@ -113,7 +110,7 @@
                 @endif
                 <div class="grid grid-cols-2 pt-10 gap-5">
                     <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardarE">Guardar</button>
-                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelarE" href="/reporte_variables/{{$area->id}}">Cancelar</a>
+                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg text-center" id="cancelarE" href="/reporte_variables/{{$area->id}}">Cancelar</a>
                 </div>
             </div>
         </form>

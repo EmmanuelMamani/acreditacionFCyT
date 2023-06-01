@@ -1,40 +1,40 @@
 @extends("header")
 @section("main")
-    <div class="grid grid-cols-3 pb-10 pt-10 pl-20">
-        <div class="flex">
-            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{$indicador->variable->area->numero_area}}</div>
-            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-xl font-thin pl-10">{{$indicador->variable->area->name}}</h1></div>
-        </div> 
-        <div class="flex">
-            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{$indicador->variable->numero_variable}}</div>
-            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-sm font-thin pl-12">{{$indicador->variable->name}}</h1></div>
-        </div>
-        <div class="flex">
-            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{$indicador->numero_indicador}}</div>
-            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-sm font-thin pl-12">{{$indicador->descripcion}}</h1></div>
-        </div>
+<div class="grid grid-cols-1 md:grid-cols-3 pb-10">
+    <div class="flex con-opt">
+        <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-2xl font-thin lg:w-20 lg:h-20 lg:text-4xl">{{$indicador->variable->area->numero_area}}</div>
+        <div class="opt-main flex items-center  w-full text-white border-white border-8 rounded-3xl h-16 lg:h-20"><h1 class="w-full text-lg font-thin lg:text-2xl">{{$indicador->variable->area->name}}</h1></div>
+    </div> 
+    <div class="flex con-opt">
+        <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-2xl font-thin lg:w-20 lg:h-20 lg:text-4xl">{{$indicador->variable->area->numero_area.".".$indicador->variable->numero_variable}}</div>
+        <div class="opt-main flex items-center  w-full text-white border-white border-8 rounded-3xl h-16 lg:h-20"><h1 class="w-full font-thin text-xs md:text-xs lg:text-base">{{$indicador->variable->name}}</h1></div>
     </div>
-    <div class="bg-slate-200 grid grid-cols-12 py-4 shadow shadow-slate-400 mb-5">
-        <div class="col-start-2 col-span-6"><a href="">{{$indicador->variable->area->name}}</a> > <a href="">{{$indicador->variable->name}}</a> > {{$indicador->descripcion}}</div>
+    <div class="flex con-opt">
+        <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-2xl font-thin lg:w-20 lg:h-20 lg:text-4xl">{{$indicador->variable->area->numero_area.".".$indicador->variable->numero_variable.".".$indicador->numero_indicador}}</div>
+        <div class="opt-main flex items-center  w-full text-white border-white border-8 rounded-3xl h-16 lg:h-20"><h1 class="w-full font-thin text-xs md:text-xs lg:text-base">{{$indicador->descripcion}}</h1></div>
     </div>
-
-
-    <div class="flex justify-center">
-        <div class="w-5/6 mt-5 grid grid-cols-10">
-             <h3 class="p-2 cursor-pointer">Archivos</h3>
-             <div class="flex justify-center items-center bg-sky-950 text-white p-2 rounded-xl col-start-10 cursor-pointer" id="agregar">
-                 <span class="material-symbols-outlined">add</span>
-                 <span>Agregar</span>
-             </div>
-        </div>
-     </div>
+</div>
+<div class="bg-slate-200  py-4 shadow shadow-slate-400 mb-10">
+    <div class="pl-5"><a href="{{route('reporte_variables',['id'=>$indicador->variable->area->id])}}">{{$indicador->variable->area->name}}</a> > <a href="{{route('reporte_indicadores',['id'=>$indicador->variable->id])}}">{{$indicador->variable->name}}</a> > {{$indicador->descripcion}}</div>
+</div>
+<div class="mt-10 grid grid-cols-10">
+    <div class="col-span-6 md:col-span-8 lg:col-span-9">
+        <h3 class="cursor-pointer text-xl md:text-3xl justify-self-start">Archivos</h3>
+    </div>
+     @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
+     <div class="flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-1" id="agregar">
+        <span class="material-symbols-outlined">add</span>
+        <span>Agregar</span>
+    </div>
+     @endif
+</div>
      <div class="flex justify-center">
          <table class="w-5/6 mt-5 border-collapse table-auto">
              <thead class="border-4 border-b-black  border-x-white border-t-white">
                  <tr>
-                     <th>Tipo</th>
-                     <th class="text-left">Nombre</th>
-                     <th>Accion</th>
+                     <th class="text-lg">Tipo</th>
+                     <th class="text-left text-lg">Nombre</th>
+                     <th class="text-lg">Accion</th>
                  </tr>
              </thead>
              <tbody>
@@ -48,7 +48,7 @@
                         @if ($archivo->carrera_id==Auth::user()->carrera_id || $archivo->carrera_id==null )
                             <tr class="border-2 border-y-black border-x-white">
                                 <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
-                                <th class="font-thin text-xl text-left"><a href="{{ asset($archivo->url) }}" target="_blank" >{{$archivo->nombre}}</a></th>
+                                <th class="font-thin text-lg text-left"><a href="{{ asset($archivo->url) }}" target="_blank" >{{$archivo->nombre}}</a></th>
                                 <th>
                                 <div class="grid grid-cols-3">
                                     <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset($archivo->url) }}"> visibility</a></span>
@@ -68,7 +68,7 @@
                         @if ($archivo->carrera_id==null)
                         <tr class="border-2 border-y-black border-x-white">
                             <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
-                            <th class="font-thin text-xl text-left"><a href="{{ asset($archivo->url) }}" target="_blank" >{{$archivo->nombre}}</a></th>
+                            <th class="font-thin text-lg text-left"><a href="{{ asset($archivo->url) }}" target="_blank" >{{$archivo->nombre}}</a></th>
                             <th>
                             <div class="grid grid-cols-3">
                                 <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset($archivo->url) }}" target="_blank" > visibility</a></span>
@@ -95,7 +95,7 @@
                         @if ($archivo->carrera_id==Auth::user()->carrera_id || $archivo->carrera_id==null)
                             <tr class="border-2 border-y-black border-x-white">
                                 <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" onclick="mostrar({{$archivo->id}})">folder</span></th>
-                                <th class="font-thin text-xl text-left">{{$archivo->nombre}}</th>
+                                <th class="font-thin text-lg text-left">{{$archivo->nombre}}</th>
                                 <th>
                                 <div class="grid grid-cols-3">
                                     <!------------boton añadir------------>
@@ -122,7 +122,7 @@
                         @if ($archivo->carrera_id==null)
                         <tr class="border-2 border-y-black border-x-white">
                             <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" onclick="mostrar({{$archivo->id}})">folder</span></th>
-                            <th class="font-thin text-xl text-left">{{$archivo->nombre}}</th>
+                            <th class="font-thin text-lg text-left">{{$archivo->nombre}}</th>
                             <th>
                             <div class="grid grid-cols-3">
                                <!------------boton añadir------------>
@@ -155,7 +155,7 @@
          </table>
      </div>
     <!---------------MODAL de registro de archivos--------------------->
-     <dialog id="modal" class="w-1/3 rounded-lg px-20">
+     <dialog id="modal" class="w-5/6 sm:w-2/3 md:w-1/3 rounded-lg px-3">
         <div>
             <form action="{{ route('registro_archivos',['id'=>$indicador->id])}}" method="POST" id="form">
             @csrf
@@ -185,14 +185,14 @@
 <!---------botones guardar/cancelar---------------->
             <div class="grid grid-cols-2 pt-10 gap-5">
                 <button  type="submit"  class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar" style="display: none">Guardar</button>
-                <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelar" href="/reporte_archivos/{{$indicador->id}}">Cancelar</a>
+                <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg text-center" id="cancelar" href="/reporte_archivos/{{$indicador->id}}">Cancelar</a>
             </div>
             </form>
         </div>
     </dialog>
 
 <!-------------dialog editar nombre folder---------------->
-    <dialog id="folder" class="w-1/3 rounded-lg px-20" >
+    <dialog id="folder" class="w-5/6 sm:w-2/3 md:w-1/3 rounded-lg px-3" >
         <div>
             <form action="" method="POST" id="formEdit" class="Editar">
                 @csrf
@@ -204,7 +204,7 @@
                 @enderror
                 <div class="grid grid-cols-2 pt-10 gap-5">
                     <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardarC">Guardar</button>
-                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelarC" href="/reporte_archivos/{{$indicador->id}}">Cancelar</a>
+                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg text-center" id="cancelarC" href="/reporte_archivos/{{$indicador->id}}">Cancelar</a>
                 </div>
             </form>
         </div>

@@ -97,6 +97,10 @@ class calificarController extends Controller
         }
         return redirect(route('ver_calificar_area',['id'=>$id_area]))->with('registrar','ok');
     }
+    public function reportePDF(){
+        $gestion=gestion::all()->where('carrera_id', Auth::user()->carrera_id)->where('activo',true)->last();
+        return view('reportePDF',['gestion'=>$gestion]);
+    }
     public function restriccion($ruta){
         $permitido=true;
         $rol_id=Auth::user()->rol_user->last()->rol_id;

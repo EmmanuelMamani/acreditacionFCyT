@@ -1,39 +1,34 @@
 @extends("header")
 @section("main")
-    <div class="grid grid-cols-3 pb-10 pt-10 pl-20">
-        <div class="flex">
-            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{$variable->area->numero_area}}</div>
-            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-xl font-thin pl-10">{{$variable->area->name}}</h1></div>
-        </div> 
-        <div class="flex">
-            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{$variable->numero_variable}}</div>
-            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-sm font-thin pl-10">{{$variable->name}}</h1></div>
-        </div>
-        <div class="flex">
-
-            <div class="border-4 border-sky-950 w-20 h-20  text-center rounded-full flex justify-center items-center bg-white absolute text-sky-950 text-4xl font-thin">{{($variable->indicadores->where('activo',1))->count()}}</div>
-
-            <div class="flex items-center  w-2/3 bg-sky-950 text-white border-white border-8 rounded-3xl h-20"><h1 class="text-center w-full text-2xl font-thin pl-5">Indicadores</h1></div>
-        </div>
+<div class="grid grid-cols-1 md:grid-cols-3 pb-10">
+    <div class="flex con-opt">
+        <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-2xl font-thin lg:w-20 lg:h-20 lg:text-4xl">{{$variable->area->numero_area}}</div>
+        <div class="opt-main flex items-center  w-full text-white border-white border-8 rounded-3xl h-16 lg:h-20"><h1 class="w-full text-lg font-thin lg:text-2xl">{{$variable->area->name}}</h1></div>
+    </div> 
+    <div class="flex con-opt">
+        <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-2xl font-thin lg:w-20 lg:h-20 lg:text-4xl">{{$variable->area->numero_area.".".$variable->numero_variable}}</div>
+        <div class="opt-main flex items-center  w-full text-white border-white border-8 rounded-3xl h-16 lg:h-20"><h1 class="w-full font-thin text-xs md:text-xs lg:text-base">{{$variable->name}}</h1></div>
     </div>
-    <div class="bg-slate-200 grid grid-cols-12 py-4 shadow shadow-slate-400 mb-5">
-        <div class="col-start-2 col-span-6"><a href="">{{$variable->area->name}} ></a><a href="">{{$variable->name}}</a></div>
+    <div class="flex con-opt">
+        <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-2xl font-thin lg:w-20 lg:h-20 lg:text-4xl">{{($variable->indicadores->where('activo',1))->count()}}</div>
+        <div class="opt-main flex items-center  w-full text-white border-white border-8 rounded-3xl h-16 lg:h-20"><h1 class="w-full text-lg font-thin lg:text-2xl">Indicadores</h1></div>
     </div>
+</div>
+<div class="bg-slate-200  py-4 shadow shadow-slate-400 mb-10">
+    <div class="pl-5"><a href="{{route('reporte_variables',['id'=>$variable->area->id])}}">{{$variable->area->name}} ></a><a href="#">{{$variable->name}}</a></div>
+</div>
 
-
-    <div class="flex justify-center">
-        <div class="w-5/6 mt-5 grid grid-cols-10">
-             <h3 class="p-2 cursor-pointer">Indicadores</h3>
-             @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
-             <div class="flex justify-center items-center bg-sky-950 text-white p-2 rounded-xl col-start-10" id="agregar">
-                <span class="material-symbols-outlined">add</span>
-                <span>Agregar</span>
-            </div>
-             @endif
-
-            
-        </div>
-     </div>
+<div class="mt-10 grid grid-cols-10">
+    <div class="col-span-6 md:col-span-8 lg:col-span-9">
+        <h3 class="cursor-pointer text-xl md:text-3xl justify-self-start">Indicadores</h3>
+    </div>
+     @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
+     <div class="flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-1" id="agregar">
+        <span class="material-symbols-outlined">add</span>
+        <span>Agregar</span>
+    </div>
+     @endif
+</div>
      <div class="flex justify-center">
          <table class="w-5/6 mt-5 border-collapse table-auto">
              <thead class="border-4 border-b-black  border-x-white border-t-white">
@@ -50,19 +45,19 @@
                 @foreach ($variable->indicadores as $indicador)
                     @if ($indicador->activo==1)
                     <tr class="border-2 border-y-black border-x-white">
-                        <th class="font-thin text-xl">{{$variable->area->numero_area}}.{{$variable->numero_variable}}.{{$indicador->numero_indicador}}</th>
+                        <th class="font-thin text-sm md:text-lg">{{$variable->area->numero_area}}.{{$variable->numero_variable}}.{{$indicador->numero_indicador}}</th>
 
-                        <th class="font-thin text-xl text-left"><a href="{{route('reporte_archivos',['id'=>$indicador->id])}}">{{$indicador->descripcion}}</a></th>
+                        <th class="font-thin text-sm text-left md:text-lg"><a href="{{route('reporte_archivos',['id'=>$indicador->id])}}">{{$indicador->descripcion}}</a></th>
 
                         @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
                         <th>
                             <div class="grid grid-cols-2">
                                 <form action="{{route("eliminar_indicador",['id'=>$indicador->id])}}" method="post" class="Eliminar">
                                     @csrf
-                                    <button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
+                                    <button class="material-symbols-outlined font-extralight text-xl md:text-3xl cursor-pointer">delete</button>
                                 </form>
                                 
-                                <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar({{$indicador->id}},{{$indicador->numero_indicador}},'{{$indicador->descripcion}}','{{$indicador->tipo}}',{{$indicador->criterios}})">edit_square</span>
+                                <span class="material-symbols-outlined font-extralight text-xl md:text-3xl text-left cursor-pointer" onclick="editar({{$indicador->id}},{{$indicador->numero_indicador}},'{{$indicador->descripcion}}','{{$indicador->tipo}}',{{$indicador->criterios}})">edit_square</span>
                             </div>
                         </th>
                         @endif
@@ -76,7 +71,7 @@
      </div>
 
      <!----------------------------AGREGAR------------------------------------------------>
-    <dialog id="modal" class="w-1/3 rounded-lg px-20">
+    <dialog id="modal" class="w-5/6 sm:w-2/3 md:w-1/3 rounded-lg px-3">
         <form action="{{route('registro_indicador',['id'=>$variable->id])}}" method="post">
             @csrf
         <div>
@@ -121,7 +116,7 @@
 
             <div class="grid grid-cols-2 pt-10 gap-5">
                 <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
-                <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelar" href="/reporte_indicadores/{{$variable->id}}">Cancelar</a>
+                <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg text-center" id="cancelar" href="/reporte_indicadores/{{$variable->id}}">Cancelar</a>
             </div>
         </div>
     </form>
@@ -129,7 +124,7 @@
     <!----------------------------FIN AGREGAR------------------------------------------------>
 
     <!----------------------------EDITAR------------------------------------------------>
-    <dialog id="modal_editar" class="w-1/3 rounded-lg px-20">
+    <dialog id="modal_editar" class="w-5/6 sm:w-2/3 md:w-1/3 rounded-lg px-3">
         <form action="" method="post" id="editar" class="Editar">
             @csrf
             <div>
@@ -174,7 +169,7 @@
     
                 <div class="grid grid-cols-2 pt-10 gap-5">
                     <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardarE">Guardar</button>
-                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="cancelarE" href="/reporte_indicadores/{{$variable->id}}">Cancelar</a>
+                    <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg text-center" id="cancelarE" href="/reporte_indicadores/{{$variable->id}}">Cancelar</a>
                 </div>
             </div>
         </form>

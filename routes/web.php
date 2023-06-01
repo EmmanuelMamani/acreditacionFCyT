@@ -22,6 +22,8 @@ use App\Http\Controllers\permisoController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/vista',function(){ return view('vista');});
+Route::get('/header',function(){return view('header');});
 Route::get('/menu_admin',[userController::class,'menu_admin'])->name('menu_admin');
 Route::get('/detalle_area', function () {
     return view('detalle_area');
@@ -115,3 +117,5 @@ Route::get('/reporte_gestiones',[gestionController::class,'reporte'])->name("rep
 Route::post('/registro_gestion',[gestionController::class,'registrar'])->name("registro_gestion");
 Route::post('/activar_gestion/{id}',[gestionController::class,'activar'])->name("activar_gestion");
 
+/********************************reportes***************************************/
+Route::get('/reportePDF',[calificarController::class,'reportePDF'])->name('reportePDF');

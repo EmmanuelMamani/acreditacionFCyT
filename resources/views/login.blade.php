@@ -1,45 +1,44 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}" >
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>SIS-EA</title>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gruppo&family=Raleway:wght@100&family=Space+Grotesk:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{asset('css/login.css')}}">
+    <title>Sis-EA</title>
 </head>
 <body>
- <div id="navbar" class="bg-sky-950 h-20 content-center">
-    <h3 class="text-white font-thin pt-5 pl-10 text-3xl">SIS-EA</h3>
- </div>
-    <div class="flex flex-row mt-10 justify-center">
-        <img src="{{asset('img/logoFCYT.png')}}" alt="logo FCyt" class="h-20">
-        <h3 class="font-thin text-gray-500 p-7 text-xl">Sistema de Evaluacion y Acreditacion</h3>
+    <div id="header">
+        <h1>SIS-EA</h1>
     </div>
-    <div id="formulario" class="flex mt-10 justify-center">
-        <form action="" method="post" action="{{route('login')}}" class="border-2 border-black rounded-2xl w-1/3 p-5 shadow-lg shadow-slate-500">
-            @csrf
-            <h3 class="font-light text-xl text-black text-center ">Inicio de sesion</h3>
-            <div class="justify-center flex">
-                <label for="correo" class="w-2/3 mt-2 font-thin">Correo Electronico</label>
+    <div id="main">
+        <div class="d-flex flex-content">
+            <img src="{{asset('img/logoFCYT.png')}}" alt="logo FCyt" class="flex-item" id="logo">
+            <div class="flex-item" id="titulo"><h3>Sistema de Evaluacion y Acreditacion</h3></div>
+        </div>
+        <div id="formulario">
+            <form action="{{route('login')}}" method="post">
+                @csrf
+                <h4>Inicio de sesion</h4>
+            <label for="email">Correo electronico</label>
+            <div class="input-container">
+                <i class="fas fa-envelope"></i>
+                    <input type="text" name="email">
             </div>
-            <div class="justify-center flex">
-                 <input type="text" name="email" class="bg-zinc-200 w-2/3 pt-2 mt-2 rounded-lg pl-5 pb-3"><br>
+            <label for="password">Contraseña</label>
+            <div class="input-container">
+                <i class="fas fa-key"></i>
+                    <input type="password" name="password">
             </div>
-
-            <div class="justify-center flex">
-                <label for="password" class="w-2/3 mt-2 font-thin">Contraseña</label>
-            </div>
-            <div class="justify-center flex">
-                 <input type="password" name="password" class="bg-zinc-200 w-2/3 pt-2 mt-2 rounded-lg pl-5 pb-3"><br>
-            </div>
-            <div class="flex justify-center">
-                <input type="submit" value="Entrar" class="bg-sky-950 text-white pl-5 pr-5 pt-2 pb-2 rounded-lg mt-10">
-            </div>
-        </form>
-
+            <input type="submit" value="Entrar" id="acceder">
+            </form>
+        </div>
     </div>
-    
 </body>
 </html>
