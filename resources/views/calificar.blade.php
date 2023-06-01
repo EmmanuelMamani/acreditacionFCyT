@@ -1,10 +1,14 @@
 @extends("header")
 @section("main")
-    <div class="flex justify-center">
-       <div class="w-4/6 mt-10 grid grid-cols-10">
-            <h3 class="p-2 ">Areas</h3>
-       </div>
+<div class="mt-10 grid grid-cols-10">
+    <div class="col-span-6 md:col-span-8 lg:col-span-9">
+        <h3 class="cursor-pointer text-xl md:text-3xl justify-self-start">Calificacion de areas</h3>
     </div>
+     <div class="flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-1" id="agregar">
+        <span class="material-symbols-outlined icono">download_for_offline</span>
+        <span>Descargar</span>
+    </div>
+</div>
     <div class="flex justify-center">
         <table class="w-4/6 mt-5 border-collapse table-auto">
             <thead class="border-4 border-b-black  border-x-white border-t-white">
