@@ -9,6 +9,7 @@ use App\Models\variable;
 use Illuminate\Http\Request;
 use App\Models\permiso_rol;
 use App\Models\permiso;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class variableController extends Controller
@@ -23,7 +24,7 @@ class variableController extends Controller
         return view('detalle_area',['area'=>$area]);
     }
 
-    public function registro(variableRequest $request,$id)
+    public function registro(variableRequest $request,$id):RedirectResponse
     {
         if(!$this->restriccion('registro_variable')){
             return redirect('/sin_permiso');
@@ -33,7 +34,7 @@ class variableController extends Controller
         $variable->name=$request->descripcion;
         $variable->area_id=$id;
         $variable->save();
-
+        
         return redirect(route('reporte_variables',['id'=>$id]))->with('registrar','ok');
     }
     public function editar_variable(variableEditRequest $request,$id){

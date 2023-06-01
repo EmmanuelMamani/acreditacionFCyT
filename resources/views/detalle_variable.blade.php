@@ -12,10 +12,11 @@
     <div class="flex con-opt">
         <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-2xl font-thin lg:w-20 lg:h-20 lg:text-4xl">{{($variable->indicadores->where('activo',1))->count()}}</div>
         <div class="opt-main flex items-center  w-full text-white border-white border-8 rounded-3xl h-16 lg:h-20"><h1 class="w-full text-lg font-thin lg:text-2xl">Indicadores</h1></div>
+
     </div>
 </div>
 <div class="bg-slate-200  py-4 shadow shadow-slate-400 mb-10">
-    <div class="pl-5"><a href="{{route('reporte_variables',['id'=>$variable->area->id])}}">{{$variable->area->name}} ></a><a href="#">{{$variable->name}}</a></div>
+    <div class="pl-5"><a href="{{route('reporte_variables',['id'=>$variable->area->id])}}">{{$variable->area->name}} ></a>{{$variable->name}}</div>
 </div>
 
 <div class="mt-10 grid grid-cols-10">

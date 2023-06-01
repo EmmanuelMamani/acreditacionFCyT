@@ -10,7 +10,7 @@
         <div class="opt-main flex items-center  w-full text-white border-white border-8 rounded-3xl h-16 lg:h-20"><h1 class="w-full text-lg font-thin lg:text-3xl">Variables</h1></div>
     </div>
     <div class="flex con-opt">
-        <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-2xl font-thin lg:w-20 lg:h-20 lg:text-4xl">30</div>
+        <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-2xl font-thin lg:w-20 lg:h-20 lg:text-4xl">{{$indicadores}}</div>
         <div class="opt-main flex items-center  w-full text-white border-white border-8 rounded-3xl h-16 lg:h-20"><h1 class="w-full text-lg font-thin lg:text-3xl">Indicadores</h1></div>
     </div>
 </div>
@@ -24,15 +24,6 @@
             <div class="  w-16 h-16  text-center rounded-full flex justify-center items-center bg-slate-200 text-sky-950 text-3xl font-thin">{{$area->numero_area}}</div>
             <div class="flex items-center  w-2/3 bg-white text-sky-950 h-16"><h1 class="text-left w-full text-xl font-thin pl-3">{{$area->name}}</h1></div>
         </a> 
-        @endforeach
-    </div>
-    <h1 class="text-xl ml-5">Carreras</h1>
-    <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-1">
-        @foreach ($carreras as $carrera)
-        <div class="flex con-opt mb-5">
-            <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-xl font-thin lg:w-20 lg:h-20 lg:text-2xl">65.65</div>
-            <div class="opt-main flex items-center  w-full text-white border-white border-8 rounded-3xl h-16 lg:h-20"><h1 class="w-full text-lg font-thin lg:text-3xl">{{$carrera->name}}</h1></div>
-        </div> 
         @endforeach
     </div>
 @endsection

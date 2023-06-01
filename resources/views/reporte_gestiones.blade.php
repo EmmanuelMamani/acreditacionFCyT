@@ -31,7 +31,7 @@
                     @endif
                     <th>
                         <div class="grid grid-cols-3">
-                            <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">description</span>
+                            <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" onclick="abrirModal({{$gestion->id}})">description</span>
                             <form class="Activar" action="{{route('activar_gestion',['id'=>$gestion->id])}}" method="post">
                                 @csrf
                                 <button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">check_circle</button>
@@ -63,6 +63,24 @@
             </form>
         </div>
     </dialog>
+
+    <dialog id="modalReporte" class="w-1/3 rounded-lg px-20">
+        <div>
+            <form action="" method="post" id='reporte'>
+                @csrf
+                <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Generar Reporte</h3>
+                <label class="font-thin">Tabla</label><br>
+                <input type="checkbox" name="items[]" value="Tabla"> Tabla
+                <label class="font-thin">Gráficos</label><br>
+                <input type="checkbox" name="items[]" value="Roseta"> Roseta
+                <input type="checkbox" name="items[]" value="Barras"> Barras
+                 <div class="grid grid-cols-2 pt-10 gap-5">
+                <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
+                <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelar">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </dialog>
 @endsection
 @section("js")
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -78,6 +96,13 @@
         }
         cancelar.onclick=function(){
             modal.close()
+        }
+
+        function abrirModal(id){
+            reporte=document.getElementById('modalReporte');
+            reporte.showModal();
+            form=document.getElementById('reporte');
+            form.action="/reporte_gestion_carrera/"+id;
         }
     
           //Confirmacion de activacion

@@ -77,7 +77,12 @@ class calificarController extends Controller
             return redirect('/sin_permiso');
         }
         $area=area::find($id);
-        return view('calificar_area',['area'=>$area]);
+        
+        $gestion=gestion::where('carrera_id',Auth::user()->carrera_id)->where('activo',1)->get();
+        $calificaciones=calificacion::where('gestion_id',$gestion[0]->id)->get();
+
+       
+        return view('calificar_area',['area'=>$area,'calificaciones'=>$calificaciones,'gestion'=>$gestion[0]->id]);
     }
     public function calificar($id,$id_area, Request $request){
         if(!$this->restriccion('calificar')){
