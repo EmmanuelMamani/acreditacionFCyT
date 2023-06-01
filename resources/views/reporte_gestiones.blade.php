@@ -70,10 +70,17 @@
                 @csrf
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Generar Reporte</h3>
                 <label class="font-thin">Tabla</label><br>
-                <input type="checkbox" name="items[]" value="Tabla"> Tabla
-                <label class="font-thin">Gráficos</label><br>
-                <input type="checkbox" name="items[]" value="Roseta"> Roseta
-                <input type="checkbox" name="items[]" value="Barras"> Barras
+                <input type="checkbox" name="Tabla" > Tabla <br>
+                <input type="radio" name="Nivel" checked> Nivel 1
+                <input type="radio" name="Nivel"> Nivel 2
+                <input type="radio" name="Nivel"> Nivel 3
+                <br>
+                <label class="font-thin" >Gráficos</label><br>
+                <input type="checkbox" name="Roseta" > Roseta <br>
+                <input type="checkbox" name="Barras" > Barras <br>
+               @error('Tabla')
+                <span class="text-red-700"> Debe seleccionar al menos un campo</span><br>
+               @enderror
                  <div class="grid grid-cols-2 pt-10 gap-5">
                 <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
                 <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelar">Cancelar</a>
@@ -99,9 +106,9 @@
         }
 
         function abrirModal(id){
-            reporte=document.getElementById('modalReporte');
-            reporte.showModal();
-            form=document.getElementById('reporte');
+           var  reporteModal=document.getElementById('modalReporte');
+            reporteModal.showModal();
+           var  form=document.getElementById('reporte');
             form.action="/reporte_gestion_carrera/"+id;
         }
     

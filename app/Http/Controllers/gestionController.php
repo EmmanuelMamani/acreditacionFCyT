@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\reporteRequest;
 use Illuminate\Http\Request;
 use App\Models\gestion;
 use Illuminate\Support\Facades\Auth;
 use App\Models\permiso_rol;
 use App\Models\permiso;
+use PDF;
 
 class gestionController extends Controller
 {
@@ -65,8 +67,8 @@ class gestionController extends Controller
         return $permitido;
     }
 
-    public function reporte_carrera($id){
+    public function reporte_carrera(reporteRequest $request,$id){
         
-        return true;
+        return PDF::setOptions(['dpi' => 96])->loadView('sin_permiso')->download('sin_permiso.pdf');
     }
 }
