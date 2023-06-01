@@ -77,16 +77,23 @@ class userController extends Controller
         if(!$this->restriccion('menu_superadmin')){
             return redirect('/sin_permiso');
         }
+
+
         $areas=area::all()->where('activo',1);
         $carreras=carrera::all()->where('activo',1);
         $variables=variable::all()->where('activo',1)->count();
-        return view('menu_superadmin',['areas'=>$areas,'carreras'=>$carreras,'variables'=>$variables]);
+        $indicadores=indicador::all()->where('activo',1)->count();
+
+        
+
+        return view('menu_superadmin',['areas'=>$areas,'carreras'=>$carreras,'variables'=>$variables,'indicadores'=>$indicadores]);
     }
 
     public function autentificacion(Request $request){
         $credentials=request()->only('email','password');
         if(Auth::attempt($credentials)){
             request()->session()->regenerate();
+            print(Auth::user()->rol_user);
             if(Auth::user()->rol_user->last()->rol->name=="superadmin"){
                 return redirect('/menu_superadmin');
             }
@@ -176,6 +183,7 @@ class userController extends Controller
     }
     public function restriccion($ruta){
         $permitido=true;
+
         $rol_id=Auth::user()->rol_user->last()->rol_id;
         $permiso_id= permiso::all()->where('url',$ruta)->last()->id;
         $restriccion= permiso_rol::all()->where('permiso_id',$permiso_id)->where('rol_id',$rol_id);

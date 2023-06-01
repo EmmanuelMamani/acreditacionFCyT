@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="bg-slate-200 grid grid-cols-12 py-4 shadow shadow-slate-400 mb-5">
-        <div class="col-start-2 col-span-6"><a href="">{{$variable->area->name}} ></a><a href="">{{$variable->name}}</a></div>
+        <div class="col-start-2 col-span-6"><a href="{{route('reporte_variables',['id'=>$variable->area->id])}}">{{$variable->area->name}} ></a>{{$variable->name}}</div>
     </div>
 
 

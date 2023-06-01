@@ -64,4 +64,9 @@ class gestionController extends Controller
         }
         return $permitido;
     }
+
+    public function reporte_carrera($id){
+        
+        return true;
+    }
 }

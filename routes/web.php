@@ -115,3 +115,7 @@ Route::get('/reporte_gestiones',[gestionController::class,'reporte'])->name("rep
 Route::post('/registro_gestion',[gestionController::class,'registrar'])->name("registro_gestion");
 Route::post('/activar_gestion/{id}',[gestionController::class,'activar'])->name("activar_gestion");
 
+/******************************Reportes****************************************/
+
+Route::post('/reporte_gestion_carrera/{id}',[gestionController::class,'reporte_carrera'])->name('reporte_carrera');
+
