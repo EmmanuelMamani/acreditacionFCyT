@@ -117,6 +117,7 @@ class gestionController extends Controller
                 $notasP[]=0;
             }
         }
+        
 
         return view('reportePDF',['gestion'=>$gestion,'areas'=>$areas,'notas'=>$notas,'notasP'=>$notasP,'calificaciones'=>$calificaciones,'request'=>$request]);
     }
