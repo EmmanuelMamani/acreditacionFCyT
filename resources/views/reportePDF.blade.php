@@ -17,53 +17,87 @@
     <title>SIS-EA</title>
 </head>
 <body>
-    <div id="areaDeImpresora">
-            <h1 class="text-center text-xl mt-5">Reporte de la gestion: {{$gestion->año}}</h1>
+    <h1 class="text-center text-xl mt-5">Reporte de la gestion: {{$gestion->año}}</h1>
+    @if ($request->Tabla != null)
             <div class="flex justify-center">
                 <table class="mt-5 border-collapse table-auto border border-slate-400 w-5/6 mb-10">
-                    <thead class="border-2 border-b-black  border-x-white border-t-white">
-                        <tr class="bg-slate-500">
-                            <th>#</th>
-                            <th>Descripcion</th>
-                            <th></th>
-                            <th>Porcentaje Area</th>
-                            <th>Nota Area</th>
-                            <th>Ponderación</th>
-                            <th>Promedio Ponderado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($areas as $area )
-                        <tr class="border border-y-black border-x-white">
-                            <th class="font-thin">{{$area->numero_area}}</th>
-                            <th class="font-thin text-left p-2">{{$area->name}}</th>
-                            <th></th>
-                            <th class="font-thin">{{($notas[$loop->index]/$area->valor)*100}}%</th>
-                            <th class="font-thin">{{round($notas[$loop->index],2)}}</th>
-                            <th class="font-thin">{{$area->valor}}</th>
-                            <th class="font-thin">{{round($notasP[$loop->index],2)}}</th>
-                        </tr>
-                        <tr class="border border-y-black border-x-white bg-slate-400">
-                            <th>#</th>
-                            <th>Descripcion Variable</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th>Ponderacion</th>
-                            <th>Valor</th>
-                        </tr>
-                        @foreach ($area->variables->where('activo',1) as $variable)
-                            @php
-                                $sum_ponderacion=0;
-                                $sum_calificacion=0;
-                                foreach ($variable->indicadores as $indicador) {
-                                    $sum_ponderacion+=$indicador->peso;
-                                    $sum_calificacion+=$indicador->peso*($indicador->calificacion($gestion->id,$indicador->id))[0]->promedio;
-                                }
-                            @endphp
-                        <tr class="border border-y-black border-x-white">
-                        <th class="font-thin">{{$area->numero_area.".".$variable->numero_variable}}</th>
-                        <th class="font-thin text-left">{{$variable->name}}</th>
+             <thead class="border-2 border-b-black  border-x-white border-t-white">
+                 <tr class="bg-slate-500">
+                    <th>#</th>
+                    <th>Descripcion</th>
+                    <th></th>
+                    <th>Porcentaje Area</th>
+                    <th>Nota Area</th>
+                    <th>Ponderación</th>
+                    <th>Promedio Ponderado</th>
+                </tr>
+             </thead>
+                <tbody>
+                @foreach ($areas as $area )
+                <tr class="border border-y-black border-x-white">
+                    <th class="font-thin">{{$area->numero_area}}</th>
+                    <th class="font-thin text-left p-2">{{$area->name}}</th>
+                    <th></th>
+                    <th class="font-thin">{{($notas[$loop->index]/$area->valor)*100}}%</th>
+                    <th class="font-thin">{{round($notas[$loop->index],2)}}</th>
+                    <th class="font-thin">{{$area->valor}}</th>
+                    <th class="font-thin">{{round($notasP[$loop->index],2)}}</th>
+                </tr>
+                @if ($request->Nivel >=2)
+                <tr class="border border-y-black border-x-white bg-slate-400">
+                    <th>#</th>
+                    <th>Descripcion Variable</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Ponderacion</th>
+                    <th>Valor</th>
+                </tr>
+                @foreach ($area->variables->where('activo',1) as $variable)
+                    @php
+                        $sum_ponderacion=0;
+                        $sum_calificacion=0;
+                        foreach ($variable->indicadores as $indicador) {
+                            $sum_ponderacion+=$indicador->peso;
+                            $sum_calificacion+=$indicador->peso*($indicador->calificacion($gestion->id,$indicador->id))[0]->promedio;
+                        }
+                    @endphp
+                <tr class="border border-y-black border-x-white">
+                <th class="font-thin">{{$area->numero_area.".".$variable->numero_variable}}</th>
+                <th class="font-thin text-left">{{$variable->name}}</th>
+                <th class="font-thin"></th>
+                <th class="font-thin"></th>
+                <th></th>
+                <th class="font-thin">{{$sum_ponderacion}}</th>
+                <th class="font-thin">{{$sum_calificacion}}</th>
+                </tr>
+                @if ($request->Nivel == 3)
+                <tr class="border border-y-black border-x-white bg-slate-300">
+                    <th>#</th>
+                    <th>Descripcion indicador</th>
+                    <th>Tipo de indicador</th>
+                    <th>Criterio</th>
+                    <th>Ponderacion</th>
+                    <th>Valor</th>
+                    <th>Ponderacion x valor</th>
+                </tr>
+                @foreach ($variable->indicadores->where('activo',1) as $indicador)
+                <tr class="border border-y-black border-x-white">
+                    <th class="font-thin">{{$area->numero_area.".".$variable->numero_variable.".".$indicador->numero_indicador}}</th>
+                    <th class="font-thin text-left">{{$indicador->descripcion}}</th>
+                    <th class="font-thin">{{$indicador->tipo}}</th>
+                    <th class="font-thin"></th>
+                    <th class="font-thin">{{$indicador->peso}}</th>
+                    <th class="font-thin"></th>
+                    <th class="font-thin">
+                        {{$indicador->peso*($indicador->calificacion($gestion->id,$indicador->id))[0]->promedio}}
+                        </th>
+                </tr>
+                @foreach ($indicador->criterios_indicadores->where('activo',1) as $criterio_ind )
+     
+                    <tr class="border border-y-black border-x-white ">
+                        <th class="font-thin"></th>
+                        <th class="font-thin"></th>
                         <th class="font-thin"></th>
                         <th class="font-thin"></th>
                         <th></th>
@@ -105,53 +139,56 @@
                                         <input type="radio" name="valor" value="1"  @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
                                         @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==1)
                                         checked
-                                        @endif
+                                         @endif
                                         @endif  > <label for="">1</label>
                                         <input type="radio" name="valor" value="2" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
                                         @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==2)
                                         checked
-                                        @endif
+                                         @endif
                                         @endif ><label for="">2</label>
                                         <input type="radio" name="valor" value="3" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
                                         @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==3)
                                         checked
-                                        @endif
+                                         @endif
                                         @endif ><label for="">3</label>
                                         <input type="radio" name="valor" value="4" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
                                         @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==4)
                                         checked
-                                        @endif
+                                         @endif
                                         @endif ><label for="">4</label>
                                         <input type="radio" name="valor" value="5" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
                                         @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==5)
                                         checked
-                                        @endif
+                                         @endif
                                         @endif ><label for="">5</label>
                                     </form>
                                 </th>
                                 <th class="font-thin text-xl"></th>
                             </tr>
+                           
                         
-                        
                         @endforeach
                         @endforeach
+                        @endif
                         @endforeach
+                        @endif
                         @endforeach
                     </tbody>
                 </table>
             </div>
+            @endif
+            @if ($request->Roseta != null)
             <h2 class=" text-lg text-center my-5">Roseta</h2>
-            <div class="flex justify-center mb-5">
-                <div class="w-5/6 grafica">
-                    <canvas id="radar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
-                </div>
+            <div class=" w-4/6">
+                <canvas id="radar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
             </div>
+            @endif
+            @if ($request->Barras != null)
             <h2 class=" text-lg text-center my-5">Diagrama de barras</h2>
-            <div class="flex justify-center mb-10">
-                <div class="w-5/6 grafica">
-                    <canvas id="bar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
-                </div>
+            <div class="w-4/6">
+                <canvas id="bar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
             </div>
+            @endif
 
 
         </div>
@@ -249,6 +286,7 @@
 
         
 </script>
+<<<<<<< HEAD
 
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -302,4 +340,13 @@
     
     }*/
   </script>
+
+<script>
+    /*
+document.addEventListener("DOMContentLoaded", function() {
+    window.print();
+    //window.location.href = "/calificacion";
+    });*/
+</script>
+
 </html>

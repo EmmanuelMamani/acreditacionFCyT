@@ -4,7 +4,7 @@
     <div class="col-span-6 md:col-span-8 lg:col-span-9">
         <h3 class="cursor-pointer text-xl md:text-3xl justify-self-start">Calificacion de areas</h3>
     </div>
-     <div class="flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-1" id="agregar">
+     <div class="flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-1" id="agregar" onclick="abrirModal({{$gestion->id}})">
         <span class="material-symbols-outlined icono">download_for_offline</span>
         <span>Descargar</span>
     </div>
@@ -41,4 +41,36 @@
             </tbody>
         </table>
     </div>
+    <dialog id="modalReporte" class="w-1/3 rounded-lg px-20">
+        <div>
+            <form action="" method="post" id='reporte'>
+                @csrf
+                <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Generar Reporte</h3>
+                <label class="font-thin">Tabla</label><br>
+                <input type="checkbox" name="Tabla" > Tabla <br>
+                <input type="radio" name="Nivel" checked value="1"> Nivel 1
+                <input type="radio" name="Nivel" value="2"> Nivel 2
+                <input type="radio" name="Nivel" value="3"> Nivel 3
+                <br>
+                <label class="font-thin" >Gráficos</label><br>
+                <input type="checkbox" name="Roseta" > Roseta <br>
+                <input type="checkbox" name="Barras" > Barras <br>
+               @error('Tabla')
+                <span class="text-red-700"> Debe seleccionar al menos un campo</span><br>
+               @enderror
+                 <div class="grid grid-cols-2 pt-10 gap-5">
+                <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
+                <a href="{{route('calificacion')}}" class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer text-center" id="cancelar">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </dialog>
+    <script>
+                function abrirModal(id){
+            reporte=document.getElementById('modalReporte');
+            reporte.showModal();
+            form=document.getElementById('reporte');
+            form.action="/reporte_gestion_carrera/"+id;
+        }
+    </script>
 @endsection
