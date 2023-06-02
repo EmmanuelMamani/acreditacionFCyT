@@ -117,9 +117,10 @@ class gestionController extends Controller
                 $notasP[]=0;
             }
         }
-
-       
-       return PDF::setOption('isRemoteEnabled', true)->loadView('reportePDF',['gestion'=>$gestion,'areas'=>$areas,'notas'=>$notas,'notasP'=>$notasP,'calificaciones'=>$calificaciones])->download('sin_permiso.pdf');
+ 
+       //$enlaceFuente="https://fonts.googleapis.com/css2?family=Gruppo&family=Raleway:wght@100&family=Space+Grotesk:wght@300&display=swap";
+       //return PDF::setOption('isRemoteEnabled', true)->loadView('reportePDF',['gestion'=>$gestion,'areas'=>$areas,'notas'=>$notas,'notasP'=>$notasP,'calificaciones'=>$calificaciones])->download('sin_permiso.pdf');
        //return PDF::setOptions(['dpi' => 96])->loadView('sin_permiso',['a'=>'holi'])->download('sin_permiso.pdf');
+       return view('reportePDF',['gestion'=>$gestion,'areas'=>$areas,'notas'=>$notas,'notasP'=>$notasP,'calificaciones'=>$calificaciones]);
     }
 }
