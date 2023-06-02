@@ -45,7 +45,7 @@
                         <th class="font-thin">{{$area->valor}}</th>
                         <th class="font-thin">{{round($notasP[$loop->index],2)}}</th>
                     </tr>
-                            @if ($request->Nivel >=2)
+                    @if ($request->Nivel >=2)
                             <tr class="border border-y-black border-x-white bg-slate-400">
                                 <th>#</th>
                                 <th>Descripcion Variable</th>
@@ -55,7 +55,7 @@
                                 <th>Ponderacion</th>
                                 <th>Valor</th>
                             </tr>
-                            @foreach ($area->variables->where('activo',1) as $variable)
+                        @foreach ($area->variables->where('activo',1) as $variable)
                                 @php
                                     $sum_ponderacion=0;
                                     $sum_calificacion=0;
@@ -74,6 +74,7 @@
                             <th class="font-thin">{{$sum_calificacion}}</th>
                             </tr>
                             @if($request->Nivel == 3)
+                               
                                 <tr class="border border-y-black border-x-white bg-slate-300">
                                     <th>#</th>
                                     <th>Descripcion indicador</th>
@@ -83,95 +84,62 @@
                                     <th>Valor</th>
                                     <th>Ponderacion x valor</th>
                                 </tr>
-                            @foreach ($variable->indicadores->where('activo',1) as $indicador)
-                            <tr class="border border-y-black border-x-white">
-                                <th class="font-thin">{{$area->numero_area.".".$variable->numero_variable.".".$indicador->numero_indicador}}</th>
-                                <th class="font-thin text-left">{{$indicador->descripcion}}</th>
-                                <th class="font-thin">{{$indicador->tipo}}</th>
-                                <th class="font-thin"></th>
-                                <th class="font-thin">{{$indicador->peso}}</th>
-                                <th class="font-thin"></th>
-                                <th class="font-thin">
-                                    {{$indicador->peso*($indicador->calificacion($gestion->id,$indicador->id))[0]->promedio}}
-                                    </th>
-                            </tr>
-                            @foreach ($indicador->criterios_indicadores->where('activo',1) as $criterio_ind )
-     
-                            <tr class="border border-y-black border-x-white ">
-                                <th class="font-thin"></th>
-                                <th class="font-thin"></th>
-                                <th class="font-thin"></th>
-                                <th class="font-thin"></th>
-                                <th></th>
-                                <th class="font-thin">{{$sum_ponderacion}}</th>
-                                <th class="font-thin">{{$sum_calificacion}}</th>
-                                </tr>
-                            <tr class="border border-y-black border-x-white bg-slate-300">
-                            <th>#</th>
-                            <th>Descripcion indicador</th>
-                            <th>Tipo de indicador</th>
-                            <th>Criterio</th>
-                            <th>Ponderacion</th>
-                            <th>Valor</th>
-                            <th>Ponderacion x valor</th>
-                            </tr>
-                             @foreach ($variable->indicadores->where('activo',1) as $indicador)
-                             <tr class="border border-y-black border-x-white">
-                            <th class="font-thin">{{$area->numero_area.".".$variable->numero_variable.".".$indicador->numero_indicador}}</th>
-                            <th class="font-thin text-left">{{$indicador->descripcion}}</th>
-                            <th class="font-thin">{{$indicador->tipo}}</th>
-                            <th class="font-thin"></th>
-                            <th class="font-thin">{{$indicador->peso}}</th>
-                            <th class="font-thin"></th>
-                            <th class="font-thin">
-                                {{$indicador->peso*($indicador->calificacion($gestion->id,$indicador->id))[0]->promedio}}
-                                </th>
-                             </tr>
-                             @foreach ($indicador->criterios_indicadores->where('activo',1) as $criterio_ind )
+                                @foreach ($variable->indicadores->where('activo',1) as $indicador)
+                                    <tr class="border border-y-black border-x-white">
+                                        <th class="font-thin">{{$area->numero_area.".".$variable->numero_variable.".".$indicador->numero_indicador}}</th>
+                                        <th class="font-thin text-left">{{$indicador->descripcion}}</th>
+                                        <th class="font-thin">{{$indicador->tipo}}</th>
+                                        <th class="font-thin"></th>
+                                        <th class="font-thin">{{$indicador->peso}}</th>
+                                        <th class="font-thin"></th>
+                                        <th class="font-thin">
+                                            {{$indicador->peso*($indicador->calificacion($gestion->id,$indicador->id))[0]->promedio}}
+                                            </th>
+                                    </tr>
+                                    @foreach ($indicador->criterios_indicadores->where('activo',1) as $criterio_ind )
             
-                            <tr class="border border-y-black border-x-white ">
-                                <th class="font-thin"></th>
-                                <th class="font-thin"></th>
-                                <th class="font-thin"></th>
-                                <th class="font-thin text-left">{{$criterio_ind->criterio->nombre}}</th>
-                                <th class="font-thin"></th>
-                                <th class="font-thin">
-                                    <form action="{{route('calificar',['id'=>$criterio_ind->id,'id_area'=>$area->id])}}" class="flex" method="POST" id='{{$criterio_ind->id}}'> @csrf
+                                        <tr class="border border-y-black border-x-white ">
+                                            <th class="font-thin"></th>
+                                            <th class="font-thin"></th>
+                                            <th class="font-thin"></th>
+                                            <th class="font-thin text-left">{{$criterio_ind->criterio->nombre}}</th>
+                                            <th class="font-thin"></th>
+                                            <th class="font-thin">
+                                            <form action="{{route('calificar',['id'=>$criterio_ind->id,'id_area'=>$area->id])}}" class="flex" method="POST" id='{{$criterio_ind->id}}'> @csrf
 
-                                        <input type="radio" name="valor" value="1"  @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
-                                        @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==1)
-                                        checked
-                                         @endif
-                                        @endif  > <label for="">1</label>
-                                        <input type="radio" name="valor" value="2" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
-                                        @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==2)
-                                        checked
-                                         @endif
-                                        @endif ><label for="">2</label>
-                                        <input type="radio" name="valor" value="3" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
-                                        @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==3)
-                                        checked
-                                         @endif
-                                        @endif ><label for="">3</label>
-                                        <input type="radio" name="valor" value="4" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
-                                        @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==4)
-                                        checked
-                                         @endif
-                                        @endif ><label for="">4</label>
-                                        <input type="radio" name="valor" value="5" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
-                                            @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==5)
-                                            checked
-                                            @endif
-                                        @endif ><label for="">5</label>
-                                    </form>
-                                </th>
-                                <th class="font-thin text-xl"></th>
-                            </tr>
-                           @endforeach
-                            @endforeach
-                            @endforeach
-                            @endforeach
-                         @endif
+                                                <input type="radio" name="valor" value="1"  @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
+                                                @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==1)
+                                                checked
+                                                @endif
+                                                @endif  > <label for="">1</label>
+                                                <input type="radio" name="valor" value="2" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
+                                                @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==2)
+                                                checked
+                                                @endif
+                                                @endif ><label for="">2</label>
+                                                <input type="radio" name="valor" value="3" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
+                                                @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==3)
+                                                checked
+                                                @endif
+                                                @endif ><label for="">3</label>
+                                                <input type="radio" name="valor" value="4" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
+                                                @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==4)
+                                                checked
+                                                @endif
+                                                @endif ><label for="">4</label>
+                                                <input type="radio" name="valor" value="5" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
+                                                    @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==5)
+                                                    checked
+                                                    @endif
+                                                @endif ><label for="">5</label>
+                                            </form>
+                                            </th>
+                                            <th class="font-thin text-xl"></th>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                    
+                            @endif
                         @endforeach
                     @endif
                 @endforeach
@@ -306,24 +274,22 @@
     
     function descargar(){
         var element = document.getElementById("areaDeImpresora");
-        //console.log(element);
-        html2pdf() .from(element,'element').toPdf()
-        .set({
+        html2pdf() .from(element,'element')
+    .set({
         margin: 1,
         filename: 'documento.pdf',
        /* image: {
                     type: 'jpeg',
                     quality: 0.98
                 },*/
-        
         html2canvas: {
            // scale: 1,
             letterRendering: true,
             //allowTaint: true,
-           // foreignObjectRendering: true,
-            //x:0,
+            //foreignObjectRendering: true,
+            //x:-1,
             y:2,
-           // scrollX:10,
+            //scrollX:,
             scrollY:10
         },
         jsPDF: {
@@ -331,7 +297,6 @@
             format: "letter",
             orientation: 'portrait' // landscape o portrait
         }
-      
     })
     .save()
     
@@ -340,7 +305,6 @@
         const { jsPDF } = window.jspdf;
         var pdf = new jsPDF('p', 'mm', 'letter');
       var element = document.body; // Reemplaza 'content' con el id de tu contenedor de la vista
-
       pdf.html(element, {
 		callback: function(pdf) {
             pdf.scale(0.5,0.5);
