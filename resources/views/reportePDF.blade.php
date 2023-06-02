@@ -18,6 +18,7 @@
 </head>
 <body>
     <h1 class="text-center text-xl mt-5">Reporte de la gestion: {{$gestion->año}}</h1>
+    @if ($request->Tabla != null)
     <div class="flex justify-center">
         <table class="mt-5 border-collapse table-auto border border-slate-400 w-5/6 mb-10">
             <thead class="border-2 border-b-black  border-x-white border-t-white">
@@ -42,6 +43,7 @@
                     <th class="font-thin">{{$area->valor}}</th>
                     <th class="font-thin">{{round($notasP[$loop->index],2)}}</th>
                 </tr>
+                @if ($request->Nivel >=2)
                 <tr class="border border-y-black border-x-white bg-slate-400">
                     <th>#</th>
                     <th>Descripcion Variable</th>
@@ -69,6 +71,7 @@
                 <th class="font-thin">{{$sum_ponderacion}}</th>
                 <th class="font-thin">{{$sum_calificacion}}</th>
                 </tr>
+                @if ($request->Nivel == 3)
                 <tr class="border border-y-black border-x-white bg-slate-300">
                     <th>#</th>
                     <th>Descripcion indicador</th>
@@ -134,23 +137,26 @@
                 
                 @endforeach
                 @endforeach
+                @endif
                 @endforeach
+                @endif
                 @endforeach
             </tbody>
         </table>
     </div>
+    @endif
+    @if ($request->Roseta != null)
     <h2 class=" text-lg text-center my-5">Roseta</h2>
-    <div class="flex justify-center mb-5">
-        <div class="w-5/6 grafica">
-            <canvas id="radar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
-        </div>
+    <div class=" w-4/6">
+        <canvas id="radar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
     </div>
+    @endif
+    @if ($request->Barras != null)
     <h2 class=" text-lg text-center my-5">Diagrama de barras</h2>
-    <div class="flex justify-center mb-10">
-        <div class="w-5/6 grafica">
-            <canvas id="bar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
-        </div>
+    <div class="w-4/6">
+        <canvas id="bar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
     </div>
+    @endif
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <script>
@@ -241,5 +247,11 @@
                 }
             }
         });
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    window.print();
+    //window.location.href = "/calificacion";
+    });
 </script>
 </html>

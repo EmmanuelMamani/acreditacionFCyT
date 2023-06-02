@@ -118,8 +118,6 @@ class gestionController extends Controller
             }
         }
 
-       
-       return PDF::setOption('isRemoteEnabled', true)->loadView('reportePDF',['gestion'=>$gestion,'areas'=>$areas,'notas'=>$notas,'notasP'=>$notasP,'calificaciones'=>$calificaciones])->download('sin_permiso.pdf');
-       //return PDF::setOptions(['dpi' => 96])->loadView('sin_permiso',['a'=>'holi'])->download('sin_permiso.pdf');
+        return view('reportePDF',['gestion'=>$gestion,'areas'=>$areas,'notas'=>$notas,'notasP'=>$notasP,'calificaciones'=>$calificaciones,'request'=>$request]);
     }
 }
