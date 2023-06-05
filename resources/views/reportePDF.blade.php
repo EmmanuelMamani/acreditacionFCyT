@@ -148,9 +148,11 @@
                 </div>
             @endif
             @if ($request->Roseta != null)
+            <div>
             <h2 class=" text-lg text-center my-5">Roseta</h2>
-            <div class=" w-4/6">
+            <div class=" w-1/2">
                 <canvas id="radar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
+            </div>
             </div>
             @endif
             @if ($request->Barras != null)
@@ -160,9 +162,13 @@
             </div>
             @endif
 
-
+           
+            
+            
         </div>
     <a  id="downloadLink" onclick="descargar()">DESCARGAR</a>
+
+    
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <script>
@@ -270,53 +276,115 @@
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+
 <script>
     
     function descargar(){
         var element = document.getElementById("areaDeImpresora");
-        html2pdf() .from(element,'element')
+        
+        
+      var doc=  html2pdf().from(element)
     .set({
-        margin: 1,
+        margin: [10,10,20,10],
         filename: 'documento.pdf',
-       /* image: {
+        image: {
                     type: 'jpeg',
-                    quality: 0.98
-                },*/
+                    quality: 0.99
+                },
         html2canvas: {
-           // scale: 1,
+            scale: 1.8,
             letterRendering: true,
             //allowTaint: true,
             //foreignObjectRendering: true,
-            //x:-1,
+            //x:0,
             y:2,
-            //scrollX:,
+            scrollX:-10,
             scrollY:10
         },
         jsPDF: {
             unit: "mm",
             format: "letter",
-            orientation: 'portrait' // landscape o portrait
-        }
-    })
-    .save()
+            orientation: 'portrait', // landscape o portrait
+        },
+        pagebreak: {
+            mode: 'avoid-all', 
+            before: '#page2el'
+        },
+       
+        }).save();
+    
+    //console.log("que paso?");
     
     }
+
+
     /*
         const { jsPDF } = window.jspdf;
-        var pdf = new jsPDF('p', 'mm', 'letter');
-      var element = document.body; // Reemplaza 'content' con el id de tu contenedor de la vista
-      pdf.html(element, {
+       // var pdf = new jsPDF('p', 'mm', 'letter',true,true);
+      //var element = document.body;
+       // Reemplaza 'content' con el id de tu contenedor de la vista
+
+       var doc = new jsPDF();
+
+var totalPages = 0;
+var contentElement = document.getElementById('content');
+var contentHeight = contentElement.clientHeight;
+var pageHeight = doc.internal.pageSize.getHeight();
+
+// Función para agregar una nueva página
+var addNewPage = function () {
+  doc.addPage();
+  totalPages++;
+};
+
+html2canvas(contentElement).then(function (canvas) {
+  var imgData = canvas.toDataURL('image/png');
+  var position = 0;
+
+  while (position < contentHeight) {
+    // Calcular la altura disponible en la página actual
+    var heightLeft = position === 0 ? pageHeight : pageHeight - 10;
+
+    // Agregar la imagen de la sección actual al PDF
+    doc.addImage(imgData, 'PNG', 10, position === 0 ? 10 : 0, 190, 0);
+
+    position -= heightLeft;
+
+    // Verificar si es necesario agregar una nueva página
+    if (position < contentHeight) {
+      addNewPage();
+    }
+  }
+
+  // Agregar el número total de páginas al pie de página de cada página
+  for (var i = 1; i <= totalPages; i++) {
+    doc.setPage(i);
+    doc.text(20, pageHeight - 10, 'Página ' + i + ' de ' + totalPages);
+  }
+
+  // Guardar el PDF
+  doc.save('mi_pdf.pdf');
+});*/
+      /*pdf.html(element, {
+        
+        html2canvas: {
+       scale: 0.30,
+       width: 200,
+       height:100,
+       letterRendering: true,
+       
+    },
 		callback: function(pdf) {
-            pdf.scale(0.5,0.5);
+            
+            pdf.setPage(1).setFontSize(8).text('AÑADIDOENELDOC',30,100);
 			pdf.save("output.pdf");
 		},
-        x: 15,
-        y: 15,
-        width: 170, //target width in the PDF document
-        windowWidth: 650 //window width in CSS pixels
-	});
+        
+	});*/
+   // pdf.addHTML(element);
+   
     
-    }*/
+  //  }
   </script>
 
 
