@@ -21,41 +21,23 @@
         <img src="{{asset('img/ENCABEZADO para DOCUMENTOS.jpeg')}}" alt="">
     </header>
     <h1 class="text-center text-xl mt-5">Reporte de la gestion: {{$gestion->año}}</h1>
-    @if ($request->Tabla != null)
+    <h1 class="text-center text-xl mt-5">Area: {{$area->name}}</h1>
     <div class="flex justify-center">
         <table class="mt-5 border-collapse table-auto border border-slate-400 w-5/6 mb-10">
             <thead class="border-2 border-b-black  border-x-white border-t-white">
                 <tr class="bg-slate-500">
-                    <th>#</th>
-                    <th>Descripcion</th>
-                    <th></th>
-                    <th>Porcentaje Area</th>
-                    <th>Promedio</th>
-                    <th>Ponderación</th>
-                    <th>Promedio Ponderado</th>
+                    <tr class="border border-y-black border-x-white bg-slate-400">
+                        <th>#</th>
+                        <th>Descripcion Variable</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th>Ponderacion</th>
+                        <th>Valor</th>
+                    </tr>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($areas as $area )
-                <tr class="border border-y-black border-x-white">
-                    <th class="font-thin">{{$area->numero_area}}</th>
-                    <th class="font-thin text-left p-2">{{$area->name}}</th>
-                    <th></th>
-                    <th class="font-thin">{{round($notas[$loop->index]/$area->valor*100,2)}}%</th>
-                    <th class="font-thin">{{round($notasP[$loop->index],2)}}</th>
-                    <th class="font-thin">{{$area->valor}}</th>
-                    <th class="font-thin">{{(round($notas[$loop->index],2)/$areas->sum('valor'))*100}}</th>
-                </tr>
-                @if ($request->Nivel >=2)
-                <tr class="border border-y-black border-x-white bg-slate-400">
-                    <th>#</th>
-                    <th>Descripcion Variable</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th>Ponderacion</th>
-                    <th>Valor</th>
-                </tr>
                 @foreach ($area->variables->where('activo',1) as $variable)
                     @php
                         $sum_ponderacion=0;
@@ -74,7 +56,6 @@
                 <th class="font-thin">{{$sum_ponderacion}}</th>
                 <th class="font-thin">{{$sum_calificacion}}</th>
                 </tr>
-                @if ($request->Nivel == 3)
                 <tr class="border border-y-black border-x-white bg-slate-300">
                     <th>#</th>
                     <th>Descripcion indicador</th>
@@ -140,33 +121,25 @@
                 
                 @endforeach
                 @endforeach
-                @endif
-                @endforeach
-                @endif
                 @endforeach
             </tbody>
         </table>
     </div>
-    @endif
-    @if ($request->Roseta != null)
     <h2 class=" text-lg text-center my-5">Roseta</h2>
     <div class=" w-4/6">
         <canvas id="radar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
     </div>
-    @endif
-    @if ($request->Barras != null)
     <h2 class=" text-lg text-center my-5">Diagrama de barras</h2>
     <div class="w-4/6">
         <canvas id="bar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
     </div>
-    @endif
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <script>
     new Chart(document.getElementById("radar"), {
             type: 'radar',
             data: {
-                labels: {{ json_encode($areas->pluck('numero_area')) }},
+                labels: {{ json_encode($area->variables->pluck('numero_variable')) }},
                 datasets: [
                     {
                         label: "areas",
@@ -176,7 +149,7 @@
                         pointBorderColor: "#fff",
                         pointBackgroundColor: "rgba(179,181,198,1)",
                         // data: [3.50,3.20,3.45,3.74,3.41,3.21,2.64,3.0,3.0,4.10]
-                        data: {{ json_encode($notasP) }},
+                        data: {{ json_encode($roseta) }},
                     }
                 ]
             },
@@ -204,7 +177,7 @@
     new Chart(document.getElementById("bar"), {
             type: 'bar',
             data: {
-                labels: {{ json_encode($areas->pluck('numero_area')) }},
+                labels: {{ json_encode($area->variables->pluck('numero_variable')) }},
                 datasets: [
                     {
                         label: 'Calificacion alcanzada',
@@ -219,7 +192,7 @@
                         backgroundColor: "rgba(54, 162, 235, 0.2)",
                         borderColor: "rgba(54, 162, 235, 1)",
                         borderWidth: 1,
-                        data: {{ json_encode($areas->pluck('valor')) }},
+                        data: {{ json_encode($notasP) }},
                     },
                 ]
             },
@@ -251,5 +224,10 @@
             }
         });
 </script>
-
+<script>/*
+document.addEventListener("DOMContentLoaded", function() {
+    window.print();
+    //window.location.href = "/calificacion";
+    });*/
+</script>
 </html>
