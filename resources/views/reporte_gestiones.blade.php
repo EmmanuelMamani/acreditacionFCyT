@@ -71,9 +71,9 @@
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Generar Reporte</h3>
                 <label class="font-thin">Tabla</label><br>
                 <input type="checkbox" name="Tabla" > Tabla <br>
-                <input type="radio" name="Nivel" checked> Nivel 1
-                <input type="radio" name="Nivel"> Nivel 2
-                <input type="radio" name="Nivel"> Nivel 3
+                <input type="radio"  name="Nivel" checked value="1"> Nivel 1
+                <input type="radio" name="Nivel" value="2"> Nivel 2
+                <input type="radio" name="Nivel" value="3"> Nivel 3
                 <br>
                 <label class="font-thin" >Gráficos</label><br>
                 <input type="checkbox" name="Roseta" > Roseta <br>

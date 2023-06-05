@@ -34,8 +34,8 @@
                     <th>Ponderación</th>
                     <th>Promedio Ponderado</th>
                 </tr>
-            </thead>
-            <tbody>
+             </thead>
+                <tbody>
                 @foreach ($areas as $area )
                 <tr class="border border-y-black border-x-white">
                     <th class="font-thin">{{$area->numero_area}}</th>
@@ -97,73 +97,112 @@
                         </th>
                 </tr>
                 @foreach ($indicador->criterios_indicadores->where('activo',1) as $criterio_ind )
-     
-                    <tr class="border border-y-black border-x-white ">
-                        <th class="font-thin"></th>
-                        <th class="font-thin"></th>
-                        <th class="font-thin"></th>
-                        <th class="font-thin text-left">{{$criterio_ind->criterio->nombre}}</th>
-                        <th class="font-thin"></th>
-                        <th class="font-thin">
-                            <form action="{{route('calificar',['id'=>$criterio_ind->id,'id_area'=>$area->id])}}" class="flex" method="POST" id='{{$criterio_ind->id}}'> @csrf
+                            <tr class="border border-y-black border-x-white ">
+                                <th class="font-thin"></th>
+                                <th class="font-thin"></th>
+                                <th class="font-thin"></th>
+                                <th class="font-thin"></th>
+                                <th></th>
+                                <th class="font-thin">{{$sum_ponderacion}}</th>
+                                <th class="font-thin">{{$sum_calificacion}}</th>
+                                </tr>
+                            <tr class="border border-y-black border-x-white bg-slate-300">
+                            <th>#</th>
+                            <th>Descripcion indicador</th>
+                            <th>Tipo de indicador</th>
+                            <th>Criterio</th>
+                            <th>Ponderacion</th>
+                            <th>Valor</th>
+                            <th>Ponderacion x valor</th>
+                            </tr>
+                             @foreach ($variable->indicadores->where('activo',1) as $indicador)
+                             <tr class="border border-y-black border-x-white">
+                            <th class="font-thin">{{$area->numero_area.".".$variable->numero_variable.".".$indicador->numero_indicador}}</th>
+                            <th class="font-thin text-left">{{$indicador->descripcion}}</th>
+                            <th class="font-thin">{{$indicador->tipo}}</th>
+                            <th class="font-thin"></th>
+                            <th class="font-thin">{{$indicador->peso}}</th>
+                            <th class="font-thin"></th>
+                            <th class="font-thin">
+                                {{$indicador->peso*($indicador->calificacion($gestion->id,$indicador->id))[0]->promedio}}
+                                </th>
+                             </tr>
+                             @foreach ($indicador->criterios_indicadores->where('activo',1) as $criterio_ind )
+            
+                            <tr class="border border-y-black border-x-white ">
+                                <th class="font-thin"></th>
+                                <th class="font-thin"></th>
+                                <th class="font-thin"></th>
+                                <th class="font-thin text-left">{{$criterio_ind->criterio->nombre}}</th>
+                                <th class="font-thin"></th>
+                                <th class="font-thin">
+                                    <form action="{{route('calificar',['id'=>$criterio_ind->id,'id_area'=>$area->id])}}" class="flex" method="POST" id='{{$criterio_ind->id}}'> @csrf
 
-                                <input type="radio" name="valor" value="1"  @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
-                                @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==1)
-                                checked
-                                 @endif
-                                @endif  > <label for="">1</label>
-                                <input type="radio" name="valor" value="2" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
-                                @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==2)
-                                checked
-                                 @endif
-                                @endif ><label for="">2</label>
-                                <input type="radio" name="valor" value="3" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
-                                @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==3)
-                                checked
-                                 @endif
-                                @endif ><label for="">3</label>
-                                <input type="radio" name="valor" value="4" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
-                                @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==4)
-                                checked
-                                 @endif
-                                @endif ><label for="">4</label>
-                                <input type="radio" name="valor" value="5" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
-                                @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==5)
-                                checked
-                                 @endif
-                                @endif ><label for="">5</label>
-                            </form>
-                        </th>
-                        <th class="font-thin text-xl"></th>
-                    </tr>
-                   
-                
+                                        <input type="radio" name="valor" value="1"  @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
+                                        @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==1)
+                                        checked
+                                         @endif
+                                        @endif  > <label for="">1</label>
+                                        <input type="radio" name="valor" value="2" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
+                                        @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==2)
+                                        checked
+                                         @endif
+                                        @endif ><label for="">2</label>
+                                        <input type="radio" name="valor" value="3" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
+                                        @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==3)
+                                        checked
+                                         @endif
+                                        @endif ><label for="">3</label>
+                                        <input type="radio" name="valor" value="4" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
+                                        @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==4)
+                                        checked
+                                         @endif
+                                        @endif ><label for="">4</label>
+                                        <input type="radio" name="valor" value="5" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
+                                            @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==5)
+                                            checked
+                                            @endif
+                                        @endif ><label for="">5</label>
+                                    </form>
+                                </th>
+                                <th class="font-thin text-xl"></th>
+                            </tr>
+                           @endforeach
+                            @endforeach
+                            @endforeach
+                            @endforeach
+                         @endif
+                        @endforeach
+                    @endif
                 @endforeach
-                @endforeach
-                @endif
-                @endforeach
-                @endif
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-    @endif
-    @if ($request->Roseta != null)
-    <h2 class=" text-lg text-center my-5">Roseta</h2>
-    <div class=" w-4/6">
-        <canvas id="radar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
-    </div>
-    @endif
-    @if ($request->Barras != null)
-    <h2 class=" text-lg text-center my-5">Diagrama de barras</h2>
-    <div class="w-4/6">
-        <canvas id="bar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
-    </div>
-    @endif
+                    </tbody>
+                    </table>
+                </div>
+            @endif
+            @if ($request->Roseta != null)
+            <h2 class=" text-lg text-center my-5">Roseta</h2>
+            <div class=" w-4/6">
+                <canvas id="radar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
+            </div>
+            @endif
+            @if ($request->Barras != null)
+            <h2 class=" text-lg text-center my-5">Diagrama de barras</h2>
+            <div class="w-4/6">
+                <canvas id="bar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
+            </div>
+            @endif
+
+
+        </div>
+    <a  id="downloadLink" onclick="descargar()">DESCARGAR</a>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <script>
+    if(document.getElementById("radar")!=null){
+       
+    
     new Chart(document.getElementById("radar"), {
+            
             type: 'radar',
             data: {
                 labels: {{ json_encode($areas->pluck('numero_area')) }},
@@ -199,8 +238,12 @@
                 legend: { display: false }
             }
         });
+    }
 </script>
 <script>
+    if(document.getElementById("bar")!=null){
+
+   
     new Chart(document.getElementById("bar"), {
             type: 'bar',
             data: {
@@ -250,6 +293,70 @@
                 }
             }
         });
+    }
+
+        
 </script>
 
+<<<<<<< HEAD
+=======
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    
+    function descargar(){
+        var element = document.getElementById("areaDeImpresora");
+        //console.log(element);
+        html2pdf() .from(element,'element').toPdf()
+        .set({
+        margin: 1,
+        filename: 'documento.pdf',
+       /* image: {
+                    type: 'jpeg',
+                    quality: 0.98
+                },*/
+        
+        html2canvas: {
+           // scale: 1,
+            letterRendering: true,
+            //allowTaint: true,
+           // foreignObjectRendering: true,
+            //x:0,
+            y:2,
+           // scrollX:10,
+            scrollY:10
+        },
+        jsPDF: {
+            unit: "mm",
+            format: "letter",
+            orientation: 'portrait' // landscape o portrait
+        }
+      
+    })
+    .save()
+    
+    }
+    /*
+        const { jsPDF } = window.jspdf;
+        var pdf = new jsPDF('p', 'mm', 'letter');
+      var element = document.body; // Reemplaza 'content' con el id de tu contenedor de la vista
+
+      pdf.html(element, {
+		callback: function(pdf) {
+            pdf.scale(0.5,0.5);
+			pdf.save("output.pdf");
+		},
+        x: 15,
+        y: 15,
+        width: 170, //target width in the PDF document
+        windowWidth: 650 //window width in CSS pixels
+	});
+    
+    }*/
+  </script>
+
+
+>>>>>>> 97fbb53c1fa610301319cd303484c7a11369e77f
 </html>

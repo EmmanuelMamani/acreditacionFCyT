@@ -120,5 +120,6 @@ class gestionController extends Controller
         
 
         return view('reportePDF',['gestion'=>$gestion,'areas'=>$areas,'notas'=>$notas,'notasP'=>$notasP,'calificaciones'=>$calificaciones,'request'=>$request]);
+    
     }
 }
