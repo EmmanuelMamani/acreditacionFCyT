@@ -29,13 +29,20 @@
             <label for="email">Correo electronico</label>
             <div class="input-container">
                 <i class="fas fa-envelope"></i>
-                    <input type="text" name="email">
+                    <input type="text" name="email" value="{{old('email')}}">
+                  
             </div>
+            @error('email')
+            <span class="text-red-700"> {{ $message }}</span><br> 
+            @enderror
             <label for="password">Contraseña</label>
             <div class="input-container">
                 <i class="fas fa-key"></i>
                     <input type="password" name="password">
             </div>
+            @error('password')
+                    <span class="text-red-700"> {{ $message}}</span><br>
+                    @enderror
             <input type="submit" value="Entrar" id="acceder">
             </form>
         </div>

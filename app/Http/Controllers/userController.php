@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\loginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\carrera;
@@ -89,7 +90,7 @@ class userController extends Controller
         return view('menu_superadmin',['areas'=>$areas,'carreras'=>$carreras,'variables'=>$variables,'indicadores'=>$indicadores]);
     }
 
-    public function autentificacion(Request $request){
+    public function autentificacion(loginRequest $request){
         $credentials=request()->only('email','password');
         if(Auth::attempt($credentials)){
             request()->session()->regenerate();
@@ -101,7 +102,9 @@ class userController extends Controller
                 return redirect()->intended('/menu_admin');
             }
         }else{
-            return "incorrecto";
+            return back()->withErrors([
+                'password' => 'Contraseña incorrecta',
+            ])->onlyInput('email');
         }
 
     }

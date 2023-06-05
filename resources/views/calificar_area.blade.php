@@ -31,7 +31,7 @@
                     @foreach ($variable->indicadores->where('activo',1) as $indicador)
                     <tr class="border-2 border-y-black border-x-white">
                         <th class="font-thin text-xl">{{$area->numero_area.".".$variable->numero_variable.".".$indicador->numero_indicador}}</th>
-                        <th class="font-thin text-xl">{{$indicador->descripcion}}</th>
+                        <th class="font-thin text-xl"><a href="{{route('reporte_archivos',['id'=>$indicador->id])}}">{{$indicador->descripcion}}</a></th>
                         <th class="font-thin text-xl">{{$indicador->tipo}}</th>
                         <th class="font-thin text-xl"></th>
                         <th class="font-thin text-xl">{{$indicador->peso}}</th>

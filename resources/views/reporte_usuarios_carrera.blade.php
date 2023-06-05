@@ -73,7 +73,7 @@
                 </select><br>
                 <label class="font-thin">Lista de carreras</label><br>
                 <select name="carrera" class="bg-zinc-200 rounded-lg w-full p-2">
-                    <option value="{{Auth::user()->carrera->id}}">{{Auth::user()->carrera->name}}</option>
+                    <option value="{{Auth::user()->carrera->id}}">{{Auth::user()->carrera->codigo}} - {{Auth::user()->carrera->name}}</option>
                 </select><br>
                 <div class="grid grid-cols-2 pt-10 gap-5">
                     <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
@@ -101,7 +101,7 @@
                 </select><br>
                 <label class="font-thin">Lista de carreras</label><br>
                 <select name="carrera" class="bg-zinc-200 rounded-lg w-full p-2">
-                        <option value="{{Auth::user()->carrera->id}}">{{Auth::user()->carrera->name}}</option>
+                        <option value="{{Auth::user()->carrera->id}}">{{Auth::user()->carrera->codigo}} - {{Auth::user()->carrera->name}}</option>
                 </select><br>
                 <div class="grid grid-cols-2 pt-10 gap-5">
                     <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardarE">Guardar</button>
