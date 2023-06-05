@@ -17,8 +17,14 @@
     <title>SIS-EA</title>
 </head>
 <body>
+    <div class="flex justify-end items-center">
+        <a  id="downloadLink" onclick="descargar()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer"><span class="material-symbols-outlined icono mr-1">download_for_offline</span>DESCARGAR</a>
+    </div>
     <div id="areaDeImpresora">
-            <h1 class="text-center text-xl mt-5">Reporte de la gestion: {{$gestion->año}}</h1>
+        <header class="flex justify-center">
+            <img src="{{asset('img/ENCABEZADO para DOCUMENTOS.jpeg')}}" alt="">
+        </header>
+            <h1 class="text-center font-semibold text-3xl mt-5">Reporte de la gestion: {{$gestion->año}}</h1>
             @if ($request->Tabla != null)
             
                 <div class="flex justify-center">
@@ -166,7 +172,7 @@
             
             
         </div>
-    <a  id="downloadLink" onclick="descargar()">DESCARGAR</a>
+    
 
     
 </body>
