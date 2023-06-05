@@ -29,7 +29,7 @@
                     <th>Descripcion</th>
                     <th></th>
                     <th>Porcentaje Area</th>
-                    <th>Nota Area</th>
+                    <th>Promedio</th>
                     <th>Ponderación</th>
                     <th>Promedio Ponderado</th>
                 </tr>
@@ -292,7 +292,8 @@
                     quality: 0.99
                 },
         html2canvas: {
-            scale: 3,
+
+            scale: 1.8,
             letterRendering: true,
             //allowTaint: true,
             //foreignObjectRendering: true,
