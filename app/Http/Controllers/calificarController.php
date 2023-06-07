@@ -175,6 +175,8 @@ class calificarController extends Controller
         return view('reporte_area_PDF',['gestion'=>$gestion,'area'=>$area,'notasP'=>$notasP,'notas'=>$notas,'roseta'=>$roseta,'calificaciones'=>$calificaciones]);
     return $calificaciones;
     }
+
+    
     public function reporte_carreras_PDF(){
         $carreras=carrera::all();
         $notasC=[];

@@ -65,6 +65,18 @@
             </form>
         </div>
     </dialog>
+
+    @if ($errors->has('Tabla'))
+        <script>
+           
+        reporte=document.getElementById('modalReporte');
+        reporte.showModal();
+        form=document.getElementById('reporte');
+        form.action="/reporte_gestion_carrera/"+{{$errors->first('id')}};
+        
+</script>
+    @endif
+
     <script>
                 function abrirModal(id){
             reporte=document.getElementById('modalReporte');
