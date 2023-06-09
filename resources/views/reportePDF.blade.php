@@ -18,6 +18,7 @@
 </head>
 <body>
     <div class="flex justify-end items-center">
+        <a onclick="atras()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer" ><span class="material-symbols-outlined icono mr-1">arrow_back</span>Atras</a>
         <a  id="downloadLink" onclick="descargar()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer"><span class="material-symbols-outlined icono mr-1">download_for_offline</span>DESCARGAR</a>
     </div>
     <div id="areaDeImpresora">
@@ -393,6 +394,10 @@ html2canvas(contentElement).then(function (canvas) {
     
   //  }
   </script>
-
+    <script>
+        function atras(){
+            window.history.back();
+        }
+    </script>
 
 </html>
