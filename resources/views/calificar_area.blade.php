@@ -7,7 +7,7 @@
     </div>
     <div class="flex justify-center">
         <table class="w-4/6 mt-5 border-collapse table-auto">
-            <thead class="border-4 border-b-black  border-x-white border-t-white">
+            <thead class="border-2 border-b-black  border-x-white border-t-white">
                 <tr>
                     <th>#</th>
                     <th>Descripcion indicador</th>
@@ -20,7 +20,7 @@
             </thead>
             <tbody>
                     @foreach ($area->variables->where('activo',1) as $variable)
-                    <tr class="border-2 border-y-black border-x-white">
+                    <tr class="border border-y-stone-500 border-x-white">
                     <th class="font-thin text-xl">{{$area->numero_area.".".$variable->numero_variable}}</th>
                     <th class="font-thin text-xl">{{$variable->name}}</th>
                     <th class="font-thin text-xl"></th>
@@ -29,7 +29,7 @@
                     <th class="font-thin text-xl"></th>
                     </tr>
                     @foreach ($variable->indicadores->where('activo',1) as $indicador)
-                    <tr class="border-2 border-y-black border-x-white">
+                    <tr class="border border-y-stone-400 border-x-white">
                         <th class="font-thin text-xl">{{$area->numero_area.".".$variable->numero_variable.".".$indicador->numero_indicador}}</th>
                         <th class="font-thin text-xl"><a href="{{route('reporte_archivos',['id'=>$indicador->id])}}">{{$indicador->descripcion}}</a></th>
                         <th class="font-thin text-xl">{{$indicador->tipo}}</th>
@@ -42,7 +42,7 @@
                     </tr>
                     @foreach ($indicador->criterios_indicadores->where('activo',1) as $criterio_ind )
          
-                        <tr class="border-2 border-y-black border-x-white">
+                        <tr class="border border-y-stone-300 border-x-white">
                             <th class="font-thin text-xl"></th>
                             <th class="font-thin text-xl"></th>
                             <th class="font-thin text-xl"></th>
