@@ -50,9 +50,10 @@ Route::get('/ver_calificar_area/{id}',[calificarController::class,'ver_calificar
 Route::post('/calificar/{id}/{id_area}',[calificarController::class,'calificar'])->name('calificar');
 /*-------------------------------------------------------------------*/
 /**--------------------------------login ----------------------**/
+Route::get('/', function () {return view('login');})->name('login');
 Route::post('/',[userController::class,'autentificacion'])->name('login');
 Route::get('/logout',[userController::class,'logout'])->name('logout');
-Route::get('/', function () {return view('login');})->name('login');
+
 /*----------------------------------------------------------------- */
 
 /*-----------------------------menu-superadmin---------------------*/

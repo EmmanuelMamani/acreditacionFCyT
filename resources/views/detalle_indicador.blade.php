@@ -1,5 +1,10 @@
 @extends("header")
 @section("main")
+@guest
+    <script>
+        location.href='{{route("login")}}';
+    </script>
+@endguest
 <div class="grid grid-cols-1 md:grid-cols-3 pb-10">
     <div class="flex con-opt">
         <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-2xl font-thin lg:w-20 lg:h-20 lg:text-4xl">{{$indicador->variable->area->numero_area}}</div>
@@ -21,16 +26,16 @@
     <div class="col-span-6 md:col-span-8 lg:col-span-9">
         <h3 class="cursor-pointer text-xl md:text-3xl justify-self-start">Archivos</h3>
     </div>
-     @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
+     
      <div class="flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-1" id="agregar">
         <span class="material-symbols-outlined">add</span>
         <span>Agregar</span>
     </div>
-     @endif
+     
 </div>
      <div class="flex justify-center">
          <table class="w-5/6 mt-5 border-collapse table-auto">
-             <thead class="border-4 border-b-black  border-x-white border-t-white">
+             <thead class="border-2 border-y-black  border-x-white border-t-white">
                  <tr>
                      <th class="text-lg">Tipo</th>
                      <th class="text-left text-lg">Nombre</th>
@@ -46,7 +51,7 @@
                     @if (Auth::user()->carrera_id!= NULL )
                         
                         @if ($archivo->carrera_id==Auth::user()->carrera_id || $archivo->carrera_id==null )
-                            <tr class="border-2 border-y-black border-x-white">
+                            <tr class="border border-y-stone-400 border-x-white">
                                 <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
                                 <th class="font-thin text-lg text-left"><a href="{{ asset($archivo->url) }}" target="_blank" >{{$archivo->nombre}}</a></th>
                                 <th>
@@ -66,7 +71,7 @@
                     
                     @else
                         @if ($archivo->carrera_id==null)
-                        <tr class="border-2 border-y-black border-x-white">
+                        <tr class="border border-y-stone-400 border-x-white">
                             <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
                             <th class="font-thin text-lg text-left"><a href="{{ asset($archivo->url) }}" target="_blank" >{{$archivo->nombre}}</a></th>
                             <th>
@@ -93,8 +98,8 @@
                     @if (Auth::user()->carrera_id!= NULL )
                         
                         @if ($archivo->carrera_id==Auth::user()->carrera_id || $archivo->carrera_id==null)
-                            <tr class="border-2 border-y-black border-x-white">
-                                <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" onclick="mostrar({{$archivo->id}})">folder</span></th>
+                            <tr class="border border-y-stone-400 border-x-white">
+                                <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-4xl text-right cursor-pointer" onclick="mostrar({{$archivo->id}})">folder</span></th>
                                 <th class="font-thin text-lg text-left">{{$archivo->nombre}}</th>
                                 <th>
                                 <div class="grid grid-cols-3">
@@ -120,8 +125,8 @@
                     <!----------------cuando el usuario es elsuperadmin------------------>
                         
                         @if ($archivo->carrera_id==null)
-                        <tr class="border-2 border-y-black border-x-white">
-                            <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" onclick="mostrar({{$archivo->id}})">folder</span></th>
+                        <tr class="border border-y-stone-400 border-x-white">
+                            <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-4xl text-right cursor-pointer" onclick="mostrar({{$archivo->id}})">folder</span></th>
                             <th class="font-thin text-lg text-left">{{$archivo->nombre}}</th>
                             <th>
                             <div class="grid grid-cols-3">

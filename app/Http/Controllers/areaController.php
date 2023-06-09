@@ -20,7 +20,11 @@ class areaController extends Controller
     public function reporte_areas()
     {
         if(!$this->restriccion('reporte_areas')){
+            if(Auth::user()==null){
+                return redirect(route('login'));
+            }else{
             return redirect('/sin_permiso');
+            }
         }
         $areas=area::where('activo',1)->get();
         return view('reporte_areas',['areas'=>$areas]);
@@ -30,7 +34,11 @@ class areaController extends Controller
     public function registro(areaRequest $request)
     {
         if(!$this->restriccion('registro_area')){
+            if(Auth::user()==null){
+                return redirect(route('login'));
+            }else{
             return redirect('/sin_permiso');
+            }
         }
         $area= new area();
         $area->name=$request->descripcion;
@@ -44,7 +52,11 @@ class areaController extends Controller
     public function editar_area($id,areaEditRequest $request)
     {
         if(!$this->restriccion('editar_area')){
+            if(Auth::user()==null){
+                return redirect(route('login'));
+            }else{
             return redirect('/sin_permiso');
+            }
         }
         $area=area::find($id);
         $area->name=$request->EditDescripcion;
@@ -58,7 +70,11 @@ class areaController extends Controller
     public function eliminar_area($id)
     {
         if(!$this->restriccion('eliminar_area')){
+            if(Auth::user()==null){
+                return redirect(route('login'));
+            }else{
             return redirect('/sin_permiso');
+            }
         }
         $area= area::find($id);
         $this->eliminar($area);
@@ -83,12 +99,18 @@ class areaController extends Controller
     }
     public function restriccion($ruta){
         $permitido=true;
+        if(Auth::user()!=null){
         $rol_id=Auth::user()->rol_user->last()->rol_id;
         $permiso_id= permiso::all()->where('url',$ruta)->last()->id;
         $restriccion= permiso_rol::all()->where('permiso_id',$permiso_id)->where('rol_id',$rol_id);
         if($restriccion == '[]'){
             $permitido=false; 
         }
+        }else{
+            $permitido=false;
+        }   
         return $permitido;
+        
+       
     }
 }

@@ -33,7 +33,7 @@ class folderEditRequest extends FormRequest
     public function rules()
     {
         return [
-            'editNombre'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ 0-9]+$/u','max:100','min:3','unique:archivos,nombre,'.$this->route('id')],
+            'editNombre'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ 0-9 ,.:]+$/u','max:100','min:3','unique:archivos,nombre,'.$this->route('id')],
             'id'=>'required'
         ];
     }

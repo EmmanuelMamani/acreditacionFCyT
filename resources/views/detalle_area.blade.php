@@ -31,7 +31,7 @@
         </div>
      <div class="flex justify-center">
          <table class="w-5/6 mt-5 border-collapse table-auto">
-             <thead class="border-4 border-b-black  border-x-white border-t-white">
+             <thead class="border-2 border-b-black  border-x-white border-t-white">
                  <tr>
                      <th class="text-xl">#</th>
                      <th class="text-left text-xl">Nombre</th>
@@ -42,7 +42,7 @@
              </thead>
              <tbody>
                 @foreach ($area->variables as $variable)
-                <tr class="border-2 border-y-black border-x-white">
+                <tr class="border border-y-stone-400 border-x-white">
                     <th class="font-thin text-sm lg:text-lg">{{$area->numero_area.'.'.$variable->numero_variable}}</th>
                     <th class="font-thin text-sm text-left lg:text-lg"><a href="{{route('reporte_indicadores',['id'=>$variable->id])}}">{{$variable->name}}</a></th>
                     @if (Auth::user()->rol_user->last()->rol->name=="superadmin")

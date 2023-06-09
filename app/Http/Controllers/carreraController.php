@@ -13,14 +13,22 @@ class carreraController extends Controller
     //
     public function reporte_carreras(){
         if(!$this->restriccion('reporte_carreras')){
+             if(Auth::user()==null){
+                return redirect(route('login'));
+            }else{
             return redirect('/sin_permiso');
+            }
         }
         $carreras= carrera::all()->where('activo',true);
        return view("reporte_carreras",["carreras"=>$carreras]);
     }
     public function registro(carreraRequest $request){
         if(!$this->restriccion('registro_carrera')){
+             if(Auth::user()==null){
+                return redirect(route('login'));
+            }else{
             return redirect('/sin_permiso');
+            }
         }
         $carrera= new carrera();
         $carrera->name= $request->name;
@@ -30,7 +38,11 @@ class carreraController extends Controller
     }
     public function eliminar_carrera($id){
         if(!$this->restriccion('eliminar_carrera')){
+             if(Auth::user()==null){
+                return redirect(route('login'));
+            }else{
             return redirect('/sin_permiso');
+            }
         }
         $carrera= carrera::find($id);
         $carrera->activo=false;
@@ -39,7 +51,11 @@ class carreraController extends Controller
     }
     public function editar_carrera($id, carreraEditRequest $request){
         if(!$this->restriccion('editar_carrera')){
+             if(Auth::user()==null){
+                return redirect(route('login'));
+            }else{
             return redirect('/sin_permiso');
+            }
         }
         $carrera = carrera::find($id);
         $carrera->name=$request->nameE;
@@ -48,12 +64,18 @@ class carreraController extends Controller
     }
     public function restriccion($ruta){
         $permitido=true;
+        if(Auth::user()!=null){
         $rol_id=Auth::user()->rol_user->last()->rol_id;
         $permiso_id= permiso::all()->where('url',$ruta)->last()->id;
         $restriccion= permiso_rol::all()->where('permiso_id',$permiso_id)->where('rol_id',$rol_id);
         if($restriccion == '[]'){
             $permitido=false; 
         }
+    }else{
+        $permitido=false;
+    }
         return $permitido;
+        
+       
     }
 }

@@ -12,14 +12,22 @@ class rolController extends Controller
     //
     public function reporte(){
         if(!$this->restriccion('reporte_roles')){
+             if(Auth::user()==null){
+                return redirect(route('login'));
+            }else{
             return redirect('/sin_permiso');
+            }
         }
         $roles=rol::all()->where('activo',true);
         return view('reporte_roles',['roles'=>$roles]);
     }
     public function registrar( rolRequest $request){
         if(!$this->restriccion('registro_rol')){
+             if(Auth::user()==null){
+                return redirect(route('login'));
+            }else{
             return redirect('/sin_permiso');
+            }
         }
         $rol=new rol();
         $rol->name=$request->name;
@@ -28,7 +36,11 @@ class rolController extends Controller
     }
     public function eliminar($id){
         if(!$this->restriccion('eliminar_rol')){
+             if(Auth::user()==null){
+                return redirect(route('login'));
+            }else{
             return redirect('/sin_permiso');
+            }
         }
         $rol= rol::find($id);
         $rol->activo=false;
@@ -37,12 +49,17 @@ class rolController extends Controller
     }
     public function restriccion($ruta){
         $permitido=true;
+        if(Auth::user()!=null){
         $rol_id=Auth::user()->rol_user->last()->rol_id;
         $permiso_id= permiso::all()->where('url',$ruta)->last()->id;
         $restriccion= permiso_rol::all()->where('permiso_id',$permiso_id)->where('rol_id',$rol_id);
         if($restriccion == '[]'){
             $permitido=false; 
         }
+    }else{
+        $permitido=false;
+    }
         return $permitido;
+        
     }
 }

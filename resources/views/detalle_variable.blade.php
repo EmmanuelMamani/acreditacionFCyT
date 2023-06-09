@@ -32,7 +32,7 @@
 </div>
      <div class="flex justify-center">
          <table class="w-5/6 mt-5 border-collapse table-auto">
-             <thead class="border-4 border-b-black  border-x-white border-t-white">
+             <thead class="border-2 border-b-black  border-x-white border-t-white">
                  <tr>
                      <th>#</th>
                      <th class="text-left">Nombre</th>
@@ -45,7 +45,7 @@
              <tbody>
                 @foreach ($variable->indicadores as $indicador)
                     @if ($indicador->activo==1)
-                    <tr class="border-2 border-y-black border-x-white">
+                    <tr class="border border-y-stone-400 border-x-white">
                         <th class="font-thin text-sm md:text-lg">{{$variable->area->numero_area}}.{{$variable->numero_variable}}.{{$indicador->numero_indicador}}</th>
 
                         <th class="font-thin text-sm text-left md:text-lg"><a href="{{route('reporte_archivos',['id'=>$indicador->id])}}">{{$indicador->descripcion}}</a></th>

@@ -17,6 +17,10 @@
     <title>SIS-EA</title>
 </head>
 <body>
+    <div class="flex justify-end items-center">
+        <a  id="downloadLink" onclick="descargar()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer"><span class="material-symbols-outlined icono mr-1">download_for_offline</span>DESCARGAR</a>
+    </div>
+    <div id="areaDeImpresora">
     <header>
         <img src="{{asset('img/ENCABEZADO para DOCUMENTOS.jpeg')}}" alt="">
     </header>
@@ -26,7 +30,7 @@
         <table class="mt-5 border-collapse table-auto border border-slate-400 w-5/6 mb-10">
             <thead class="border-2 border-b-black  border-x-white border-t-white">
                 <tr class="bg-slate-500">
-                    <tr class="border border-y-black border-x-white bg-slate-400">
+                    <tr class="border border-y-black border-x-white bg-neutral-400">
                         <th>#</th>
                         <th>Descripcion Variable</th>
                         <th></th>
@@ -56,7 +60,7 @@
                 <th class="font-thin">{{$sum_ponderacion}}</th>
                 <th class="font-thin">{{$sum_calificacion}}</th>
                 </tr>
-                <tr class="border border-y-black border-x-white bg-slate-300">
+                <tr class="border border-y-black border-x-white bg-neutral-300">
                     <th>#</th>
                     <th>Descripcion indicador</th>
                     <th>Tipo de indicador</th>
@@ -79,7 +83,7 @@
                 </tr>
                 @foreach ($indicador->criterios_indicadores->where('activo',1) as $criterio_ind )
      
-                    <tr class="border border-y-black border-x-white ">
+                    <tr class="border border-y-neutral border-x-white ">
                         <th class="font-thin"></th>
                         <th class="font-thin"></th>
                         <th class="font-thin"></th>
@@ -133,6 +137,8 @@
     <div class="w-4/6">
         <canvas id="bar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
     </div>
+
+</div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <script>

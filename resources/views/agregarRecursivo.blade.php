@@ -5,8 +5,8 @@
 
                     @if (Auth::user()->carrera_id!= NULL )
                         
-                        @if ($archivo->carrera_id==Auth::user()->carrera_id)
-                            <tr class="border-2 border-y-black border-x-white {{$id_folder}}" style="display:none;">
+                        @if ($archivo->carrera_id==Auth::user()->carrera_id || $archivo->carrera_id==null)
+                            <tr class="border border-y-stone-300 border-x-white {{$id_folder}}" style="display:none;">
                                 <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
                                 <th class="font-thin text-xl text-left"><a href="{{ asset($archivo->url) }}">{{$archivo->nombre}}</a></th>
                                 <th>
@@ -25,7 +25,7 @@
                     
                     @else
                 
-                        <tr class="border-2 border-y-black border-x-white {{$id_folder}}" style="display:none;">
+                        <tr class="border border-y-stone-300 border-x-white {{$id_folder}}" style="display:none;">
                             <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
                             <th class="font-thin text-xl text-left"><a href="{{ asset($archivo->url) }}">{{$archivo->nombre}}</a></th>
                             <th>
@@ -47,9 +47,9 @@
                     <!---para folders--->
                     @if (Auth::user()->carrera_id!= NULL )
                         
-                        @if ($archivo->carrera_id==Auth::user()->carrera_id)
-                            <tr class="border-2 border-y-black border-x-white folder {{$id_folder}}" style="display:none;" id="{{$archivo->id}}">
-                                <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer "  onclick="mostrar({{$archivo->id}})">folder</span></th>
+                        @if ($archivo->carrera_id==Auth::user()->carrera_id || $archivo->carrera_id==null)
+                            <tr class="border border-y-stone-300 border-x-white folder {{$id_folder}}" style="display:none;" id="{{$archivo->id}}">
+                                <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-4xl text-right cursor-pointer "  onclick="mostrar({{$archivo->id}})">folder</span></th>
                                 <th class="font-thin text-xl text-left">{{$archivo->nombre}}</th>
                                 <th>
                                 <div class="grid grid-cols-3">
@@ -70,8 +70,8 @@
                     
                     @else
                 
-                        <tr class="border-2 border-y-black border-x-white folder {{$id_folder}}" style="display:none;" id="{{$archivo->id}}">
-                            <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer"   onclick="mostrar({{$archivo->id}})">folder</span></th>
+                        <tr class="border border-y-stone-300 border-x-white folder {{$id_folder}}" style="display:none;" id="{{$archivo->id}}">
+                            <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-4xl text-right cursor-pointer"   onclick="mostrar({{$archivo->id}})">folder</span></th>
                             <th class="font-thin text-xl text-left">{{$archivo->nombre}}</th>
                             <th>
                             <div class="grid grid-cols-3">

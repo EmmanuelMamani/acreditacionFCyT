@@ -6,12 +6,12 @@
     </div>
      <div class="flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-1" id="agregar" onclick="abrirModal({{$gestion->id}})">
         <span class="material-symbols-outlined icono">download_for_offline</span>
-        <span>Descargar</span>
+        <span>Reportes</span>
     </div>
 </div>
     <div class="flex justify-center">
         <table class="w-4/6 mt-5 border-collapse table-auto">
-            <thead class="border-4 border-b-black  border-x-white border-t-white">
+            <thead class="border-2 border-b-black  border-x-white border-t-white">
                 <tr>
                     <th>#</th>
                     <th>Descripcion</th>
@@ -25,7 +25,7 @@
             </thead>
             <tbody>
                 @foreach ($areas as $area )
-                <tr class="border-2 border-y-black border-x-white">
+                <tr class="border border-y-stone-400 border-x-white">
                     <th class="font-thin text-xl">{{$area->numero_area}}</th>
                     <th class="font-thin text-xl">{{$area->name}}</th>
                     <th class="font-thin text-xl">{{($notas[$loop->index]/$area->valor)*100}}%</th>
@@ -33,7 +33,9 @@
                     <th class="font-thin text-xl">{{$notas[$loop->index]}}</th>
                     <th>
                             @if ($gestion != null)
+                            <a class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" href="{{route('reporte_area_PDF',['id'=>$area->id])}}">description</a>
                             <a href="{{route('ver_calificar_area',['id'=>$area->id])}}" class="material-symbols-outlined font-extralight text-3xl cursor-pointer">check_circle</a>
+                           
                             @endif
                     </th>
                 </tr>

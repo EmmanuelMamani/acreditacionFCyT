@@ -16,7 +16,11 @@ class gestionController extends Controller
 {
     public function reporte(){
         if(!$this->restriccion('reporte_gestiones')){
+             if(Auth::user()==null){
+                return redirect(route('login'));
+            }else{
             return redirect('/sin_permiso');
+            }
         }
         $años=[];
         $gestiones=gestion::all()->where("carrera_id",Auth::user()->carrera_id);
@@ -35,7 +39,11 @@ class gestionController extends Controller
     }
     public function registrar(Request $request){
         if(!$this->restriccion('registro_gestion')){
+             if(Auth::user()==null){
+                return redirect(route('login'));
+            }else{
             return redirect('/sin_permiso');
+            }
         }
         $gestion = new gestion();
         $gestion->año=$request->gestion;
@@ -46,7 +54,11 @@ class gestionController extends Controller
     }
     public function activar($id){
         if(!$this->restriccion('activar_gestion')){
+             if(Auth::user()==null){
+                return redirect(route('login'));
+            }else{
             return redirect('/sin_permiso');
+            }
         }
         $gestiones=gestion::all()->where("carrera_id",Auth::user()->carrera_id);
         foreach($gestiones as $gestion){
@@ -60,13 +72,18 @@ class gestionController extends Controller
     }
     public function restriccion($ruta){
         $permitido=true;
+        if(Auth::user()!=null){
         $rol_id=Auth::user()->rol_user->last()->rol_id;
         $permiso_id= permiso::all()->where('url',$ruta)->last()->id;
         $restriccion= permiso_rol::all()->where('permiso_id',$permiso_id)->where('rol_id',$rol_id);
         if($restriccion == '[]'){
             $permitido=false; 
         }
+    }else{
+        $permitido=false;
+    }
         return $permitido;
+        
     }
 
     public function reporte_carrera(reporteRequest $request,$id){
