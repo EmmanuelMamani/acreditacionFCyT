@@ -11,7 +11,7 @@
 </div>
     <div class="flex justify-center">
         <table class="w-4/6 mt-5 border-collapse table-auto">
-            <thead class="border-4 border-b-black  border-x-white border-t-white">
+            <thead class="border-2 border-b-black  border-x-white border-t-white">
                 <tr>
                     <th class="text-sm md:text-xl">#</th>
                     <th class="text-sm md:text-xl">URL</th>
@@ -20,7 +20,7 @@
             </thead>
             <tbody>
                 @foreach ($permisos as $key=>$permiso )
-                <tr class="border-2 border-y-black border-x-white">
+                <tr class="border border-y-stone-400 border-x-white">
                     <th class="font-thin text-sm md:text-lg">{{$key+1}}</th>
                     <th class="font-thin text-sm md:text-lg text-left">{{$permiso->url}}</th>
                     <th>

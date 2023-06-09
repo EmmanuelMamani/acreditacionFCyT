@@ -11,7 +11,7 @@
     </div>
     <div class="flex justify-center">
         <table class="w-4/6 mt-5 border-collapse table-auto">
-            <thead class="border-4 border-b-black  border-x-white border-t-white">
+            <thead class="border-2 border-b-black  border-x-white border-t-white">
                 <tr>
                     <th>#</th>
                     <th>Nombre</th>
@@ -23,7 +23,7 @@
             </thead>
             <tbody>
                 @foreach ($usuarios as $key=>$usuario)
-                <tr class="border-2 border-y-black border-x-white">
+                <tr class="border border-y-stone-400 border-x-white">
                     <th class="font-thin text-xl">{{$key+1}}</th>
                     <th class="font-thin text-xl">{{$usuario->name}}</th>
                     <th class="font-thin text-xl">{{$usuario->email}}</th>
