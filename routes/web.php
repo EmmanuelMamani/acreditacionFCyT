@@ -119,7 +119,7 @@ Route::post('/registro_gestion',[gestionController::class,'registrar'])->name("r
 Route::post('/activar_gestion/{id}',[gestionController::class,'activar'])->name("activar_gestion");
 /******************************Reportes****************************************/
 
-Route::post('/reporte_gestion_carrera/{id}',[gestionController::class,'reporte_carrera'])->name('reporte_carrera');
+Route::post('/reporte_gestion_carrera/{id?}',[gestionController::class,'reporte_carrera'])->name('reporte_carrera');
 Route::get('/reportePDF',[calificarController::class,'reportePDF'])->name('reportePDF');
 Route::get('/reporte_area_PDF/{id}',[calificarController::class,'reporte_area_PDF'])->name('reporte_area_PDF');
 Route::get('/reporte_carreras_PDF',[calificarController::class,'reporte_carreras_PDF'])->name('reporte_carreras_PDF');

@@ -21,10 +21,10 @@
         <a onclick="atras()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer" ><span class="material-symbols-outlined icono mr-1">arrow_back</span>Atras</a>
         <a  id="downloadLink" onclick="descargar()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer"><span class="material-symbols-outlined icono mr-1">download_for_offline</span>DESCARGAR</a>
     </div>
+    <header class="flex justify-center">
+        <img src="{{asset('img/ENCABEZADO para DOCUMENTOS.jpeg')}}" alt="" id="encabezado">
+    </header>
     <div id="areaDeImpresora">
-        <header class="flex justify-center">
-            <img src="{{asset('img/ENCABEZADO para DOCUMENTOS.jpeg')}}" alt="">
-        </header>
             <h1 class="text-center font-semibold text-3xl mt-5">Reporte de la gestion: {{$gestion->año}}</h1>
             @if ($request->Tabla != null)
             
@@ -163,15 +163,17 @@
             </div>
             @endif
             @if ($request->Barras != null)
+            <div>
             <h2 class=" text-lg text-center my-5">Diagrama de barras</h2>
             <div class="w-4/6">
                 <canvas id="bar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
             </div>
+        </div>
             @endif
 
            
             
-            
+           
         </div>
     
 
@@ -288,11 +290,12 @@
     
     function descargar(){
         var element = document.getElementById("areaDeImpresora");
+        var encabezado =document.getElementById("encabezado");
+        var today = new Date();
+        var now = today.toLocaleString();
         
-        
-      var doc=  html2pdf().from(element)
-    .set({
-        margin: [10,10,20,10],
+      var doc=  html2pdf().set({
+        margin: [40,10,20,10],
         filename: 'documento.pdf',
         image: {
                     type: 'jpeg',
@@ -319,80 +322,21 @@
             before: '#page2el'
         },
        
-        }).save();
+        }).from(element).toPdf().get('pdf').then(function(pdf) {
+        var totalPages = pdf.internal.getNumberOfPages();
+        for (i = 1; i <= totalPages; i++) {
+            pdf.setPage(i);
+            pdf.setFontSize(10);
+           pdf.addImage(encabezado,'jpeg',0,0,pdf.internal.pageSize.getWidth(),40);
+           pdf.text(now , 20, (pdf.internal.pageSize.getHeight() - 8));
+            pdf.text('Página ' + i + ' de ' + totalPages, (pdf.internal.pageSize.getWidth() / 2.3), (pdf.internal.pageSize.getHeight() - 8));
+        }
+    }).save().catch(err => console.log(err));
+        
     
-    //console.log("que paso?");
     
     }
 
-
-    /*
-        const { jsPDF } = window.jspdf;
-       // var pdf = new jsPDF('p', 'mm', 'letter',true,true);
-      //var element = document.body;
-       // Reemplaza 'content' con el id de tu contenedor de la vista
-
-       var doc = new jsPDF();
-
-var totalPages = 0;
-var contentElement = document.getElementById('content');
-var contentHeight = contentElement.clientHeight;
-var pageHeight = doc.internal.pageSize.getHeight();
-
-// Función para agregar una nueva página
-var addNewPage = function () {
-  doc.addPage();
-  totalPages++;
-};
-
-html2canvas(contentElement).then(function (canvas) {
-  var imgData = canvas.toDataURL('image/png');
-  var position = 0;
-
-  while (position < contentHeight) {
-    // Calcular la altura disponible en la página actual
-    var heightLeft = position === 0 ? pageHeight : pageHeight - 10;
-
-    // Agregar la imagen de la sección actual al PDF
-    doc.addImage(imgData, 'PNG', 10, position === 0 ? 10 : 0, 190, 0);
-
-    position -= heightLeft;
-
-    // Verificar si es necesario agregar una nueva página
-    if (position < contentHeight) {
-      addNewPage();
-    }
-  }
-
-  // Agregar el número total de páginas al pie de página de cada página
-  for (var i = 1; i <= totalPages; i++) {
-    doc.setPage(i);
-    doc.text(20, pageHeight - 10, 'Página ' + i + ' de ' + totalPages);
-  }
-
-  // Guardar el PDF
-  doc.save('mi_pdf.pdf');
-});*/
-      /*pdf.html(element, {
-        
-        html2canvas: {
-       scale: 0.30,
-       width: 200,
-       height:100,
-       letterRendering: true,
-       
-    },
-		callback: function(pdf) {
-            
-            pdf.setPage(1).setFontSize(8).text('AÑADIDOENELDOC',30,100);
-			pdf.save("output.pdf");
-		},
-        
-	});*/
-   // pdf.addHTML(element);
-   
-    
-  //  }
   </script>
     <script>
         function atras(){

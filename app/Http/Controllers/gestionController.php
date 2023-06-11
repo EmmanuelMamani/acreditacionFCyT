@@ -86,9 +86,14 @@ class gestionController extends Controller
         
     }
 
-    public function reporte_carrera(reporteRequest $request,$id){
+    public function reporte_carrera(reporteRequest $request,$id=null){
         $areas=area::all();
-        $gestion=gestion::all()->where('carrera_id', Auth::user()->carrera_id)->where('activo',true)->last();
+        if($id!=null){
+            $gestion=gestion::find($id);
+        }else{
+            $gestion=gestion::find($request->gestion);
+        }
+       
         $calificaciones=calificacion::where('gestion_id',$gestion->id)->get();
         $notas=[];
         $notasP=[];

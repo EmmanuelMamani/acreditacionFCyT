@@ -82,8 +82,8 @@
                 <span class="text-red-700"> Debe seleccionar al menos un campo</span><br>
                @enderror
                  <div class="grid grid-cols-2 pt-10 gap-5">
-                <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
-                <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelar">Cancelar</a>
+                <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardarR">Guardar</button>
+                <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelarR" href="{{route('reporte_gestiones')}}">Cancelar</a>
                 </div>
             </form>
         </div>

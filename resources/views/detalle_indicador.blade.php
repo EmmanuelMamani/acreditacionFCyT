@@ -165,7 +165,7 @@
             <form action="{{ route('registro_archivos',['id'=>$indicador->id])}}" method="POST" id="form">
             @csrf
 <!---id del folder al que pertenece---->
-            <input type="hidden" id="folderId" name='folderId' value="@if (old('nombre_archivo')!='') {{old('nombre_archivo')}}@else 0 @endif">
+            <input type="hidden" id="folderId" name='folderId' value="@if (old('folderId')!='') {{old('folderId')}}@else 0 @endif">
 <!-----select de tipo-------------------->
             <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Agregar</h3>
             <label class="font-thin">Tipo</label><br>

@@ -63,7 +63,7 @@ body{
     border-radius: 20px;
     padding: 1%;
 }
-#agregar{
+#agregar,#descargar{
     background-color: #060926;
 }
 @media (max-width: 1000px){

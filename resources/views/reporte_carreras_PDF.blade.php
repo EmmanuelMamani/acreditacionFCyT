@@ -22,13 +22,16 @@
         <a  id="downloadLink" onclick="descargar()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer"><span class="material-symbols-outlined icono mr-1">download_for_offline</span>DESCARGAR</a>
     </div>
     <header>
-        <img src="{{asset('img/ENCABEZADO para DOCUMENTOS.jpeg')}}" alt="">
+        <img src="{{asset('img/ENCABEZADO para DOCUMENTOS.jpeg')}}" alt="" id="encabezado">
     </header>
+
+    <div id="areaDeImpresora">
+
     <h1 class="text-center text-xl mt-5">Reporte de Carreras</h1>
     <div class="flex justify-center">
         <table class="mt-5 border-collapse table-auto border border-slate-400 w-5/6 mb-10">
             <thead class="border-2 border-b-black  border-x-white border-t-white">
-                    <tr class="border border-y-black border-x-white bg-slate-400">
+                    <tr class="border border-y-black border-x-white bg-stone-200">
                         <th>#</th>
                         <th>Carrera</th>
                         <th>Nota</th>
@@ -36,14 +39,73 @@
             </thead>
             <tbody>
                 @foreach ($carreras as $carrera)
-                    <tr>
+                    <tr class="border border-y-stone-400 border-x-white p-2">
                         <th>{{$loop->index +1 }}</th>
                         <th>{{$carrera->name}}</th>
-                        <th>{{$notasC[$loop->index]}}</th>
+                        <th>{{round($notasC[$loop->index],2)}}</th>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
+</div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+      function descargar(){
+        var element = document.getElementById("areaDeImpresora");
+        var encabezado =document.getElementById("encabezado");
+        var today = new Date();
+        var now = today.toLocaleString();
+        
+      var doc=  html2pdf().set({
+        margin: [40,10,20,10],
+        filename: 'documento.pdf',
+        image: {
+                    type: 'jpeg',
+                    quality: 0.99
+                },
+        html2canvas: {
+
+            scale: 3,
+            letterRendering: true,
+            //allowTaint: true,
+            //foreignObjectRendering: true,
+            //x:0,
+            y:2,
+            scrollX:-10,
+            scrollY:10
+        },
+        jsPDF: {
+            unit: "mm",
+            format: "letter",
+            orientation: 'portrait', // landscape o portrait
+        },
+        pagebreak: {
+            mode: 'avoid-all', 
+            before: '#page2el'
+        },
+       
+        }).from(element).toPdf().get('pdf').then(function(pdf) {
+        var totalPages = pdf.internal.getNumberOfPages();
+        for (i = 1; i <= totalPages; i++) {
+            pdf.setPage(i);
+            pdf.setFontSize(10);
+           pdf.addImage(encabezado,'jpeg',0,0,pdf.internal.pageSize.getWidth(),40);
+           pdf.text(now , 20, (pdf.internal.pageSize.getHeight() - 8));
+            pdf.text('Página ' + i + ' de ' + totalPages, (pdf.internal.pageSize.getWidth() / 2.3), (pdf.internal.pageSize.getHeight() - 8));
+        }
+    }).save().catch(err => console.log(err));
+        
+    
+    
+    }
+
+    function atras(){
+            window.history.back();
+        }
+</script>
 </html>
