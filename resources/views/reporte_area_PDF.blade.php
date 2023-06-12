@@ -231,10 +231,63 @@
             }
         });
 </script>
-<script>/*
-document.addEventListener("DOMContentLoaded", function() {
-    window.print();
-    //window.location.href = "/calificacion";
-    });*/
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+      function descargar(){
+        var element = document.getElementById("areaDeImpresora");
+        var encabezado =document.getElementById("encabezado");
+        var today = new Date();
+        var now = today.toLocaleString();
+        
+      var doc=  html2pdf().set({
+        margin: [40,10,20,10],
+        filename: 'documento.pdf',
+        image: {
+                    type: 'jpeg',
+                    quality: 0.99
+                },
+        html2canvas: {
+
+            scale: 1.8,
+            letterRendering: true,
+            //allowTaint: true,
+            //foreignObjectRendering: true,
+            //x:0,
+            y:2,
+            scrollX:-10,
+            scrollY:10
+        },
+        jsPDF: {
+            unit: "mm",
+            format: "letter",
+            orientation: 'portrait', // landscape o portrait
+        },
+        pagebreak: {
+            mode: 'avoid-all', 
+            before: '#page2el'
+        },
+       
+        }).from(element).toPdf().get('pdf').then(function(pdf) {
+        var totalPages = pdf.internal.getNumberOfPages();
+        for (i = 1; i <= totalPages; i++) {
+            pdf.setPage(i);
+            pdf.setFontSize(10);
+           pdf.addImage(encabezado,'jpeg',0,0,pdf.internal.pageSize.getWidth(),40);
+           pdf.text(now , 20, (pdf.internal.pageSize.getHeight() - 8));
+            pdf.text('Página ' + i + ' de ' + totalPages, (pdf.internal.pageSize.getWidth() / 2.3), (pdf.internal.pageSize.getHeight() - 8));
+        }
+    }).save().catch(err => console.log(err));
+        
+    
+    
+    }
+</script>
+<script>
+    function atras(){
+        window.history.back();
+    }
 </script>
 </html>
