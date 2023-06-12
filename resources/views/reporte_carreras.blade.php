@@ -1,16 +1,18 @@
 @extends("header")
 @section("main")
-    <div class="flex justify-center">
-       <div class="w-4/6 mt-10 grid grid-cols-10">
-            <h3 class="p-2 ">Carreras</h3>
-            <div class="flex justify-center items-center bg-sky-950 text-white p-2 rounded-xl col-start-10 cursor-pointer" id="agregar">
-                <span class="material-symbols-outlined">add</span>
-                <span>Agregar</span>
-            </div>
-       </div>
+<div class="flex justify-center">
+    <div class="w-full lg:w-4/6 mt-10 grid grid-cols-10">
+        <div class="col-span-6 md:col-span-8 lg:col-span-8">
+            <h3 class="cursor-pointer text-xl md:text-3xl justify-self-start">Carreras</h3>
+        </div>
+         <div class="flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-2" id="agregar">
+            <span class="material-symbols-outlined">add</span>
+            <span>Agregar</span>
+        </div>
     </div>
-    <div class="flex justify-center">
-        <table class="w-4/6 mt-5 border-collapse table-auto">
+</div>
+    <div class="overflow-x-auto">
+        <table class=" w-full lg:w-4/6 mt-5 border-collapse table-auto" id='tabla'>
             <thead class="border-2 border-b-black  border-x-white border-t-white">
                 <tr>
                     <th>#</th>
@@ -22,16 +24,16 @@
             <tbody>
                 @foreach ($carreras as $key=>$carrera )
                 <tr class="border border-y-stone-400 border-x-white">
-                    <th class="font-thin text-xl">{{$key+1}}</th>
-                    <th class="font-thin text-xl">{{$carrera->codigo}}</th>
-                    <th class="font-thin text-xl">{{$carrera->name}}</th>
+                    <th class="font-thin text-sm lg:text-xl">{{$key+1}}</th>
+                    <th class="font-thin text-sm lg:text-xl">{{$carrera->codigo}}</th>
+                    <th class="font-thin text-sm lg:text-xl">{{$carrera->name}}</th>
                     <th>
                         <div class="grid grid-cols-3">
-                            <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">description</span>
+                            <span class="material-symbols-outlined font-extralight lg:text-3xl text-right cursor-pointer">description</span>
                             <form class="Eliminar" action="{{route("eliminar_carrera",['id'=>$carrera->id])}}" method="post">
-                                @csrf<button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
+                                @csrf<button class="material-symbols-outlined font-extralight lg:text-3xl cursor-pointer">delete</button>
                             </form>
-                            <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar({{$carrera->id}},'{{$carrera->name}}')">edit_square</span>
+                            <span class="material-symbols-outlined font-extralight lg:text-3xl text-left cursor-pointer" onclick="editar({{$carrera->id}},'{{$carrera->name}}')">edit_square</span>
                         </div>
                     </th>
                 </tr> 
@@ -42,7 +44,7 @@
     </div>
 
 
-    <dialog id="modal" class="w-1/3 rounded-lg px-20">
+    <dialog id="modal" class="w-5/6 sm:w-2/3 md:w-1/3 rounded-lg px-3">
         <form action="{{route('registro_carrera')}}" method="post">
             @csrf
             <div>
@@ -65,7 +67,7 @@
         </form>
     </dialog>
 
-    <dialog id="modal_editar" class="w-1/3 rounded-lg px-20">
+    <dialog id="modal_editar" class="w-5/6 sm:w-2/3 md:w-1/3 rounded-lg px-3">
         <form action="" method="post" id="editar" class="Editar">
             @csrf
             <div>

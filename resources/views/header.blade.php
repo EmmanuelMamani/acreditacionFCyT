@@ -17,14 +17,14 @@
     <title>SIS-EA</title>
 </head>
 <body>
-    <div id="navbar" class="grid grid-cols-5 contenedor-item sm:grid-cols-12">
-        <span class="material-symbols-outlined cursor-pointer" id="menu">menu</span>
-        <div class="sm:col-span-5 lg:col-span-8 flex">
-            <h1 id="titulo" class="lg:text-3xl">SIS-EA:</h1>
+    <div id="navbar" class="grid grid-cols-6 contenedor-item sm:grid-cols-12">
+        <span class="material-symbols-outlined cursor-pointer lg:ml-5" id="menu">menu</span>
+        <div class="col-span-2 sm:col-span-5 lg:col-span-8 flex">
+            <h1  class="text-sm md:text-2xl">SIS-EA:</h1>
             @if (Auth::user()->carrera_id==null)
-            <h1 class="ml-2 lg:text-2xl">Administracion</h1>
+            <h1 class="ml-2 text-sm md:text-2xl">Administracion</h1>
             @else
-            <h1 class="ml-2 lg:text-2xl">{{Auth::user()->carrera->name}}</h1>
+            <h1 class="ml-2 text-sm md:text-2xl">{{Auth::user()->carrera->name}}</h1>
             @endif
         </div>
         <div class="col-span-3  sm:col-span-5 lg:col-span-3">
