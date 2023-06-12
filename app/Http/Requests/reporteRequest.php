@@ -34,7 +34,7 @@ class reporteRequest extends FormRequest
         return [
             'gestion'=>'filled',
             'Tabla'=>'bail|required_without_all:Roseta,Barras',
-            'id'=>'required'
+            
         ];
     }
 

@@ -89,7 +89,7 @@
 
     <dialog id="modalReporte" class="w-1/3 rounded-lg px-20">
         <div>
-            <form action="{{route('reporte_carrera').'/'}}" method="post" id='reporte'>
+            <form action="{{route('reporte_carrera')}}" method="post" id='reporte'>
                 @csrf
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Generar Reporte</h3>
             
@@ -149,16 +149,21 @@
 
     @if ($errors->has('Tabla') || $errors->has('gestion'))
     <script>
-        var modalR=document.getElementById("modalReporte");
+        
         var gestiones=localStorage.getItem('gestiones');
         var select=document.getElementById("gestion");
-        select.innerHTML="";
-        gestiones=JSON.parse(gestiones);
         
-        gestiones.forEach(element => {
+        gestiones=JSON.parse(gestiones);
+        console.log(gestiones);
+        if(gestiones!=null){
+            select.innerHTML="";
+            gestiones.forEach(element => {
             select.innerHTML+="<option value='"+element['id']+"'>"+element['año']+"</option>";
         });
-        modalR.showModal();
+        }
+        
+        var modalReporte=document.getElementById("modalReporte");
+        modalReporte.showModal();
     </script>
 @endif
 @endsection
