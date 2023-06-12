@@ -197,7 +197,7 @@
     </dialog>
 
 <!-------------dialog editar nombre folder---------------->
-    <dialog id="folder" class="w-5/6 sm:w-2/3 md:w-1/3 rounded-lg px-3" >
+    <dialog id="folderE" class="w-5/6 sm:w-2/3 md:w-1/3 rounded-lg px-3" >
         <div>
             <form action="" method="POST" id="formEdit" class="Editar">
                 @csrf
@@ -218,10 +218,10 @@
 <!---------------abrir modal de edicion cuando se envien errores-------------->
 @if ($errors->has('editNombre'))
     <script>
-        folder=document.getElementById('formEdit');
-        folder.action='/editar_folder/'+{{$errors->first('id')}};
-         $dialog=document.getElementById('folder');
-         $dialog.showModal();
+       var formEdit=document.getElementById('formEdit');
+        formEdit.action='/editar_folder/'+{{$errors->first('id')}};
+        var dialog=document.getElementById('folderE');
+         dialog.showModal();
     </script>
 @endif
     
@@ -244,7 +244,7 @@
         var cancelarC=document.getElementById("cancelarC");
         
         var archivo=document.getElementById("archivo");
-        var folder1=document.getElementById("folder");
+        var folder1=document.getElementById("folderE");
 
         guardarC.onclick=function(){
             folder1.close()
@@ -261,23 +261,24 @@
 
 //----------------Abrir modal Editar------------------
         function editar(nombre, id){
-            folder=document.getElementById('formEdit');
+          var  folder=document.getElementById('formEdit');
             folder.action='/editar_folder/'+id;
-            editNombre=document.getElementById('editNombre');
+           var editNombre=document.getElementById('editNombre');
             editNombre.value=nombre;
-            dialog=document.getElementById('folder');
-            dialog.showModal();
+          // var dialogEditar=document.getElementById('folder');
+          //console.log(folder1);
+           folder1.showModal();
         }
 //-------------------------Abrir modal para agregar a otras carpetas---------------------
         function showModal(id){
-            folderId=document.getElementById('folderId');
+          var folderId=document.getElementById('folderId');
             folderId.value=id;
            
             modal.showModal()
         }
 //-----------------Despliegue de folders----------------------
         function mostrar(id){   
-            filas=document.getElementsByClassName(id);
+           var filas=document.getElementsByClassName(id);
             for (let index = 0; index < filas.length; index++) {
                 if(filas[index].style.display=='none'){
                     filas[index].style.display='table-row';
@@ -297,7 +298,7 @@
         }
 //---------------Repliegue de folders-------------------------------------
         function deshabilitar(id){
-            filas=document.getElementsByClassName(id);
+           var filas=document.getElementsByClassName(id);
             
             for (let index = 0; index < filas.length; index++) {
                 
@@ -312,12 +313,12 @@
         }
 //----------------------Cambiar tipo archivo para añadir--------------------------
         function cambiar(){
-            select=document.getElementById('tipo');
+          var  select=document.getElementById('tipo');
 
-            folder=document.getElementById('inputFolder');
-            archivos=document.getElementById('inputFile');
-            guardarBoton=document.getElementById("guardar");
-            form=document.getElementById("form");
+           var folder=document.getElementById('inputFolder');
+           var archivos=document.getElementById('inputFile');
+          var  guardarBoton=document.getElementById("guardar");
+          var  form=document.getElementById("form");
 
 
             select=select.options[select.selectedIndex].text;
