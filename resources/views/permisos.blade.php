@@ -1,16 +1,18 @@
 @extends("header")
 @section("main")
-<div class="mt-10 grid grid-cols-10">
-    <div class="col-span-6 md:col-span-8 lg:col-span-9">
-        <h3 class="cursor-pointer text-xl md:text-3xl justify-self-start">Permisos</h3>
-    </div>
-     <div class="flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-1" id="agregar">
-        <span class="material-symbols-outlined">add</span>
-        <span>Agregar</span>
+<div class="flex justify-center">
+    <div class="w-full lg:w-4/6 mt-10 grid grid-cols-10">
+        <div class="col-span-6 md:col-span-8 lg:col-span-8">
+            <h3 class="cursor-pointer text-xl md:text-3xl justify-self-start">Permisos</h3>
+        </div>
+         <div class="flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-2" id="agregar">
+            <span class="material-symbols-outlined">add</span>
+            <span>Agregar</span>
+        </div>
     </div>
 </div>
-    <div class="flex justify-center">
-        <table class="w-4/6 mt-5 border-collapse table-auto">
+<div class="overflow-x-auto">
+    <table class=" w-full lg:w-4/6 mt-5 border-collapse table-auto" id='tabla'>
             <thead class="border-2 border-b-black  border-x-white border-t-white">
                 <tr>
                     <th class="text-sm md:text-xl">#</th>

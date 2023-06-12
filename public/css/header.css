@@ -30,7 +30,7 @@ body{
     margin-left: 5%;
     font-size: 20px;
 }
-#titulo{
+.titulo{
     font-size: 25px;
 }
 #menu{
@@ -66,9 +66,15 @@ body{
 #agregar,#descargar{
     background-color: #060926;
 }
+#tabla{
+    margin-left: 16%;
+}
 @media (max-width: 1000px){
     .opt-main{
         padding-left: 55px;
+    }
+    #tabla{
+        margin-left: 2%;
     }
 }
 @media (max-width: 600px){
@@ -76,7 +82,7 @@ body{
         margin-left: 5%;
         font-size: 12px;
     }
-    #titulo{
+    .titulo{
         font-size: 15px;
     }
     .icono,#menu{

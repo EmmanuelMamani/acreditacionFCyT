@@ -1,33 +1,35 @@
 @extends("header")
 @section("main")
-    <div class="flex justify-center">
-       <div class="w-4/6 mt-10 grid grid-cols-10">
-            <h3 class="p-2 ">Gestiones</h3>
-            <div class="flex justify-center items-center bg-sky-950 text-white p-2 rounded-xl col-start-10 cursor-pointer" id="agregar">
-                <span class="material-symbols-outlined">add</span>
-                <span>Agregar</span>
-            </div>
-       </div>
+<div class="flex justify-center">
+    <div class="w-full lg:w-4/6 mt-10 grid grid-cols-10">
+        <div class="col-span-6 md:col-span-8 lg:col-span-8">
+            <h3 class="cursor-pointer text-md md:text-3xl justify-self-start">Gestiones</h3>
+        </div>
+         <div class="flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-2" id="agregar">
+            <span class="material-symbols-outlined">add</span>
+            <span>Agregar</span>
+        </div>
     </div>
-    <div class="flex justify-center">
-        <table class="w-4/6 mt-5 border-collapse table-auto">
+</div>
+<div class="overflow-x-auto">
+    <table class=" w-full lg:w-4/6 mt-5 border-collapse table-auto" id='tabla'>
             <thead class="border-2 border-b-black  border-x-white border-t-white">
                 <tr>
-                    <th>#</th>
-                    <th>Año</th>
-                    <th>Activo</th>
-                    <th>Accciones</th>
+                    <th class="text-lg md:text-2xl">#</th>
+                    <th class="text-lg md:text-2xl">Año</th>
+                    <th class="text-lg md:text-2xl">Activo</th>
+                    <th class="text-lg md:text-2xl">Accciones</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($gestiones as $key=>$gestion)
                 <tr class="border border-y-stone-400 border-x-white">
-                    <th class="font-thin text-xl">{{$key+1}}</th>
-                    <th class="font-thin text-xl">{{$gestion->año}}</th>
+                    <th class="font-thin lg:text-xl">{{$key+1}}</th>
+                    <th class="font-thin lg:text-xl">{{$gestion->año}}</th>
                     @if ($gestion->activo==true)
-                    <th class="font-thin text-xl">Si</th>
+                    <th class="font-thin lg:text-xl">Si</th>
                     @else
-                    <th class="font-thin text-xl">No</th>
+                    <th class="font-thin lg:text-xl">No</th>
                     @endif
                     <th>
                         <div class="grid grid-cols-3">
@@ -45,7 +47,7 @@
     </div>
 
 
-    <dialog id="modal" class="w-1/3 rounded-lg px-20">
+    <dialog id="modal" class="w-5/6 sm:w-2/3 md:w-1/3 rounded-lg px-3">
         <div>
             <form action="{{route("registro_gestion")}}" method="post">
                 @csrf
@@ -58,13 +60,13 @@
                 </select><br>
                  <div class="grid grid-cols-2 pt-10 gap-5">
                 <button class="bg-sky-950 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg" id="guardar">Guardar</button>
-                <a class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelar">Cancelar</a>
+                <a href="{{route('reporte_gestiones')}}" class="bg-red-600 text-white pl-3 pr-3 pt-2 pb-2 rounded-lg cursor-pointer" id="cancelar">Cancelar</a>
                 </div>
             </form>
         </div>
     </dialog>
 
-    <dialog id="modalReporte" class="w-1/3 rounded-lg px-20">
+    <dialog id="modalReporte" class="w-5/6 sm:w-2/3 md:w-1/3 rounded-lg px-3">
         <div>
             <form action="" method="post" id='reporte'>
                 @csrf

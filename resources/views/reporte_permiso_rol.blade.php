@@ -1,30 +1,32 @@
 @extends("header")
 @section("main")
-    <div class="flex justify-center">
-       <div class="w-4/6 mt-10 grid grid-cols-4">
-            <h3 class="p-2 ">Asignacion de permisos</h3>
-            <div class="flex justify-center items-center bg-sky-950 text-white p-2 rounded-xl col-start-6 cursor-pointer" id="agregar">
-                <span class="material-symbols-outlined">add</span>
-                <span>Agregar</span>
-            </div>
-       </div>
+<div class="flex justify-center">
+    <div class="w-full lg:w-4/6 mt-10 grid grid-cols-10">
+        <div class="col-span-6 md:col-span-8 lg:col-span-8">
+            <h3 class="cursor-pointer text-md md:text-3xl justify-self-start">Asignacion de permisos</h3>
+        </div>
+         <div class="flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-2" id="agregar">
+            <span class="material-symbols-outlined">add</span>
+            <span>Agregar</span>
+        </div>
     </div>
-    <div class="flex justify-center">
-        <table class="w-4/6 mt-5 border-collapse table-auto">
+</div>
+<div class="overflow-x-auto">
+    <table class=" w-full lg:w-4/6 mt-5 border-collapse table-auto" id='tabla'>
             <thead class="border-2 border-b-black  border-x-white border-t-white">
                 <tr>
-                    <th>#</th>
-                    <th>Permiso</th>
-                    <th>Rol</th>
-                    <th>Eliminar</th>
+                    <th class="text-sm md:text-xl">#</th>
+                    <th class="text-sm md:text-xl">Permiso</th>
+                    <th class="text-sm md:text-xl">Rol</th>
+                    <th class="text-sm md:text-xl">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($permiso_roles as $key=>$permiso_rol )
                 <tr class="border border-y-stone-400 border-x-white">
-                    <th class="font-thin text-xl">{{$key+1}}</th>
-                    <th class="font-thin text-xl">{{$permiso_rol->permiso->url}}</th>
-                    <th class="font-thin text-xl">{{$permiso_rol->rol->name}}</th>
+                    <th class="font-thin lg:text-xl">{{$key+1}}</th>
+                    <th class="font-thin lg:text-xl">{{$permiso_rol->permiso->url}}</th>
+                    <th class="font-thin lg:text-xl">{{$permiso_rol->rol->name}}</th>
                     <th>
                         <form class="Eliminar" action="{{route('eliminar_asignacion',['id'=>$permiso_rol->id])}}" method="post">
                             @csrf
@@ -38,7 +40,7 @@
     </div>
 
 
-    <dialog id="modal" class="w-1/3 rounded-lg px-20">
+    <dialog id="modal" class="w-5/6 sm:w-2/3 md:w-1/3 rounded-lg px-3">
         <div>
             <form action="{{route('asignar_permiso')}}" method="post">
             @csrf
