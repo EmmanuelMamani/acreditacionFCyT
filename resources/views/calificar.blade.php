@@ -19,8 +19,9 @@
                     <th class="text-lg lg:text-2xl">#</th>
                     <th class="text-lg lg:text-2xl">Descripcion</th>
                     <th class="text-lg lg:text-2xl">Porcentaje Area</th>
+                    <th class="text-lg lg:text-2xl">Promedio</th>
                     <th class="text-lg lg:text-2xl">Ponderación</th>
-                    <th class="text-lg lg:text-2xl">Nota Area</th>
+                    <th class="text-lg lg:text-2xl">Promedio ponderado</th>
                     @if ($gestion != null)
                         <th class="text-lg lg:text-2xl">Accion</th>
                     @endif
@@ -32,8 +33,9 @@
                     <th class="font-thin lg:text-xl">{{$area->numero_area}}</th>
                     <th class="font-thin lg:text-xl">{{$area->name}}</th>
                     <th class="font-thin lg:text-xl">{{($notas[$loop->index]/$area->valor)*100}}%</th>
+                    <th class="font-thin lg:text-xl">{{round(($notas[$loop->index]/$area->valor)*5,2)}}</th>
                     <th class="font-thin lg:text-xl">{{$area->valor}}</th>
-                    <th class="font-thin lg:text-xl">{{$notas[$loop->index]}}</th>
+                    <th class="font-thin lg:text-xl">{{(round($notas[$loop->index],2)/$areas->sum('valor'))*100}}</th>
                     <th>
                             @if ($gestion != null)
                             <a class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" href="{{route('reporte_area_PDF',['id'=>$area->id])}}">description</a>

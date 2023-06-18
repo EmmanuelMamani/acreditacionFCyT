@@ -132,17 +132,17 @@
         </table>
     </div>
     <div>
-    <h2 class=" text-lg text-center my-5">Roseta</h2>
+    <h2 class=" text-lg text-center my-5">Roseta de promedio de variables</h2>
     <div class=" w-4/6">
         <canvas id="radar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
     </div>
     </div>
     <div>
-    <h2 class=" text-lg text-center my-5">Diagrama de barras</h2>
+    <h2 class=" text-lg text-center my-5">Diagrama de barras de notas de variables</h2>
     <div class="w-4/6">
         <canvas id="bar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
     </div>
-</div>
+    </div>
 
 </div>
 </body>
