@@ -33,14 +33,23 @@
                 <table class=" w-full lg:w-4/6 mt-5 border-collapse table-auto" id='tabla'>
                 <thead class="border-2 border-b-black  border-x-white border-t-white">
                     <tr class="bg-slate-500">
-                    <th>#</th>
-                    <th>Descripcion</th>
-                    <th></th>
-                    <th>Porcentaje Area</th>
-                    <th>Promedio</th>
-                    <th>Ponderación</th>
-                    <th>Promedio Ponderado</th>
-                </tr>
+                        <th>#</th>
+                        <th>Descripcion</th>
+                        <th></th>
+                        <th>Porcentaje Area</th>
+                        <th>Promedio</th>
+                        <th>Ponderación</th>
+                        <th>Promedio Ponderado</th>
+                    </tr>
+                    <tr class="bg-slate-500">
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th class="text-center"> (PA)</th>
+                        <th class="text-center">(Pro)</th>
+                        <th class="text-center">(P)</th>
+                        <th class="text-center">(PA * P)/{{$areas->sum('valor')}} </th>
+                    </tr>
              </thead>
                 <tbody>
                 @foreach ($areas as $area )
@@ -157,7 +166,7 @@
             @endif
             @if ($request->Roseta != null)
             <div>
-            <h2 class=" text-lg text-center my-5">Roseta</h2>
+            <h2 class=" text-lg text-center my-5">Roseta de promedio de areas</h2>
             <div class=" w-1/2">
                 <canvas id="radar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
             </div>
@@ -165,7 +174,7 @@
             @endif
             @if ($request->Barras != null)
             <div>
-            <h2 class=" text-lg text-center my-5">Diagrama de barras</h2>
+            <h2 class=" text-lg text-center my-5">Diagrama de barras de valor de areas</h2>
             <div class="w-4/6">
                 <canvas id="bar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
             </div>
