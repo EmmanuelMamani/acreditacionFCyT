@@ -10,16 +10,10 @@
             <span>Agregar</span>
         </div>
     </div>
-<<<<<<< HEAD
 </div>
 <div class="overflow-x-auto">
     <table class=" w-full lg:w-4/6 mt-5 border-collapse table-auto" id='tabla'>
             <thead class="border-2 border-b-black  border-x-white border-t-white">
-=======
-    <div class="flex justify-center">
-        <table class="w-4/6 mt-5 border-collapse table-auto">
-            <thead class="border-4 border-b-black  border-x-white border-t-white">
->>>>>>> f3e4efaf6976b7dc9ca3ccebd61fa765576af7cc
                 <tr>
                     <th class="text-lg lg:text-2xl">#</th>
                     <th class="text-lg lg:text-2xl">Nombre</th>

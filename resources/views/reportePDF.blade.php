@@ -21,16 +21,16 @@
         <a onclick="atras()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer" ><span class="material-symbols-outlined icono mr-1">arrow_back</span>Atras</a>
         <a  id="downloadLink" onclick="descargar()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer"><span class="material-symbols-outlined icono mr-1">download_for_offline</span>DESCARGAR</a>
     </div>
-
+    <header class="flex justify-center">
+        <img src="{{asset('img/ENCABEZADO para DOCUMENTOS.jpeg')}}" alt="" id="encabezado">
+    </header>
     <div id="areaDeImpresora">
-        <header class="flex justify-center">
-            <img src="{{asset('img/ENCABEZADO para DOCUMENTOS.jpeg')}}" alt="" id="encabezado">
-        </header>
+        
             <h1 class="text-center font-semibold text-3xl mt-5">Reporte de la gestion: {{$gestion->año}}</h1>
             @if ($request->Tabla != null)
             
-            <div class="overflow-x-auto">
-                <table class=" w-full lg:w-4/6 mt-5 border-collapse table-auto" id='tabla'>
+            <div class="flex justify-center ">
+                <table class=" w-full lg:w-4/6 mt-5 border-collapse table-auto">
                 <thead class="border-2 border-b-black  border-x-white border-t-white">
                     <tr class="bg-slate-500">
                     <th>#</th>
@@ -119,27 +119,27 @@
                                                 @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==1)
                                                 checked
                                                 @endif
-                                                @endif  > <label for="">1</label>
+                                                @endif  disabled> <label for="">1</label>
                                                 <input type="radio" name="valor" value="2" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
                                                 @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==2)
                                                 checked
                                                 @endif
-                                                @endif ><label for="">2</label>
+                                                @endif disabled><label for="">2</label>
                                                 <input type="radio" name="valor" value="3" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
                                                 @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==3)
                                                 checked
                                                 @endif
-                                                @endif ><label for="">3</label>
+                                                @endif disabled ><label for="">3</label>
                                                 <input type="radio" name="valor" value="4" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
                                                 @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==4)
                                                 checked
                                                 @endif
-                                                @endif ><label for="">4</label>
+                                                @endif disabled><label for="">4</label>
                                                 <input type="radio" name="valor" value="5" @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
                                                     @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()->calificacion==5)
                                                     checked
                                                     @endif
-                                                @endif ><label for="">5</label>
+                                                @endif disabled><label for="">5</label>
                                             </form>
                                             </th>
                                             <th class="font-thin text-xl"></th>
@@ -308,9 +308,9 @@
             letterRendering: true,
             //allowTaint: true,
             //foreignObjectRendering: true,
-            //x:0,
+            x:300,
             y:2,
-            scrollX:-10,
+            //scrollX:-80,
             scrollY:10
         },
         jsPDF: {
@@ -329,8 +329,18 @@
             pdf.setPage(i);
             pdf.setFontSize(10);
            pdf.addImage(encabezado,'jpeg',0,0,pdf.internal.pageSize.getWidth(),40);
-           pdf.text(now , 20, (pdf.internal.pageSize.getHeight() - 8));
+           pdf.text(now , pdf.internal.pageSize.getWidth() - 50, (pdf.internal.pageSize.getHeight() - 8));
             pdf.text('Página ' + i + ' de ' + totalPages, (pdf.internal.pageSize.getWidth() / 2.3), (pdf.internal.pageSize.getHeight() - 8));
+            if({{$request->Nivel}}==1){
+                pdf.text("Áreas" , 20, (pdf.internal.pageSize.getHeight() - 8));
+            }
+            if({{$request->Nivel}}==2){
+                pdf.text("Áreas - Variables" , 20, (pdf.internal.pageSize.getHeight() - 8));
+            }
+            if({{$request->Nivel}}==3){
+                pdf.text("Áreas - Variables - Indicadores" , 20, (pdf.internal.pageSize.getHeight() - 8));
+            }
+
         }
     }).save().catch(err => console.log(err));
         

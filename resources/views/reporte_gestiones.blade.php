@@ -73,9 +73,9 @@
                 <h3 class="text-center font-thin text-gray-500 p-7 text-xl">Generar Reporte</h3>
                 <label class="font-thin">Tabla</label><br>
                 <input type="checkbox" name="Tabla" > Tabla <br>
-                <input type="radio"  name="Nivel" checked value="1"> Nivel 1
-                <input type="radio" name="Nivel" value="2"> Nivel 2
-                <input type="radio" name="Nivel" value="3"> Nivel 3
+                <input type="radio"  name="Nivel" checked value="1"> Nivel 1: Áreas
+                <input type="radio" name="Nivel" value="2"> Nivel 2: Variables
+                <input type="radio" name="Nivel" value="3"> Nivel 3: Indicadores
                 <br>
                 <label class="font-thin" >Gráficos</label><br>
                 <input type="checkbox" name="Roseta" > Roseta <br>
@@ -90,6 +90,14 @@
             </form>
         </div>
     </dialog>
+    @if ($errors->has('Tabla'))
+        <script>
+            var modal_reporte=document.getElementById("modalReporte");
+            var formulario=document.getElementById("reporte");
+            formulario.action="/reporte_gestion_carrera/"+{{$errors->first('id')}};
+            modal_reporte.showModal();
+        </script>
+    @endif
 @endsection
 @section("js")
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

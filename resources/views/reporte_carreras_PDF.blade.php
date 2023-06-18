@@ -21,13 +21,14 @@
         <a onclick="atras()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer" ><span class="material-symbols-outlined icono mr-1">arrow_back</span>Atras</a>
         <a  id="downloadLink" onclick="descargar()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer"><span class="material-symbols-outlined icono mr-1">download_for_offline</span>DESCARGAR</a>
     </div>
+    <header class="flex justify-center">
+        <img src="{{asset('img/ENCABEZADO para DOCUMENTOS.jpeg')}}" alt="" id="encabezado">
+    </header>
     <div id="areaDeImpresora">
-        <header class="flex justify-center">
-            <img src="{{asset('img/ENCABEZADO para DOCUMENTOS.jpeg')}}" alt="" id="encabezado">
-        </header>
+        
     <h1 class="text-center text-xl mt-5">Reporte de Carreras</h1>
-    <div class="overflow-x-auto">
-        <table class=" w-full lg:w-4/6 mt-5 border-collapse table-auto" id='tabla'>
+    <div class="flex justify-center ">
+        <table class=" w-full lg:w-4/6 mt-5 border-collapse table-auto">
             <thead class="border-2 border-b-black  border-x-white border-t-white">
                     <tr class="border border-y-black border-x-white bg-stone-200">
                         <th>#</th>

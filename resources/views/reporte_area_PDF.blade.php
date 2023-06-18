@@ -21,14 +21,15 @@
         <a onclick="atras()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer" ><span class="material-symbols-outlined icono mr-1">arrow_back</span>Atras</a>
         <a  id="downloadLink" onclick="descargar()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer"><span class="material-symbols-outlined icono mr-1">download_for_offline</span>DESCARGAR</a>
     </div>
+    <header class="flex justify-center">
+        <img src="{{asset('img/ENCABEZADO para DOCUMENTOS.jpeg')}}" alt="" id="encabezado">
+    </header>
     <div id="areaDeImpresora">
-        <header class="flex justify-center">
-            <img src="{{asset('img/ENCABEZADO para DOCUMENTOS.jpeg')}}" alt="" id="encabezado">
-        </header>
+        
     <h1 class="text-center text-xl mt-5">Reporte de la gestion: {{$gestion->año}}</h1>
     <h1 class="text-center text-xl mt-5">Area: {{$area->name}}</h1>
-    <div class="overflow-x-auto">
-        <table class=" w-full lg:w-4/6 mt-5 border-collapse table-auto" id='tabla'>
+    <div class="flex justify-center ">
+        <table class=" w-full lg:w-4/6 mt-5 border-collapse table-auto">
             <thead class="border-2 border-b-black  border-x-white border-t-white">
                 <tr class="bg-slate-500">
                     <tr class="border border-y-black border-x-white bg-neutral-400">
@@ -130,14 +131,18 @@
             </tbody>
         </table>
     </div>
+    <div>
     <h2 class=" text-lg text-center my-5">Roseta</h2>
     <div class=" w-4/6">
         <canvas id="radar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
     </div>
+    </div>
+    <div>
     <h2 class=" text-lg text-center my-5">Diagrama de barras</h2>
     <div class="w-4/6">
         <canvas id="bar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
     </div>
+</div>
 
 </div>
 </body>
@@ -257,7 +262,7 @@
             //foreignObjectRendering: true,
             //x:0,
             y:2,
-            scrollX:-10,
+           // scrollX:-10,
             scrollY:10
         },
         jsPDF: {

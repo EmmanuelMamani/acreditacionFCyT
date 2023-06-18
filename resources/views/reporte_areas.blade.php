@@ -29,7 +29,7 @@
                     <th class="font-thin lg:text-xl">{{$area->valor}}</th>
                     <th>
                         <div class="grid grid-cols-3">
-                            <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" >description</span>
+                            
                             <form class="Eliminar" action="{{route("eliminar_area",['id'=>$area->id])}}" method="post" >
                                 @csrf<button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
                             </form>

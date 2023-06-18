@@ -1,11 +1,14 @@
 @extends("header")
 @section("main")
-<<<<<<< HEAD
 <div class="flex justify-center">
-    <div class="w-full lg:w-4/6 mt-10 grid grid-cols-10">
+    <div class="w-full lg:w-4/6 mt-10 grid grid-cols-10 gap-2">
         <div class="col-span-6 md:col-span-8 lg:col-span-8">
             <h3 class="cursor-pointer text-xl md:text-3xl justify-self-start">Carreras</h3>
         </div>
+        <a href="{{route('reporte_carreras_PDF')}}" id="descargar" class="flex justify-center items-center bg-sky-950 text-white p-2 col-span-2 col-start-7 rounded-xl cursor-pointer">
+            <span class="material-symbols-outlined icono">download_for_offline</span>
+            <span>Reporte</span>
+        </a>
          <div class="flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-2" id="agregar">
             <span class="material-symbols-outlined">add</span>
             <span>Agregar</span>
@@ -15,24 +18,6 @@
     <div class="overflow-x-auto">
         <table class=" w-full lg:w-4/6 mt-5 border-collapse table-auto" id='tabla'>
             <thead class="border-2 border-b-black  border-x-white border-t-white">
-=======
-    <div class="flex justify-center">
-       <div class="w-4/6 mt-10 grid grid-cols-10 gap-1">
-            <h3 class="p-2 ">Carreras</h3>
-            <a href="{{route('reporte_carreras_PDF')}}" id="descargar" class="flex justify-center items-center bg-sky-950 text-white p-2 col-span-2 col-start-7 rounded-xl cursor-pointer">
-                <span class="material-symbols-outlined icono">download_for_offline</span>
-                <span>Reporte</span>
-            </a>
-            <div class="flex justify-center items-center bg-sky-950 text-white p-2 rounded-xl col-start-9 cursor-pointer col-span-2 " id="agregar">
-                <span class="material-symbols-outlined icono">add</span>
-                <span>Agregar</span>
-            </div>
-       </div>
-    </div>
-    <div class="flex justify-center">
-        <table class="w-4/6 mt-5 border-collapse table-auto">
-            <thead class="border-4 border-b-black  border-x-white border-t-white">
->>>>>>> f3e4efaf6976b7dc9ca3ccebd61fa765576af7cc
                 <tr>
                     <th>#</th>
                     <th>Codigo</th>
