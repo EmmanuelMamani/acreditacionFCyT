@@ -89,4 +89,24 @@
             </tbody>
         </table>
     </div>
+    <script>
+        archivos=document.createElement("div");
+        for(var i=0; i<3; i++){
+            archivos.innerHTML+="<div>"+i+"</div><br>"
+        }
+        Swal.fire({
+            title: 'No cuenta con respaldo',
+            icon: '',
+            html: archivos,
+            showCloseButton: true,
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText:
+                'OK',
+            confirmButtonAriaLabel: 'Ok!',
+            cancelButtonText:
+                '<i class="fa fa-thumbs-down"></i>',
+            cancelButtonAriaLabel: 'Thumbs down'
+        })
+    </script>
 @endsection
