@@ -21,10 +21,11 @@
         <a onclick="atras()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer" ><span class="material-symbols-outlined icono mr-1">arrow_back</span>Atras</a>
         <a  id="downloadLink" onclick="descargar()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer"><span class="material-symbols-outlined icono mr-1">download_for_offline</span>DESCARGAR</a>
     </div>
+    <header class="flex justify-center">
+        <img src="{{asset('img/ENCABEZADO para DOCUMENTOS.jpeg')}}" alt="" id="encabezado">
+    </header>
     <div id="areaDeImpresora">
-        <header class="flex justify-center">
-            <img src="{{asset('img/ENCABEZADO para DOCUMENTOS.jpeg')}}" alt="" id="encabezado">
-        </header>
+        
     <h1 class="text-center text-xl mt-5">Reporte de Documentacion</h1>
     <div class="overflow-x-auto">
         <table class=" w-full lg:w-4/6 mt-5 border-collapse table-auto" id='tabla'>
@@ -32,15 +33,18 @@
                     <tr class="border border-y-black border-x-white bg-stone-200">
                         <th>#</th>
                         <th>Indicador</th>
-                        <th>Carrera</th>
+                        
                     </tr>
             </thead>
             <tbody>
-               <tr class="border border-y-stone-400 border-x-white p-2">
-                <th>1</th>
-                <th>Indicador 1</th>
-                <th>Ingenieria en sistemas</th>
-               </tr>
+                @foreach ($indicadores as $indicador)
+                <tr class="border border-y-stone-400 border-x-white p-2">
+                    <th>{{$indicador->variable->area->numero_area}}.{{$indicador->variable->numero_variable}}.{{$indicador->numero_indicador}}</th>
+                    <th>{{$indicador->descripcion}}</th>
+                    
+                   </tr> 
+                @endforeach
+               
             </tbody>
         </table>
     </div>
@@ -58,7 +62,7 @@
         var now = today.toLocaleString();
         
       var doc=  html2pdf().set({
-        margin: [40,10,20,10],
+        margin: [40,0,20,0],
         filename: 'documento.pdf',
         image: {
                     type: 'jpeg',
@@ -66,13 +70,13 @@
                 },
         html2canvas: {
 
-            scale: 3,
+            scale: 4,
             letterRendering: true,
             //allowTaint: true,
             //foreignObjectRendering: true,
             //x:0,
             y:2,
-            scrollX:-10,
+           // scrollX:-10,
             scrollY:10
         },
         jsPDF: {

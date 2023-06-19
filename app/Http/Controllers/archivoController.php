@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\folderEditRequest;
 use App\Http\Requests\folderRequest;
 use App\Models\archivo;
+use App\Models\area;
 use App\Models\indicador;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
@@ -122,6 +123,40 @@ class archivoController extends Controller
         
         return redirect(route('reporte_archivos',['id'=>$id_indicador]))->with('eliminar', 'ok');
     }
+
+    public function reporte_sin_archivos(){
+       
+       
+
+        $indicadores=indicador::all()->where('activo',1);
+       
+        $indicadores=$indicadores->reject(function ($value, int $key) {
+            $carrera=null;
+            if(Auth::user()!=null){
+                $carrera=Auth::user()->carrera->id;
+            }
+            return $this->archivos($value->archivos,$carrera);
+        });       
+                   
+        return view('reporte_archivos',['indicadores'=>$indicadores]);
+    }
+
+    public function archivos($archivos,$carrera){
+        $bool=false;
+        foreach ($archivos as $archivo) {
+           
+            if($archivo->tipo =='archivo' && ($archivo->carrera_id==null || $archivo->carrera_id==$carrera)){
+                $bool=true;
+                break;
+               
+            }else{ 
+                $bool=$this->archivos($archivo->archivos,$carrera);
+            }
+        }
+       // print($bool);
+        return $bool;
+    }
+
     public function restriccion($ruta){
         $permitido=true;
         if(Auth::user()!=null){
