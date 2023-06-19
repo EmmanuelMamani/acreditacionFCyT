@@ -40,7 +40,7 @@
                 @foreach ($indicadores as $indicador)
                 <tr class="border border-y-stone-400 border-x-white p-2">
                     <th>{{$indicador->variable->area->numero_area}}.{{$indicador->variable->numero_variable}}.{{$indicador->numero_indicador}}</th>
-                    <th>{{$indicador->descripcion}}</th>
+                    <th class="text-left">{{$indicador->descripcion}}</th>
                     
                    </tr> 
                 @endforeach
