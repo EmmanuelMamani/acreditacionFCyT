@@ -63,7 +63,7 @@
         
       var doc=  html2pdf().set({
         margin: [40,0,20,0],
-        filename: 'documento.pdf',
+        filename: 'archivos_faltantes.pdf',
         image: {
                     type: 'jpeg',
                     quality: 0.99

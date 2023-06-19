@@ -138,7 +138,7 @@ class archivoController extends Controller
             return $this->archivos($value->archivos,$carrera);
         });       
                    
-        return view('reporte_archivos',['indicadores'=>$indicadores]);
+        return view('reporte_archivos_PDF',['indicadores'=>$indicadores]);
     }
 
     public function archivos($archivos,$carrera){

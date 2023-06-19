@@ -249,7 +249,7 @@
         
       var doc=  html2pdf().set({
         margin: [40,10,20,10],
-        filename: 'documento.pdf',
+        filename: 'reporte_de_area.pdf',
         image: {
                     type: 'jpeg',
                     quality: 0.99

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\archivo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\area;
@@ -86,13 +87,51 @@ class calificarController extends Controller
             }
         }
         $area=area::find($id);
-        
+        $no_respaldado=$this->sin_respaldo($area);
+
+
         $gestion=gestion::where('carrera_id',Auth::user()->carrera_id)->where('activo',1)->get();
         $calificaciones=calificacion::where('gestion_id',$gestion[0]->id)->get();
 
        
-        return view('calificar_area',['area'=>$area,'calificaciones'=>$calificaciones,'gestion'=>$gestion[0]->id]);
+        return view('calificar_area',['area'=>$area,'calificaciones'=>$calificaciones,'gestion'=>$gestion[0]->id,'indicadores_sr'=>$no_respaldado]);
     }
+
+
+    public function sin_respaldo($area){
+        $indicadores=collect();
+        $carrera=null;
+            if(Auth::user()!=null){
+                $carrera=Auth::user()->carrera->id;
+            }
+        foreach ($area->variables as $variable) {
+           foreach ($variable->indicadores as $indicador) {
+            if(!$this->archivos($indicador->archivos,$carrera)){
+                $indicadores->push($indicador);
+            }
+           }
+        }
+
+        return $indicadores;
+    }
+
+
+    public function archivos($archivos,$carrera){
+        $bool=false;
+        foreach ($archivos as $archivo) {
+           
+            if($archivo->tipo =='archivo' && ($archivo->carrera_id==null || $archivo->carrera_id==$carrera)){
+                $bool=true;
+                break;
+               
+            }else{ 
+                $bool=$this->archivos($archivo->archivos,$carrera);
+            }
+        }
+       // print($bool);
+        return $bool;
+    }
+
     public function calificar($id,$id_area, Request $request){
         if(!$this->restriccion('calificar')){
             if(Auth::user()==null){

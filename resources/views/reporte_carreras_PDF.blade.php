@@ -62,7 +62,7 @@
         
       var doc=  html2pdf().set({
         margin: [40,10,20,10],
-        filename: 'documento.pdf',
+        filename: 'reporte_notas_fcyt.pdf',
         image: {
                     type: 'jpeg',
                     quality: 0.99

@@ -306,7 +306,7 @@
         
       var doc=  html2pdf().set({
         margin: [40,10,20,10],
-        filename: 'documento.pdf',
+        filename: 'reporte_por_niveles.pdf',
         image: {
                     type: 'jpeg',
                     quality: 0.99

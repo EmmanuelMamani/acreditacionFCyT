@@ -91,9 +91,12 @@
     </div>
     <script>
         archivos=document.createElement("div");
-        for(var i=0; i<3; i++){
-            archivos.innerHTML+="<div>"+i+"</div><br>"
-        }
+        
+        @foreach ($indicadores_sr as $indicador)
+        ruta="{{route('reporte_archivos',['id'=>$indicador->id])}}";
+            archivos.innerHTML+="<a href='"+ruta+"'>{{$indicador->variable->area->numero_area}}.{{$indicador->variable->numero_variable}}.{{$indicador->numero_indicador}} {{$indicador->descripcion}}</a><br>"
+        @endforeach
+
         Swal.fire({
             title: 'No cuenta con respaldo',
             icon: '',
