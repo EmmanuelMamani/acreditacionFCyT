@@ -1,6 +1,6 @@
 body{
     font-family: 'Poppins', sans-serif;
-    font-family: 'Tajawal', sans-serif;
+    font-family: 'Raleway', sans-serif;
 }
 #sidebar{
     display: none;
@@ -10,7 +10,7 @@ body{
     height: 90vh;
 }
 #navbar{
-    background-color:#03082d;
+    background-color:#0a0f3d;
     color: white;
     padding-top: 1%;
     padding-bottom: 1%;
@@ -28,7 +28,7 @@ body{
 .opt-nav{
     margin-left: 5%;
     font-size: 19px;
-    -webkit-text-stroke: 0.2px #03082d;
+   
 }
 .titulo{
     font-size: 25px;
@@ -44,15 +44,16 @@ body{
     padding: 2%;
 }
 .con-opt-main{
-    border: #03082e 2px solid;
-    color: #03082d;
+    border: #0a0f3d 2px solid;
+    color: #0a0f3d;
 }
 .opt-main{
-    background-color: #03082d;
-    padding-left: 80px;
+    background-color: #0a0f3d;
+    padding-left: 90px;
 }
 .con-opt{
     margin-top: 1%;
+    margin-left: 10%;
 }
 #cont-info,#cont-areas{
     padding-bottom: 2%;
@@ -64,17 +65,19 @@ body{
     padding: 1%;
 }
 #agregar,#descargar{
-    background-color: #03082d;
+    background-color: #0a0f3d;
 }
 #tabla{
     margin-left: 16%;
 }
 
-.etiqueta{
-    -webkit-text-stroke: 0.4px #03082d;
-}
+
 .folder{
     -webkit-text-stroke: 0.5px #ffffff;
+}
+
+.etiqueta{
+    -webkit-text-stroke: 1px #0a0f3d;
 }
 @media (max-width: 1000px){
     .opt-main{

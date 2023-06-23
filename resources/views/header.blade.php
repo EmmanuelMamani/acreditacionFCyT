@@ -10,24 +10,24 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gruppo&family=Raleway:wght@100&family=Space+Grotesk:wght@300&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="{{asset('css/header.css')}}">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300&family=Tajawal:wght@300&display=swap" rel="stylesheet">
-    <title>SIS-EA</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300&family=Raleway:wght@200&family=Tajawal:wght@300&display=swap" rel="stylesheet">
+
+<title>SIS-EA</title>
 </head>
 <body>
     <div id="navbar" class="grid grid-cols-6 contenedor-item sm:grid-cols-12">
-        <span class="material-symbols-outlined cursor-pointer lg:ml-5 etiqueta" id="menu">menu</span>
+        <span class="material-symbols-outlined cursor-pointer lg:ml-5 etiqueta " id="menu">menu</span>
         <div class="col-span-2 sm:col-span-5 lg:col-span-8 flex">
-            <h1  class="text-sm md:text-xl etiqueta">SIS-EA:</h1>
+            <h1  class="text-sm md:text-xl ">SIS-EA:</h1>
             @if (Auth::user()->carrera_id==null)
-            <h1 class="ml-2 text-sm md:text-xl etiqueta">Administracion</h1>
+            <h1 class="ml-2 text-sm md:text-xl">ADMINISTRACIÓN</h1>
             @else
-            <h1 class="ml-2 text-sm md:text-xl etiqueta">{{Auth::user()->carrera->name}}</h1>
+            <h1 class="ml-2 text-sm md:text-xl ">{{Auth::user()->carrera->name}}</h1>
             @endif
         </div>
         <div class="col-span-3  sm:col-span-5 lg:col-span-3">
