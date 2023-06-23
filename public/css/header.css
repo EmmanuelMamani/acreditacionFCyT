@@ -1,7 +1,6 @@
 body{
-    font-family: 'Gruppo', sans-serif;
-    font-family: 'Raleway', sans-serif;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Poppins', sans-serif;
+    font-family: 'Tajawal', sans-serif;
 }
 #sidebar{
     display: none;
@@ -28,7 +27,8 @@ body{
 }
 .opt-nav{
     margin-left: 5%;
-    font-size: 20px;
+    font-size: 17px;
+    -webkit-text-stroke: 0.2px #03082d;
 }
 .titulo{
     font-size: 25px;
@@ -68,6 +68,10 @@ body{
 }
 #tabla{
     margin-left: 16%;
+}
+
+.etiqueta{
+    -webkit-text-stroke: 0.4px #03082d;
 }
 @media (max-width: 1000px){
     .opt-main{

@@ -125,5 +125,3 @@ Route::post('/reporte_gestion_carrera/{id?}',[gestionController::class,'reporte_
 Route::get('/reportePDF',[calificarController::class,'reportePDF'])->name('reportePDF');
 Route::get('/reporte_area_PDF/{id}',[calificarController::class,'reporte_area_PDF'])->name('reporte_area_PDF');
 Route::get('/reporte_carreras_PDF',[calificarController::class,'reporte_carreras_PDF'])->name('reporte_carreras_PDF');
-
-Route::get('/documentos',function(){return view('documentacion');})->name('documentos');

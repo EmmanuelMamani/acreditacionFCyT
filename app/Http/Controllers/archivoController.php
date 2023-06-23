@@ -133,7 +133,7 @@ class archivoController extends Controller
         $indicadores=$indicadores->reject(function ($value, int $key) {
             $carrera=null;
             if(Auth::user()!=null){
-                $carrera=Auth::user()->carrera->id;
+                $carrera=Auth::user()->carrera_id;
             }
             return $this->archivos($value->archivos,$carrera);
         });       

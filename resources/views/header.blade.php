@@ -14,17 +14,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gruppo&family=Raleway:wght@100&family=Space+Grotesk:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/header.css')}}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300&family=Tajawal:wght@300&display=swap" rel="stylesheet">
     <title>SIS-EA</title>
 </head>
 <body>
     <div id="navbar" class="grid grid-cols-6 contenedor-item sm:grid-cols-12">
         <span class="material-symbols-outlined cursor-pointer lg:ml-5" id="menu">menu</span>
         <div class="col-span-2 sm:col-span-5 lg:col-span-8 flex">
-            <h1  class="text-sm md:text-2xl">SIS-EA:</h1>
+            <h1  class="text-sm md:text-xl etiqueta">SIS-EA:</h1>
             @if (Auth::user()->carrera_id==null)
-            <h1 class="ml-2 text-sm md:text-2xl">Administracion</h1>
+            <h1 class="ml-2 text-sm md:text-xl etiqueta">Administracion</h1>
             @else
-            <h1 class="ml-2 text-sm md:text-2xl">{{Auth::user()->carrera->name}}</h1>
+            <h1 class="ml-2 text-sm md:text-xl etiqueta">{{Auth::user()->carrera->name}}</h1>
             @endif
         </div>
         <div class="col-span-3  sm:col-span-5 lg:col-span-3">
@@ -56,6 +59,7 @@
                 <a href="{{route('reporte_gestiones')}}" class=" font-extralight cursor-pointer funcion">Gestiones</a>
                 <a href="{{route('calificacion')}}" class="font-extralight cursor-pointer funcion">Calificaciones</a>
                 @endif
+                <a href="{{route('reporte_sin_archivos')}}" class="font-extralight cursor-pointer funcion">Archivos</a>
         </div>
         <div id="main" class="sm:w-full">
             @yield("main")

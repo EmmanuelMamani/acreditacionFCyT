@@ -3,15 +3,15 @@
 <div class="grid grid-cols-1 md:grid-cols-3" id="cont-info">
     <div class="flex con-opt">
         <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-2xl font-thin lg:w-20 lg:h-20 lg:text-4xl">{{$areas->count()}}</div>
-        <div class="opt-main flex items-center  w-full text-white border-white border-8 rounded-3xl h-16 lg:h-20"><h1 class="w-full text-lg font-thin lg:text-3xl">Areas</h1></div>
+        <div class="opt-main flex items-center  w-5/6 text-white border-white border-8 rounded-3xl h-16 lg:h-20 etiqueta"><h1 class="w-full text-lg font-thin lg:text-3xl">Areas</h1></div>
     </div> 
     <div class="flex con-opt">
         <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-2xl font-thin lg:w-20 lg:h-20 lg:text-4xl">{{$variables}}</div>
-        <div class="opt-main flex items-center  w-full text-white border-white border-8 rounded-3xl h-16 lg:h-20"><h1 class="w-full text-lg font-thin lg:text-3xl">Variables</h1></div>
+        <div class="opt-main flex items-center  w-5/6 text-white border-white border-8 rounded-3xl h-16 lg:h-20 etiqueta"><h1 class="w-full text-lg font-thin lg:text-3xl">Variables</h1></div>
     </div>
     <div class="flex con-opt">
         <div class="con-opt-main w-16 h-16  text-center rounded-full flex justify-center items-center bg-white absolute text-2xl font-thin lg:w-20 lg:h-20 lg:text-4xl">{{$indicadores}}</div>
-        <div class="opt-main flex items-center  w-full text-white border-white border-8 rounded-3xl h-16 lg:h-20"><h1 class="w-full text-lg font-thin lg:text-3xl">Indicadores</h1></div>
+        <div class="opt-main flex items-center  w-5/6 text-white border-white border-8 rounded-3xl h-16 lg:h-20 etiqueta"><h1 class="w-full text-lg font-thin lg:text-3xl">Indicadores</h1></div>
     </div>
 </div>
 <div class="mt-5 flex pb-5">
