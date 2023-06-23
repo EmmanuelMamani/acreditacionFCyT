@@ -27,14 +27,14 @@ body{
 }
 .opt-nav{
     margin-left: 5%;
-    font-size: 17px;
+    font-size: 19px;
     -webkit-text-stroke: 0.2px #03082d;
 }
 .titulo{
     font-size: 25px;
 }
 #menu{
-    margin-left: 10%;
+    margin-left: 40%;
 }
 .funcion{
     display: block;
@@ -44,7 +44,7 @@ body{
     padding: 2%;
 }
 .con-opt-main{
-    border: #03082e 3px solid;
+    border: #03082e 2px solid;
     color: #03082d;
 }
 .opt-main{
@@ -56,10 +56,10 @@ body{
 }
 #cont-info,#cont-areas{
     padding-bottom: 2%;
-    border-bottom: #03082d 1px solid;
+    border-bottom: #848484 1px solid;
 }
 .grafica{
-    border: #03082d 1px solid;
+    border: #cacaca 1px solid;
     border-radius: 20px;
     padding: 1%;
 }
@@ -72,6 +72,9 @@ body{
 
 .etiqueta{
     -webkit-text-stroke: 0.4px #03082d;
+}
+.folder{
+    -webkit-text-stroke: 0.5px #ffffff;
 }
 @media (max-width: 1000px){
     .opt-main{

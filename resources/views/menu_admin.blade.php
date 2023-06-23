@@ -16,19 +16,19 @@
 </div>
 <div class="mt-5 flex pb-5">
     <span class="material-symbols-outlined">bar_chart</span>
-    <h1 class="text-xl ml-5">Grafico resumen (ultima gestion)</h1>
+    <h1 class="text-xl ml-5">Gráfico resumen (última gestión)</h1>
 </div>
-<div class="grid grid-cols-1 lg:grid-cols-2 border-b-2 border-sky-950 pb-5 lg:gap-1">
+<div class="grid grid-cols-1 lg:grid-cols-2 border-b border-stone-500 pb-5 lg:gap-1">
     <div>
-        <canvas id="radar" class="grafica"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
+        <canvas id="radar" class="grafica"><p class="text-muted text-capitalize">gráfica no disponible</p></canvas>
     </div>
     <div class="grafica mt-5 lg:mt-0">
-        <canvas id="bar"><p class="text-muted text-capitalize">grafica no disponible</p></canvas>
+        <canvas id="bar"><p class="text-muted text-capitalize">gráfica no disponible</p></canvas>
     </div>
 </div>
 <div class="mt-5 flex">
     <span class="material-symbols-outlined">list</span>
-    <h1 class="text-xl ml-5">Areas</h1>
+    <h1 class="text-xl ml-5">Áreas</h1>
 </div>
     <div class="grid grid-cols-1 lg:grid-cols-2 pb-10">
         @foreach ($areas as $area)

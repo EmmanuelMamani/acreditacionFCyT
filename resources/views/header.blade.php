@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="navbar" class="grid grid-cols-6 contenedor-item sm:grid-cols-12">
-        <span class="material-symbols-outlined cursor-pointer lg:ml-5" id="menu">menu</span>
+        <span class="material-symbols-outlined cursor-pointer lg:ml-5 etiqueta" id="menu">menu</span>
         <div class="col-span-2 sm:col-span-5 lg:col-span-8 flex">
             <h1  class="text-sm md:text-xl etiqueta">SIS-EA:</h1>
             @if (Auth::user()->carrera_id==null)
@@ -43,16 +43,16 @@
     <div class="sm:flex">
         <div id="sidebar" class="shadow-lg shadow-slate-500 sm:w-2/5 lg:w-1/5">
             <div class="flex">
-                <span class="material-symbols-outlined" id="folder">folder_open</span>
-                <h3 class="font-extralight text-lg">Administracion</h3>
+                <span class="material-symbols-outlined folder" id="folder">folder_open</span>
+                <h3 class="font-extralight text-xl">Administración</h3>
             </div>
                 @if (Auth::user()->rol_user->last()->rol->name=="superadmin")
                 <a href="{{route('reporte_carreras')}}" class=" font-extralight cursor-pointer funcion">Carreras</a>
                 <a href="{{route('reporte_usuarios')}}" class=" font-extralight cursor-pointer funcion">Usuarios</a>
                 <a href="{{route('reporte_roles')}}" class=" font-extralight cursor-pointer funcion">Roles</a>
-                <a href="{{route('reporte_areas')}}" class=" font-extralight cursor-pointer funcion">Areas</a>
+                <a href="{{route('reporte_areas')}}" class=" font-extralight cursor-pointer funcion">Áreas</a>
                 <a href="{{route('reporte_permisos')}}" class=" font-extralight cursor-pointer funcion">Permisos</a>
-                <a href="{{route('reporte_permiso_rol')}}" class=" font-extralight cursor-pointer funcion">Asignacion de permisos</a>
+                <a href="{{route('reporte_permiso_rol')}}" class=" font-extralight cursor-pointer funcion">Asignación de permisos</a>
                 @endif
                 @if (Auth::user()->rol_user->last()->rol->name == 'administrador')
                 <a href="{{route('reporte_usuarios_carrera')}}" class=" font-extralight cursor-pointer funcion">Usuarios</a>
