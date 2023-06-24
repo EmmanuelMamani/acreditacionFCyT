@@ -13,6 +13,8 @@ use App\Models\permiso_rol;
 use App\Models\permiso;
 use Illuminate\Support\Facades\Auth;
 use function PHPUnit\Framework\isEmpty;
+use Illuminate\Support\Facades\File;
+
 
 class indicadorController extends Controller
 {
@@ -54,8 +56,11 @@ class indicadorController extends Controller
         $indicador->save();
 
         $this->asignarCriterios($request->criterios,$indicador->id);
-        
 
+        $variable=variable::find($id);
+        
+        $ruta=storage_path('app/public/files/Area'.$variable->area->numero_area.'/'.$variable->numero_variable.'/'.$indicador->numero_indicador);
+        File::makeDirectory($ruta,0777,true,true);
         
         return redirect(route('reporte_indicadores',['id'=>$id]))->with('registrar','ok');
 
@@ -124,6 +129,9 @@ class indicadorController extends Controller
         $indicador->activo=0;
         $indicador->save();
        
+        $ruta=storage_path('app/public/files/Area'.$indicador->variable->area->numero_area.'/'.$indicador->variable->numero_variable.'/'.$indicador->numero_indicador);
+        File::deleteDirectory($ruta);
+
         $this->eliminarCascada($indicador->criterios);
         return redirect(route('reporte_indicadores',['id'=>$indicador->variable->id]))->with('eliminar', 'ok');
     }

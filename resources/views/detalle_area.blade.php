@@ -42,6 +42,7 @@
              </thead>
              <tbody>
                 @foreach ($area->variables as $variable)
+                @if ($variable->activo==1)
                 <tr class="border border-y-stone-400 border-x-white">
                     <th class="font-thin text-sm lg:text-lg">{{$area->numero_area.'.'.$variable->numero_variable}}</th>
                     <th class="font-thin text-sm text-left lg:text-lg"><a href="{{route('reporte_indicadores',['id'=>$variable->id])}}">{{$variable->name}}</a></th>
@@ -59,6 +60,8 @@
                     </th>
                     @endif
                 </tr>
+                @endif
+              
                 @endforeach
              </tbody>
          </table>
