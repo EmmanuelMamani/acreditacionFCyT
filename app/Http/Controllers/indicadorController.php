@@ -100,6 +100,18 @@ class indicadorController extends Controller
             }
         }
         $indicador=indicador::find($id);
+
+        $ruta=storage_path('app/public/files/Area'.$indicador->variable->area->numero_area.'/'.$indicador->variable->numero_variable.'/'.$request->EditNumero_indicador);
+        
+        if(!File::exists($ruta)){
+            File::makeDirectory($ruta,0777,true,true);
+
+            $eliminar=storage_path('app/public/files/Area'.$indicador->variable->area->numero_area.'/'.$indicador->variable->numero_variable.'/'.$indicador->numero_indicador);
+
+            File::moveDirectory($eliminar,$ruta,true);
+            File::delete($eliminar);
+        }
+
         $indicador->numero_indicador=$request->EditNumero_indicador;
         $indicador->descripcion= $request->EditDescripcion;
         $indicador->tipo=$request->EditTipo_indicador;
