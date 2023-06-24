@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\area;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 class areasSeeder extends Seeder
 {
@@ -73,6 +74,9 @@ class areasSeeder extends Seeder
                 'name' => $area['label'],
                 'valor' => $area['weight'],
             ]);
+
+            $ruta=storage_path('app/public/files/Area'. $area['area_number']);
+            File::makeDirectory($ruta,0777,true,true);
         }
         
 

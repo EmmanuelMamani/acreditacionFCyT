@@ -24,7 +24,7 @@
             <tbody>
                 @foreach ($areas as $area)
                 <tr class="border border-y-stone-400 border-x-white">
-                    <th class="font-thin lg:text-xl"></th>
+                    <th class="font-thin lg:text-xl">{{$area->numero_area}}</th>
                     <th class="font-thin lg:text-xl">{{$area->name}}</th>
                     <th class="font-thin lg:text-xl">{{$area->valor}}</th>
                     <th>

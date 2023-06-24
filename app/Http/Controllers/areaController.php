@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\File;
 use App\Http\Requests\areaRequest;
 use App\Http\Requests\areaEditRequest;
 use App\Models\area;
@@ -45,6 +45,10 @@ class areaController extends Controller
         $area->valor=$request->ponderacion;
         $area->numero_area=$request->numero;
         $area->save();
+        
+       
+        $ruta=storage_path('app/public/files/Area'.$area->numero_area);
+        File::makeDirectory($ruta,0777,true,true);
 
         return redirect('reporte_areas')->with('registrar','ok');        
     }
@@ -77,9 +81,13 @@ class areaController extends Controller
             }
         }
         $area= area::find($id);
+        
+        $ruta=storage_path('app/public/files/Area'.$area->numero_area);
+        File::deleteDirectory($ruta);
+
         $this->eliminar($area);
         $this->eliminacionCascada($area->variables);
-        
+
         return redirect('/reporte_areas')->with('eliminar', 'ok');
     }
 
