@@ -175,6 +175,11 @@ class archivoController extends Controller
         $folder=archivo::find($id);
         $id_indicador=$folder->indicador->id;
 
+        $ruta=storage_path('app/public/files/Area'.$folder->indicador->variable->area->numero_area.'/'.$folder->indicador->variable->numero_variable.'/'.$folder->indicador->numero_indicador);
+        $ruta=$this->recursivo($folder,$ruta);
+
+        File::deleteDirectory($ruta);
+       
         $folder->delete();
 
         return redirect(route('reporte_archivos',['id'=>$id_indicador]))->with('eliminar', 'ok');
@@ -191,9 +196,12 @@ class archivoController extends Controller
         $archivo=archivo::find($id);
         $id_indicador=$archivo->indicador->id;
        
+        $ruta=storage_path('app/public/files/Area'.$archivo->indicador->variable->area->numero_area.'/'.$archivo->indicador->variable->numero_variable.'/'.$archivo->indicador->numero_indicador);
+        $ruta=$this->recursivo($archivo,$ruta);
 
+        File::delete($ruta);
       
-        Storage::disk('local')->delete('public/files/'.$archivo->nombre);
+        //Storage::disk('local')->delete('public/files/'.$archivo->nombre);
         
         $archivo->delete();
 
