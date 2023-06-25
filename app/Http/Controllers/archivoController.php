@@ -130,16 +130,16 @@ class archivoController extends Controller
             File::moveDirectory($eliminar,$ruta,true);
             File::delete($eliminar);
 
-
         }else{
             $ruta=storage_path('app/public/files/Area'.$folder->indicador->variable->area->numero_area.'/'.$folder->indicador->variable->numero_variable.'/'.$folder->indicador->numero_indicador);
+            $rutaAlter=$ruta;
             $ruta=$this->recursivo($folder->folder,$ruta).'/'.$request->editNombre;
-            
+           
             if(!File::exists($ruta)){
                 File::makeDirectory($ruta,0777,true,true);
-
-                $eliminar=$this->recursivo($folder,$ruta);
-
+               
+                $eliminar=$this->recursivo($folder,$rutaAlter);
+                //print($eliminar);
                 File::moveDirectory($eliminar,$ruta,true);
                 File::delete($eliminar);
             }
