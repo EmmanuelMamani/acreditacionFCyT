@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\permiso_rol;
 use App\Models\permiso;
+use Illuminate\Support\Facades\File;
 
 class archivoController extends Controller
 {
@@ -45,8 +46,22 @@ class archivoController extends Controller
         $folder->folder_id=$request->folderId==0?null:$request->folderId;
         $folder->save();
 
-        
 
+        
+        if(Auth::user()->carrera_id==null){
+            $indicador=indicador::find($id);
+            $ruta='';
+            if($request->folderId==0){
+                $ruta=storage_path('app/public/files/Area'.$indicador->variable->area->numero_area.'/'.$indicador->variable->numero_variable.'/'.$indicador->numero_indicador.'/'.$folder->nombre);
+            }else{
+                $recursivo=archivo::find($request->folderId);
+                $ruta=storage_path('app/public/files/Area'.$indicador->variable->area->numero_area.'/'.$indicador->variable->numero_variable.'/'.$indicador->numero_indicador);
+                $ruta=$this->recursivo($recursivo,$ruta).'/'.$request->nombre_archivo;
+            }
+            
+            File::makeDirectory($ruta,0777,true,true);
+        }
+        
         return redirect(route('reporte_archivos',['id'=>$id]))->with('registrar','ok');
 
     }
@@ -59,17 +74,41 @@ class archivoController extends Controller
             return redirect('/sin_permiso');
             }
         }
+
         $archivo=$request->file('document');
         $folder=new archivo;
         $folder->nombre=$archivo->getClientOriginalName();
         $folder->carrera_id=Auth::user()->carrera_id;
         $folder->indicador_id=$id;
-        $folder->url=Storage::url($archivo->storeAs('public/files',$folder->nombre)) ;
+
+        if(Auth::user()->carrera_id!=null){
+            $rutaCarrera=storage_path('app/public/files/'.Auth::user()->carrera->name);
+            if(!File::exists($rutaCarrera)){
+                File::makeDirectory($rutaCarrera,0777,true,true);
+                $archivo->storeAs('public/files/'.Auth::user()->carrera->name,$folder->nombre);
+            }else{
+                $archivo->storeAs('public/files/'.Auth::user()->carrera->name,$folder->nombre);
+            }
+        }else{
+            $indicador=indicador::find($id);
+            if($request->folderId!=0){
+                $pertenece=archivo::find($request->folderId);
+                $ruta='public/files/Area'.$indicador->variable->area->numero_area.'/'.$indicador->variable->numero_variable.'/'.$indicador->numero_indicador;
+                $ruta=$this->recursivo($pertenece,$ruta);
+                $archivo->storeAs($ruta,$folder->nombre);
+            }else{
+                $archivo->storeAs('public/files/Area'.$indicador->variable->area->numero_area.'/'.$indicador->variable->numero_variable.'/'.$indicador->numero_indicador,$folder->nombre);
+            }
+            
+        }
+
+       // $folder->url=Storage::url($archivo->storeAs('public/files',$folder->nombre)) ;
+       $folder->url='';
         $folder->folder_id=$request->folderId==0?null:$request->folderId;
         $folder->tipo='archivo';
         $folder->save();
 
-        
+       
     }
 
     public function editar_folder(folderEditRequest $request,$id){
@@ -81,10 +120,48 @@ class archivoController extends Controller
             }
         }
      $folder=archivo::find($id);
+     
+     if(Auth::user()->carrera_id==null){
+        if($folder->folder==null){
+            $eliminar=storage_path('app/public/files/Area'.$folder->indicador->variable->area->numero_area.'/'.$folder->indicador->variable->numero_variable.'/'.$folder->indicador->numero_indicador.'/'.$folder->nombre);
+            $ruta=storage_path('app/public/files/Area'.$folder->indicador->variable->area->numero_area.'/'.$folder->indicador->variable->numero_variable.'/'.$folder->indicador->numero_indicador.'/'.$request->editNombre);
+
+            File::makeDirectory($ruta,0777,true,true);
+            File::moveDirectory($eliminar,$ruta,true);
+            File::delete($eliminar);
+
+
+        }else{
+            $ruta=storage_path('app/public/files/Area'.$folder->indicador->variable->area->numero_area.'/'.$folder->indicador->variable->numero_variable.'/'.$folder->indicador->numero_indicador);
+            $ruta=$this->recursivo($folder->folder,$ruta).'/'.$request->editNombre;
+            
+            if(!File::exists($ruta)){
+                File::makeDirectory($ruta,0777,true,true);
+
+                $eliminar=$this->recursivo($folder,$ruta);
+
+                File::moveDirectory($eliminar,$ruta,true);
+                File::delete($eliminar);
+            }
+           
+        }
+        
+     }
+
      $folder->nombre=$request->editNombre;
      $folder->save();
 
      return redirect(route('reporte_archivos',['id'=>$folder->indicador->id]))->with('editar', 'ok');
+    }
+
+    private function recursivo($folder,$ruta){
+        if($folder->folder==null){
+            $ruta=$ruta.'/'.$folder->nombre;
+            
+        }else{
+            $ruta=$this->recursivo($folder->folder,$ruta).'/'.$folder->nombre;
+        }
+        return $ruta;
     }
 
     public function eliminar_folder($id){
