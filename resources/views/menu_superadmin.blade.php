@@ -26,4 +26,8 @@
         </a> 
         @endforeach
     </div>
+    <a href="{{route('descargarZip')}}" class="w-1/12 my-10  flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-2" id="agregar">
+        <span class="material-symbols-outlined icono">download_for_offline</span>
+        <span>Descargar</span>
+    </a>
 @endsection
