@@ -21,5 +21,8 @@ class archivo extends Model
         return $this->hasMany(archivo::class,'folder_id');
     }
 
+    public function carrera(){
+        return $this->belongsTo(carrera::class);
+    }
 
 }

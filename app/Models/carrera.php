@@ -14,4 +14,7 @@ class carrera extends Model
     public function gestiones(){
         return $this->hasMany(gestion::class,'carrera_id');
     }
+    public function archivos(){
+        return $this->hasMany(archivo::class,'carrera_id');
+    }
 }

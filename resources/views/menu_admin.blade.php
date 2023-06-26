@@ -38,6 +38,7 @@
         </a> 
         @endforeach
     </div>
+    <a href="{{route('descargarZip')}}">descargar</a>
 @endsection
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>

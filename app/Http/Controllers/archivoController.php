@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\permiso_rol;
 use App\Models\permiso;
 use Illuminate\Support\Facades\File;
+use PhpParser\Node\Stmt\Return_;
+use RecursiveDirectoryIterator;
+use RecursiveIteratorIterator;
+use ZipArchive;
 
 class archivoController extends Controller
 {
@@ -82,12 +86,12 @@ class archivoController extends Controller
         $folder->indicador_id=$id;
 
         if(Auth::user()->carrera_id!=null){
-            $rutaCarrera=storage_path('app/public/files/'.Auth::user()->carrera->name);
+            $rutaCarrera=storage_path('app/public/'.Auth::user()->carrera->name);
             if(!File::exists($rutaCarrera)){
                 File::makeDirectory($rutaCarrera,0777,true,true);
-                $archivo->storeAs('public/files/'.Auth::user()->carrera->name,$folder->nombre);
+                $archivo->storeAs('public/'.Auth::user()->carrera->name,$folder->nombre);
             }else{
-                $archivo->storeAs('public/files/'.Auth::user()->carrera->name,$folder->nombre);
+                $archivo->storeAs('public/'.Auth::user()->carrera->name,$folder->nombre);
             }
         }else{
             $indicador=indicador::find($id);
@@ -195,9 +199,14 @@ class archivoController extends Controller
         }
         $archivo=archivo::find($id);
         $id_indicador=$archivo->indicador->id;
-       
-        $ruta=storage_path('app/public/files/Area'.$archivo->indicador->variable->area->numero_area.'/'.$archivo->indicador->variable->numero_variable.'/'.$archivo->indicador->numero_indicador);
-        $ruta=$this->recursivo($archivo,$ruta);
+       $ruta='';
+        if($archivo->carrera_id==null){
+            $ruta=storage_path('app/public/files/Area'.$archivo->indicador->variable->area->numero_area.'/'.$archivo->indicador->variable->numero_variable.'/'.$archivo->indicador->numero_indicador);
+            $ruta=$this->recursivo($archivo,$ruta);
+        }else{
+            $ruta=storage_path('app/public/'.$archivo->carrera->name.'/'.$archivo->nombre);
+        }
+        
 
         File::delete($ruta);
       
@@ -242,6 +251,55 @@ class archivoController extends Controller
         return $bool;
     }
 
+    public function descargarZIP(){
+                
+        $zip=new ZipArchive;
+       
+        if($zip->open(public_path('Areas.zip'),ZipArchive::CREATE|ZipArchive::OVERWRITE)==TRUE){
+        
+            $rutaDelDirectorio=public_path("storage/files");
+            $archivos = new RecursiveIteratorIterator(
+                new RecursiveDirectoryIterator($rutaDelDirectorio),
+                RecursiveIteratorIterator::LEAVES_ONLY
+            );
+            
+            foreach ($archivos as $archivo) {
+
+                $rutaAbsoluta = $archivo->getRealPath();
+
+                $nombreArchivo = substr($rutaAbsoluta, strlen($rutaDelDirectorio) + 1);
+                if ($archivo->isDir()) {
+                    $zip->addEmptyDir($nombreArchivo);
+                }else{
+                   // printf($nombreArchivo);
+                  // print('----------');
+                   
+                    $zip->addFile($rutaAbsoluta, $nombreArchivo);
+                }
+                
+            }
+
+            if(Auth::user()->carrera_id!=null){
+                $archivosCarrera=archivo::where('carrera_id',Auth::user()->carrera_id)->where('tipo','archivo')->get();
+                foreach ($archivosCarrera as $archivoCarrera) {
+                    $ruta='les/Area'.$archivoCarrera->indicador->variable->area->numero_area.'/'.$archivoCarrera->indicador->variable->numero_variable.'/'.$archivoCarrera->indicador->numero_indicador;
+                    if($archivoCarrera->folder!=null){
+                        $ruta=$this->recursivo($archivoCarrera->folder,$ruta).'/'.$archivoCarrera->nombre;
+                    }else{
+                        $ruta=$ruta.'/'.$archivoCarrera->nombre;
+                    }
+                    $rutaCarrera=public_path('storage/'.Auth::user()->carrera->name.'/'.$archivoCarrera->nombre);
+
+                    $zip->addFile($rutaCarrera,$ruta);
+                }
+            }
+
+            $zip->close();
+            
+        }
+       return response()->download(public_path('Areas.zip'));
+    }
+
     public function restriccion($ruta){
         $permitido=true;
         if(Auth::user()!=null){
@@ -256,6 +314,5 @@ class archivoController extends Controller
         }
         return $permitido;
         
-       
     }
 }

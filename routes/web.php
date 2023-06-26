@@ -99,7 +99,7 @@ Route::post('/editar_folder/{id}',[archivoController::class,'editar_folder'])->n
 Route::post('/eliminar_archivo/{id}',[archivoController::class,'eliminar_archivo'])->name('eliminar_archivo');
 Route::post('/eliminar_folder/{id}',[archivoController::class,'eliminar_folder'])->name('eliminar_folder');
 Route::get('/reporte_sin_archivos',[archivoController::class,'reporte_sin_archivos'])->name("reporte_sin_archivos");
-
+Route::get('/descargarZip',[archivoController::class,'descargarZIP'])->name('descargarZip');
 
 /*-------------------------------------------------------------------------*/
 
