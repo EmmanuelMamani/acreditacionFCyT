@@ -3,7 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\indicador;
+use App\Models\variable;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 class indicadoresSeeder extends Seeder
 {
@@ -861,6 +863,11 @@ class indicadoresSeeder extends Seeder
                 'tipo'=>$indicador['type'],
                 'peso'=>$indicador['weight'],
            ]);
+
+           $variable=variable::find($indicador['variable_id']);
+
+           $ruta=storage_path('app/public/files/Area'. $variable->area->numero_area.'/'.$variable->numero_variable.'/'.$indicador['indicator_number']);
+           File::makeDirectory($ruta,0777,true,true);
         }
     }
 }

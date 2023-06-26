@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\area;
 use App\Models\variable;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\File;
 
 class variablesSeeder extends Seeder
 {
@@ -162,6 +164,11 @@ class variablesSeeder extends Seeder
             'numero_variable'=>$variable['variable_number'],
             'area_id'=>$variable['area_id']
            ]);
+
+           $area=area::find($variable['area_id']);
+
+           $ruta=storage_path('app/public/files/Area'. $area->numero_area.'/'.$variable['variable_number']);
+           File::makeDirectory($ruta,0777,true,true);
         }
     }
 }

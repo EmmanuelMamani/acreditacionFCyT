@@ -79,6 +79,9 @@ body{
 .etiqueta{
     -webkit-text-stroke: 1px #0a0f3d;
 }
+.descarga{
+    margin-left: 80%;
+}
 @media (max-width: 1000px){
     .opt-main{
         padding-left: 55px;

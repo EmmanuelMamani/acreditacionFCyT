@@ -17,6 +17,10 @@
 <div class="mt-5 flex">
     <span class="material-symbols-outlined">list</span>
     <h1 class="text-xl ml-5">Áreas</h1>
+    <a href="{{route('descargarZip')}}" class="descarga w-1/12 mb-10 flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-2" id="agregar">
+        <span class="material-symbols-outlined icono">download_for_offline</span>
+        <span>Descargar</span>
+    </a>
 </div>
  <div class="grid grid-cols-1 lg:grid-cols-2 pb-10" id="cont-areas">
         @foreach ($areas as $area)
@@ -26,8 +30,4 @@
         </a> 
         @endforeach
     </div>
-    <a href="{{route('descargarZip')}}" class="w-1/12 my-10  flex justify-center items-center text-white p-2 rounded-xl col-span-4 cursor-pointer md:col-span-2 lg:col-span-2" id="agregar">
-        <span class="material-symbols-outlined icono">download_for_offline</span>
-        <span>Descargar</span>
-    </a>
 @endsection
