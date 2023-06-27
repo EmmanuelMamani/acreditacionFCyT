@@ -56,7 +56,12 @@
                                 <th class="font-thin text-lg text-left"><a href="{{ asset($archivo->url) }}" target="_blank" >{{$archivo->nombre}}</a></th>
                                 <th>
                                 <div class="grid grid-cols-3">
-                                    <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset($archivo->url) }}"> visibility</a></span>
+                                    @if ($archivo->carrera_id!=null)
+                                    <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset('/storage\/'.$archivo->carrera->name.'/'.$archivo->nombre) }}"> visibility</a></span>
+                                    @else
+                                    <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset('/storage/files/Area'.$archivo->indicador->variable->area->numero_area.'/'.$archivo->indicador->variable->numero_variable.'/'.$archivo->indicador->numero_indicador.'/'.$archivo->nombre) }}"> visibility</a></span>
+                                    @endif
+                                    
                                     <!--------Boton eliminar para archivos--------->
                                     <form action="{{route("eliminar_archivo",['id'=>$archivo->id])}}" method="post" class="Eliminar">
                                         @csrf
