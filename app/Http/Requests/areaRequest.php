@@ -25,7 +25,7 @@ class areaRequest extends FormRequest
     public function rules()
     {
         return [
-            'descripcion'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ ()]+$/u','min:3','max:60'],
+            'descripcion'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ 0-9]+$/u','min:3','max:60'],
             'ponderacion'=>['bail','required','numeric','between:0,10'],
             'numero'=>['bail','required','integer',new numeroArea]
         ];

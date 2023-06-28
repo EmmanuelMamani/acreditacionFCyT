@@ -47,7 +47,7 @@ class areaController extends Controller
         $area->save();
         
        
-        $ruta=storage_path('app/public/files/Area'.$area->numero_area);
+        $ruta=storage_path('app/public/files/'.str_replace(' ','_',$area->name));
         File::makeDirectory($ruta,0777,true,true);
 
         return redirect('reporte_areas')->with('registrar','ok');        

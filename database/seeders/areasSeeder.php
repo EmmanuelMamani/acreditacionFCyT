@@ -75,7 +75,7 @@ class areasSeeder extends Seeder
                 'valor' => $area['weight'],
             ]);
 
-            $ruta=storage_path('app/public/files/Area'. $area['area_number']);
+            $ruta=storage_path('app/public/files/'.str_replace(' ','_',$area['label']));
             File::makeDirectory($ruta,0777,true,true);
         }
         

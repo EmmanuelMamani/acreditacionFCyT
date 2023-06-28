@@ -271,9 +271,7 @@ class archivoController extends Controller
                 if ($archivo->isDir()) {
                     $zip->addEmptyDir($nombreArchivo);
                 }else{
-                   // printf($nombreArchivo);
-                  // print('----------');
-                   
+
                     $zip->addFile($rutaAbsoluta, $nombreArchivo);
                 }
                 
