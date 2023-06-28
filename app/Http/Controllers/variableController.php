@@ -46,7 +46,7 @@ class variableController extends Controller
 
         $area=area::find($id);
 
-        $ruta=storage_path('app/public/files/Area'.$area->numero_area.'/'.$variable->numero_variable);
+        $ruta=storage_path('app/public/files/'.str_replace(' ','_',$area->name).'/'.str_replace(' ','_',$variable->name));
         File::makeDirectory($ruta,0777,true,true);
         
         return redirect(route('reporte_variables',['id'=>$id]))->with('registrar','ok');
@@ -62,12 +62,12 @@ class variableController extends Controller
         $variable=variable::find($id);
        
        
-        $ruta=storage_path('app/public/files/Area'.$variable->area->numero_area.'/'.$request->EditNumero_variable);
+        $ruta=storage_path('app/public/files/'.str_replace(' ','_',$variable->area->name).'/'.str_replace(' ','_',$request->EditNumero_variable));
         
         if(!File::exists($ruta)){
             File::makeDirectory($ruta,0777,true,true);
 
-            $eliminar=storage_path('app/public/files/Area'.$variable->area->numero_area.'/'.$variable->numero_variable);
+            $eliminar=storage_path('app/public/files/Area'. str_replace(' ','_',$variable->area->name).'/'.str_replace(' ','_',$variable->name));
 
             File::moveDirectory($eliminar,$ruta,true);
             File::delete($eliminar);
@@ -96,7 +96,7 @@ class variableController extends Controller
 
         $area=area::find($idArea);
 
-        $ruta=storage_path('app/public/files/Area'.$area->numero_area.'/'.$variable->numero_variable);
+        $ruta=storage_path('app/public/files/'.str_replace(' ','_',$area->name).'/'.str_replace(' ','_',$variable->name));
         File::deleteDirectory($ruta);
 
         $this->eliminar($variable);

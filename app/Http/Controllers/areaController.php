@@ -63,9 +63,23 @@ class areaController extends Controller
             }
         }
         $area=area::find($id);
+
+        $ruta=storage_path('app/public/files/'.str_replace(' ','_',$request->EditDescripcion));
+        
+        if(!File::exists($ruta)){
+            File::makeDirectory($ruta,0777,true,true);
+
+            $eliminar=storage_path('app/public/files/'. str_replace(' ','_',$area->name));
+
+            File::moveDirectory($eliminar,$ruta,true);
+            File::delete($eliminar);
+        }
+
         $area->name=$request->EditDescripcion;
         $area->valor=$request->EditPonderacion;
         $area->save();
+
+
 
         return redirect('reporte_areas')->with('editar', 'ok');  
     }
@@ -82,7 +96,7 @@ class areaController extends Controller
         }
         $area= area::find($id);
         
-        $ruta=storage_path('app/public/files/Area'.$area->numero_area);
+        $ruta=storage_path('app/public/files/'.str_replace(' ','_',$area->name));
         File::deleteDirectory($ruta);
 
         $this->eliminar($area);

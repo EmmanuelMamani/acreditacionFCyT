@@ -58,8 +58,8 @@ class indicadorController extends Controller
         $this->asignarCriterios($request->criterios,$indicador->id);
 
         $variable=variable::find($id);
-        
-        $ruta=storage_path('app/public/files/Area'.$variable->area->numero_area.'/'.$variable->numero_variable.'/'.$indicador->numero_indicador);
+        $caracteres_noaceptados=array("/","\\",":","*","?",'"',"<",">","|");
+        $ruta=storage_path('app/public/files/'.str_replace(' ','_',$variable->area->name).'/'.str_replace(' ','_',$variable->name).'/'.str_replace($caracteres_noaceptados,'_',$indicador->descripcion));
         File::makeDirectory($ruta,0777,true,true);
         
         return redirect(route('reporte_indicadores',['id'=>$id]))->with('registrar','ok');

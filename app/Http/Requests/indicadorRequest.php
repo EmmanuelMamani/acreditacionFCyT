@@ -25,7 +25,7 @@ class indicadorRequest extends FormRequest
     {
         return [
             'numero_indicador'=>['bail','required','integer','between:0,100'],
-            'descripcion'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ ()]+$/u','min:3','max:300'],
+            'descripcion'=>['bail','required','string','min:3'],
             'criterios'=>['bail','required']
         ];
     }
@@ -34,7 +34,7 @@ class indicadorRequest extends FormRequest
      
         return [
              'descripcion.required'=> 'El nombre de variable es obligatorio',
-             'descripcion.regex'=>'Solo se aceptan caracteres literales',
+             'descripcion.string'=>'Solo se aceptan caracteres literales',
              'descripcion.min'=>'El tamaño del nombre debere ser min 3',
              'descripcion.max'=>'El tamaño del nombre debere ser max 300',
              'numero_indicador.required'=>'El campo es obligatorio',
