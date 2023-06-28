@@ -1,7 +1,6 @@
 body{
-    font-family: 'Gruppo', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-family: 'Raleway', sans-serif;
-    font-family: 'Space Grotesk', sans-serif;
 }
 #logo{
     width: 10%;
@@ -38,7 +37,7 @@ text-align: center;
     padding-bottom: 5%;
     padding-left: 10%;
     padding-right: 10%;
-    border: solid 2px black;
+    border: solid 1px rgb(218, 218, 218);
     border-radius: 20px;
     box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.2);
 }
@@ -76,6 +75,16 @@ text-align: center;
     padding-top: 1%;
     padding-bottom: 1%;
 }
+.error{
+    color: red;
+    -webkit-text-stroke: 0.2px #ff0000;
+}
+
+.mensajes{
+    -webkit-text-stroke: 0.2px #464646;
+}
+
+
 /* Responsive*/
 @media (max-width: 1000px){
     #main{
