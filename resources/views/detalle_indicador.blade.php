@@ -52,14 +52,24 @@
                         
                         @if ($archivo->carrera_id==Auth::user()->carrera_id || $archivo->carrera_id==null )
                             <tr class="border border-y-stone-400 border-x-white">
+                                @php
+                                         $caracteres_noaceptados=array("/","\\",":","*","?",'"',"<",">","|");
+                                        
+                                    @endphp
                                 <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
-                                <th class="font-thin text-lg text-left"><a href="{{ asset($archivo->url) }}" target="_blank" >{{$archivo->nombre}}</a></th>
+                                @if ($archivo->carrera_id!=null)
+                                <th class="font-thin text-lg text-left"><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->carrera->name).'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
+                                @else
+                                <th class="font-thin text-lg text-left"><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
+                                @endif
+                                
                                 <th>
                                 <div class="grid grid-cols-3">
+
                                     @if ($archivo->carrera_id!=null)
-                                    <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset('/storage\/'.$archivo->carrera->name.'/'.$archivo->nombre) }}"> visibility</a></span>
+                                    <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset('/storage\/'.str_replace(' ','_',$archivo->carrera->name).'/'.$archivo->nombre) }}"> visibility</a></span>
                                     @else
-                                    <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset('/storage/files/Area'.$archivo->indicador->variable->area->numero_area.'/'.$archivo->indicador->variable->numero_variable.'/'.$archivo->indicador->numero_indicador.'/'.$archivo->nombre) }}"> visibility</a></span>
+                                    <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)}}"> visibility</a></span>
                                     @endif
                                     
                                     <!--------Boton eliminar para archivos--------->
@@ -77,11 +87,16 @@
                     @else
                         @if ($archivo->carrera_id==null)
                         <tr class="border border-y-stone-400 border-x-white">
+                            @php
+                                         $caracteres_noaceptados=array("/","\\",":","*","?",'"',"<",">","|");
+                                        
+                                    @endphp
                             <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
-                            <th class="font-thin text-lg text-left"><a href="{{ asset($archivo->url) }}" target="_blank" >{{$archivo->nombre}}</a></th>
+                            <th class="font-thin text-lg text-left"><a href="{{asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
                             <th>
                             <div class="grid grid-cols-3">
-                                <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset($archivo->url) }}" target="_blank" > visibility</a></span>
+                               
+                                <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{  asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)  }}" target="_blank" > visibility</a></span>
                                 <!------------Boton para eliminar archivos------------->
                                 <form action="{{route("eliminar_archivo",['id'=>$archivo->id])}}" method="post" class="Eliminar">
                                     @csrf
@@ -121,7 +136,7 @@
                                 </th>
                             </tr>
                             
-                            @includeWhen($archivo->archivos->isNotEmpty(), 'agregarRecursivo', ['archivos' => $archivo->archivos,'id_folder'=>$archivo->id])
+                            @includeWhen($archivo->archivos->isNotEmpty(), 'agregarRecursivo', ['archivos' => $archivo->archivos,'id_folder'=>$archivo->id,'ruta'=>'/'.$archivo->nombre])
                             
                         @endif
                     
@@ -149,7 +164,7 @@
                         </tr>  
                         @endif
                         
-                        @includeWhen($archivo->archivos->isNotEmpty(), 'agregarRecursivo', ['archivos' => $archivo->archivos,'id_folder'=>$archivo->id])
+                        @includeWhen($archivo->archivos->isNotEmpty(), 'agregarRecursivo', ['archivos' => $archivo->archivos,'id_folder'=>$archivo->id,'ruta'=>'/'.$archivo->nombre])
                         
                         
                     @endif

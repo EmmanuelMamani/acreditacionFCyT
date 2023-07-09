@@ -18,8 +18,8 @@
 </head>
 <body>
     <div class="flex justify-end items-center">
-        <a onclick="atras()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer" ><span class="material-symbols-outlined icono mr-1">arrow_back</span>Atras</a>
-        <a  id="downloadLink" onclick="descargar()" class="p-2 bg-blue-950 text-white font-thin mt-5 mr-5 rounded-xl cursor-pointer"><span class="material-symbols-outlined icono mr-1">download_for_offline</span>DESCARGAR</a>
+        <a onclick="atras()" class="p-2 bg-blue-950 text-white  mt-5 mr-5 rounded-xl cursor-pointer" ><span class="material-symbols-outlined icono mr-1">arrow_back</span>Atras</a>
+        <a  id="downloadLink" onclick="descargar()" class="p-2 bg-blue-950 text-white  mt-5 mr-5 rounded-xl cursor-pointer"><span class="material-symbols-outlined icono mr-1">download_for_offline</span>DESCARGAR</a>
     </div>
     <header class="flex justify-center">
         <img src="{{asset('img/ENCABEZADO para DOCUMENTOS.jpeg')}}" alt="" id="encabezado">
@@ -54,13 +54,13 @@
                         }
                     @endphp
                 <tr class="border border-y-black border-x-white">
-                <th class="font-thin">{{$area->numero_area.".".$variable->numero_variable}}</th>
-                <th class="font-thin text-left">{{$variable->name}}</th>
-                <th class="font-thin"></th>
-                <th class="font-thin"></th>
+                <th >{{$area->numero_area.".".$variable->numero_variable}}</th>
+                <th class=" text-left">{{$variable->name}}</th>
+                <th ></th>
+                <th ></th>
                 <th></th>
-                <th class="font-thin">{{$sum_ponderacion}}</th>
-                <th class="font-thin">{{$sum_calificacion}}</th>
+                <th >{{$sum_ponderacion}}</th>
+                <th >{{$sum_calificacion}}</th>
                 </tr>
                 <tr class="border border-y-black border-x-white bg-neutral-300">
                     <th>#</th>
@@ -73,25 +73,25 @@
                 </tr>
                 @foreach ($variable->indicadores->where('activo',1) as $indicador)
                 <tr class="border border-y-black border-x-white">
-                    <th class="font-thin">{{$area->numero_area.".".$variable->numero_variable.".".$indicador->numero_indicador}}</th>
-                    <th class="font-thin text-left">{{$indicador->descripcion}}</th>
-                    <th class="font-thin">{{$indicador->tipo}}</th>
-                    <th class="font-thin"></th>
-                    <th class="font-thin">{{$indicador->peso}}</th>
-                    <th class="font-thin"></th>
-                    <th class="font-thin">
+                    <th >{{$area->numero_area.".".$variable->numero_variable.".".$indicador->numero_indicador}}</th>
+                    <th class=" text-left">{{$indicador->descripcion}}</th>
+                    <th >{{$indicador->tipo}}</th>
+                    <th ></th>
+                    <th >{{$indicador->peso}}</th>
+                    <th ></th>
+                    <th >
                         {{$indicador->peso*($indicador->calificacion($gestion->id,$indicador->id))[0]->promedio}}
                         </th>
                 </tr>
                 @foreach ($indicador->criterios_indicadores->where('activo',1) as $criterio_ind )
      
                     <tr class="border border-y-neutral border-x-white ">
-                        <th class="font-thin"></th>
-                        <th class="font-thin"></th>
-                        <th class="font-thin"></th>
-                        <th class="font-thin text-left">{{$criterio_ind->criterio->nombre}}</th>
-                        <th class="font-thin"></th>
-                        <th class="font-thin">
+                        <th ></th>
+                        <th ></th>
+                        <th ></th>
+                        <th class=" text-left">{{$criterio_ind->criterio->nombre}}</th>
+                        <th ></th>
+                        <th >
                             <form action="{{route('calificar',['id'=>$criterio_ind->id,'id_area'=>$area->id])}}" class="flex" method="POST" id='{{$criterio_ind->id}}'> @csrf
 
                                 <input type="radio" name="valor" value="1"  @if ($calificaciones->where('indicador_criterio_id',$criterio_ind->id)->last()!=null)
@@ -121,7 +121,7 @@
                                 @endif ><label for="">5</label>
                             </form>
                         </th>
-                        <th class="font-thin text-xl"></th>
+                        <th class=" text-xl"></th>
                     </tr>
                    
                 

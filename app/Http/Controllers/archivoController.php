@@ -55,11 +55,13 @@ class archivoController extends Controller
         if(Auth::user()->carrera_id==null){
             $indicador=indicador::find($id);
             $ruta='';
+            $caracteres_noaceptados=array("/","\\",":","*","?",'"',"<",">","|");
             if($request->folderId==0){
-                $ruta=storage_path('app/public/files/Area'.$indicador->variable->area->numero_area.'/'.$indicador->variable->numero_variable.'/'.$indicador->numero_indicador.'/'.$folder->nombre);
+                
+                $ruta=storage_path('app/public/files/'.str_replace(' ','_',$indicador->variable->area->name).'/'.str_replace(' ','_',$indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$indicador->descripcion).'/'.$folder->nombre);
             }else{
                 $recursivo=archivo::find($request->folderId);
-                $ruta=storage_path('app/public/files/Area'.$indicador->variable->area->numero_area.'/'.$indicador->variable->numero_variable.'/'.$indicador->numero_indicador);
+                $ruta=storage_path('app/public/files/'.str_replace(' ','_',$indicador->variable->area->name).'/'.str_replace(' ','_',$indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$indicador->descripcion));
                 $ruta=$this->recursivo($recursivo,$ruta).'/'.$request->nombre_archivo;
             }
             
@@ -89,19 +91,24 @@ class archivoController extends Controller
             $rutaCarrera=storage_path('app/public/'.Auth::user()->carrera->name);
             if(!File::exists($rutaCarrera)){
                 File::makeDirectory($rutaCarrera,0777,true,true);
-                $archivo->storeAs('public/'.Auth::user()->carrera->name,$folder->nombre);
+                $archivo->storeAs('public/'.str_replace(' ','_',Auth::user()->carrera->name),$folder->nombre);
             }else{
-                $archivo->storeAs('public/'.Auth::user()->carrera->name,$folder->nombre);
+                $archivo->storeAs('public/'.str_replace(' ','_',Auth::user()->carrera->name),$folder->nombre);
             }
         }else{
             $indicador=indicador::find($id);
+            $caracteres_noaceptados=array("/","\\",":","*","?",'"',"<",">","|");
+
             if($request->folderId!=0){
+               
                 $pertenece=archivo::find($request->folderId);
-                $ruta='public/files/Area'.$indicador->variable->area->numero_area.'/'.$indicador->variable->numero_variable.'/'.$indicador->numero_indicador;
+                $ruta='public/files/'.str_replace(' ','_',$indicador->variable->area->name).'/'.str_replace(' ','_',$indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$indicador->descripcion);
                 $ruta=$this->recursivo($pertenece,$ruta);
                 $archivo->storeAs($ruta,$folder->nombre);
+
             }else{
-                $archivo->storeAs('public/files/Area'.$indicador->variable->area->numero_area.'/'.$indicador->variable->numero_variable.'/'.$indicador->numero_indicador,$folder->nombre);
+
+                $archivo->storeAs('public/files/'.str_replace(' ','_',$indicador->variable->area->name).'/'.str_replace(' ','_',$indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$indicador->descripcion),$folder->nombre);
             }
             
         }
@@ -124,18 +131,18 @@ class archivoController extends Controller
             }
         }
      $folder=archivo::find($id);
-     
+     $caracteres_noaceptados=array("/","\\",":","*","?",'"',"<",">","|");
      if(Auth::user()->carrera_id==null){
         if($folder->folder==null){
-            $eliminar=storage_path('app/public/files/Area'.$folder->indicador->variable->area->numero_area.'/'.$folder->indicador->variable->numero_variable.'/'.$folder->indicador->numero_indicador.'/'.$folder->nombre);
-            $ruta=storage_path('app/public/files/Area'.$folder->indicador->variable->area->numero_area.'/'.$folder->indicador->variable->numero_variable.'/'.$folder->indicador->numero_indicador.'/'.$request->editNombre);
+            $eliminar=storage_path('app/public/files/'.str_replace(' ','_',$folder->indicador->variable->area->name).'/'.str_replace(' ','_',$folder->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$folder->indicador->descripcion).'/'.$folder->nombre);
+            $ruta=storage_path('app/public/files/'.str_replace(' ','_',$folder->indicador->variable->area->name).'/'.str_replace(' ','_',$folder->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$folder->indicador->descripcion).'/'.$request->editNombre);
 
             File::makeDirectory($ruta,0777,true,true);
             File::moveDirectory($eliminar,$ruta,true);
             File::delete($eliminar);
 
         }else{
-            $ruta=storage_path('app/public/files/Area'.$folder->indicador->variable->area->numero_area.'/'.$folder->indicador->variable->numero_variable.'/'.$folder->indicador->numero_indicador);
+            $ruta=storage_path('app/public/files/'.str_replace(' ','_',$folder->indicador->variable->area->name).'/'.str_replace(' ','_',$folder->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$folder->indicador->descripcion));
             $rutaAlter=$ruta;
             $ruta=$this->recursivo($folder->folder,$ruta).'/'.$request->editNombre;
            
@@ -179,7 +186,9 @@ class archivoController extends Controller
         $folder=archivo::find($id);
         $id_indicador=$folder->indicador->id;
 
-        $ruta=storage_path('app/public/files/Area'.$folder->indicador->variable->area->numero_area.'/'.$folder->indicador->variable->numero_variable.'/'.$folder->indicador->numero_indicador);
+        $caracteres_noaceptados=array("/","\\",":","*","?",'"',"<",">","|");
+
+        $ruta=storage_path('app/public/files/'.str_replace(' ','_',$folder->indicador->variable->area->name).'/'.str_replace(' ','_',$folder->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$folder->indicador->descripcion));
         $ruta=$this->recursivo($folder,$ruta);
 
         File::deleteDirectory($ruta);
@@ -200,11 +209,13 @@ class archivoController extends Controller
         $archivo=archivo::find($id);
         $id_indicador=$archivo->indicador->id;
        $ruta='';
+       $caracteres_noaceptados=array("/","\\",":","*","?",'"',"<",">","|");
+
         if($archivo->carrera_id==null){
-            $ruta=storage_path('app/public/files/Area'.$archivo->indicador->variable->area->numero_area.'/'.$archivo->indicador->variable->numero_variable.'/'.$archivo->indicador->numero_indicador);
+            $ruta=storage_path('app/public/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'. str_replace(' ','_',$archivo->indicador->descripcion));
             $ruta=$this->recursivo($archivo,$ruta);
         }else{
-            $ruta=storage_path('app/public/'.$archivo->carrera->name.'/'.$archivo->nombre);
+            $ruta=storage_path('app/public/'.str_replace(' ','_',$archivo->carrera->name).'/'.$archivo->nombre);
         }
         
 

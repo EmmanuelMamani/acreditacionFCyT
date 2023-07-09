@@ -865,8 +865,8 @@ class indicadoresSeeder extends Seeder
            ]);
 
            $variable=variable::find($indicador['variable_id']);
-
-           $ruta=storage_path('app/public/files/Area'. $variable->area->numero_area.'/'.$variable->numero_variable.'/'.$indicador['indicator_number']);
+           $caracteres_noaceptados=array("/","\\",":","*","?",'"',"<",">","|");
+           $ruta=storage_path('app/public/files/'. str_replace(' ','_',$variable->area->name).'/'.str_replace(' ','_',$variable->name).'/'.str_replace($caracteres_noaceptados,'_',$indicador['description']));
            File::makeDirectory($ruta,0777,true,true);
         }
     }

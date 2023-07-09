@@ -62,12 +62,12 @@ class variableController extends Controller
         $variable=variable::find($id);
        
        
-        $ruta=storage_path('app/public/files/'.str_replace(' ','_',$variable->area->name).'/'.str_replace(' ','_',$request->EditNumero_variable));
+        $ruta=storage_path('app/public/files/'.str_replace(' ','_',$variable->area->name).'/'.str_replace(' ','_',$request->EditDescripcion));
         
         if(!File::exists($ruta)){
             File::makeDirectory($ruta,0777,true,true);
 
-            $eliminar=storage_path('app/public/files/Area'. str_replace(' ','_',$variable->area->name).'/'.str_replace(' ','_',$variable->name));
+            $eliminar=storage_path('app/public/files/'. str_replace(' ','_',$variable->area->name).'/'.str_replace(' ','_',$variable->name));
 
             File::moveDirectory($eliminar,$ruta,true);
             File::delete($eliminar);

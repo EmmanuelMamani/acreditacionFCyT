@@ -167,7 +167,7 @@ class variablesSeeder extends Seeder
 
            $area=area::find($variable['area_id']);
 
-           $ruta=storage_path('app/public/files/Area'. $area->numero_area.'/'.$variable['variable_number']);
+           $ruta=storage_path('app/public/files/'. str_replace(' ','_',$area->name).'/'.str_replace(' ','_',$variable['label']));
            File::makeDirectory($ruta,0777,true,true);
         }
     }

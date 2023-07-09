@@ -100,13 +100,13 @@ class indicadorController extends Controller
             }
         }
         $indicador=indicador::find($id);
-
-        $ruta=storage_path('app/public/files/Area'.$indicador->variable->area->numero_area.'/'.$indicador->variable->numero_variable.'/'.$request->EditNumero_indicador);
+        $caracteres_noaceptados=array("/","\\",":","*","?",'"',"<",">","|");
+        $ruta=storage_path('app/public/files/'.str_replace(' ','_',$indicador->variable->area->name).'/'.str_replace(' ','_',$indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$request->EditDescripcion));
         
         if(!File::exists($ruta)){
             File::makeDirectory($ruta,0777,true,true);
 
-            $eliminar=storage_path('app/public/files/Area'.$indicador->variable->area->numero_area.'/'.$indicador->variable->numero_variable.'/'.$indicador->numero_indicador);
+            $eliminar=storage_path('app/public/files/'.str_replace(' ','_',$indicador->variable->area->name).'/'.str_replace(' ','_',$indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$indicador->descripcion));
 
             File::moveDirectory($eliminar,$ruta,true);
             File::delete($eliminar);
@@ -140,8 +140,8 @@ class indicadorController extends Controller
         $indicador=indicador::find($id);
         $indicador->activo=0;
         $indicador->save();
-       
-        $ruta=storage_path('app/public/files/Area'.$indicador->variable->area->numero_area.'/'.$indicador->variable->numero_variable.'/'.$indicador->numero_indicador);
+        $caracteres_noaceptados=array("/","\\",":","*","?",'"',"<",">","|");
+        $ruta=storage_path('app/public/files/'.str_replace(' ','_',$indicador->variable->area->name).'/'.str_replace(' ','_',$indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$indicador->descripicion));
         File::deleteDirectory($ruta);
 
         $this->eliminarCascada($indicador->criterios);
