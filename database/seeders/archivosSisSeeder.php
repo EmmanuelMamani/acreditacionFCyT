@@ -66,6 +66,20 @@ class archivosSisSeeder extends Seeder
                 'carrera_id'=>8
             ],
             [
+                'nombre' => 'Planes Globales',
+                'tipo' => 'folder',
+                'indicador_id' => 11,
+                'folder_id'=> null,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => 'Rediseño De La Malla Curricular',
+                'tipo' => 'folder',
+                'indicador_id' => 11,
+                'folder_id'=> null,
+                'carrera_id'=>8
+            ],
+            [
                 'nombre' => '3.2.1 Objetivos Del Programa.pdf',
                 'tipo' => 'archivo',
                 'indicador_id' => 11,
@@ -79,18 +93,152 @@ class archivosSisSeeder extends Seeder
                 'folder_id'=> null,
                 'carrera_id'=>8
             ],
+            
             [
-                'nombre' => 'Planes Globales',
+                'nombre' => '1s',
                 'tipo' => 'folder',
                 'indicador_id' => 11,
-                'folder_id'=> null,
+                'folder_id'=> 54,
                 'carrera_id'=>8
             ],
             [
-                'nombre' => 'Rediseño De La Malla Curricular',
+                'nombre' => '2s',
                 'tipo' => 'folder',
                 'indicador_id' => 11,
-                'folder_id'=> null,
+                'folder_id'=> 54,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '3s',
+                'tipo' => 'folder',
+                'indicador_id' => 11,
+                'folder_id'=> 54,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '4s',
+                'tipo' => 'folder',
+                'indicador_id' => 11,
+                'folder_id'=> 54,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '5s',
+                'tipo' => 'folder',
+                'indicador_id' => 11,
+                'folder_id'=> 54,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '6s',
+                'tipo' => 'folder',
+                'indicador_id' => 11,
+                'folder_id'=> 54,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '7s',
+                'tipo' => 'folder',
+                'indicador_id' => 11,
+                'folder_id'=> 54,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '8s',
+                'tipo' => 'folder',
+                'indicador_id' => 11,
+                'folder_id'=> 54,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => 'Electivas',
+                'tipo' => 'folder',
+                'indicador_id' => 11,
+                'folder_id'=> 54,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '2010010 - Introducción A La Programación – Blanco Coca Leticia.pdf',
+                'tipo' => 'archivo',
+                'indicador_id' => 11,
+                'folder_id'=> 58,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '2008019 - Algebra I - León Romero Ruperto.pdf',
+                'tipo' => 'archivo',
+                'indicador_id' => 11,
+                'folder_id'=> 58,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '2006085 - Laboratorio De Física Básica I - Flores Flores Freddy.pdf',
+                'tipo' => 'archivo',
+                'indicador_id' => 11,
+                'folder_id'=> 58,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '2006063 - Fisica General - Valenzuela Roberto.pdf',
+                'tipo' => 'archivo',
+                'indicador_id' => 11,
+                'folder_id'=> 58,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '1803001 – Ingles I - Grilo Salvatierra Maria Estela.pdf',
+                'tipo' => 'archivo',
+                'indicador_id' => 11,
+                'folder_id'=> 58,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '2008054 - Calculo I - Martinez Maida Amilcar.pdf',
+                'tipo' => 'archivo',
+                'indicador_id' => 11,
+                'folder_id'=> 58,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '2010003 - Elementos De Programación Y Estructura De Datos - Blanco Coca Leticia.pdf',
+                'tipo' => 'archivo',
+                'indicador_id' => 11,
+                'folder_id'=> 59,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '2008056 - Calculo Ii - Terrazas Lobo Juan..pdf',
+                'tipo' => 'archivo',
+                'indicador_id' => 11,
+                'folder_id'=> 59,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '2010013 - Arquitectura De Computadoras I - Blanco Coca Leticia.pdf',
+                'tipo' => 'archivo',
+                'indicador_id' => 11,
+                'folder_id'=> 59,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '2008022 - Algebra Ii - Medina Gamboa Julio Cesar.pdf',
+                'tipo' => 'archivo',
+                'indicador_id' => 11,
+                'folder_id'=> 59,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '1803002 - Inglés Ii - Peeters Ilona.pdf',
+                'tipo' => 'archivo',
+                'indicador_id' => 11,
+                'folder_id'=> 59,
+                'carrera_id'=>8
+            ],
+            [
+                'nombre' => '1803002 - Inglés Ii - Peeters Ilona.pdf',
+                'tipo' => 'archivo',
+                'indicador_id' => 11,
+                'folder_id'=> 59,
                 'carrera_id'=>8
             ],
             ];
