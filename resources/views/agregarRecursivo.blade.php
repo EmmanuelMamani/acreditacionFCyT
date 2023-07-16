@@ -11,24 +11,24 @@
                                          $caracteres_noaceptados=array("/","\\",":","*","?",'"',"<",">","|");
                                         
                                     @endphp
-                                <th class="font-thin text-xl"><span class="material-symbols-outlined font-thin text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
+                                <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
                                 
                                 @if ($archivo->carrera_id!=null)
-                                <th class="font-thin text-lg text-left"><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->carrera->name).'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
+                                <th class=" text-lg text-left"><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->carrera->name).'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
                                 @else
-                                <th class="font-thin text-lg text-left"><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
+                                <th class=" text-lg text-left"><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
                                 @endif
 
                                 <th>
                                 <div class="grid grid-cols-3">
                                     @if ($archivo->carrera_id!=null)
-                                    <span class="material-symbols-outlined font-thin text-3xl text-right cursor-pointer" ><a href="{{ asset('/storage\/'.str_replace(' ','_',$archivo->carrera->name).'/'.$archivo->nombre) }}"> visibility</a></span>
+                                    <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset('/storage\/'.str_replace(' ','_',$archivo->carrera->name).'/'.$archivo->nombre) }}"> visibility</a></span>
                                     <form action="{{route("eliminar_archivo",['id'=>$archivo->id])}}" method="post" class="Eliminar">
                                         @csrf
                                         <button class="material-symbols-outlined  text-3xl cursor-pointer">delete</button>
                                     </form>
                                     @else
-                                    <span class="material-symbols-outlined font-thin text-3xl text-right cursor-pointer" ><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)}}"> visibility</a></span>
+                                    <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)}}"> visibility</a></span>
                                     @endif
                                     
                                     
@@ -48,14 +48,14 @@
                                          $caracteres_noaceptados=array("/","\\",":","*","?",'"',"<",">","|");
                                         
                                     @endphp
-                            <th class="font-thin text-xl"><span class="material-symbols-outlined  text-3xl text-right cursor-pointer font-thin ">picture_as_pdf</span></th>
-                            <th class="font-thin text-xl text-left"><a href="{{  asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).$ruta.'/'.$archivo->nombre) }}">{{$archivo->nombre}}</a></th>
+                            <th class="font-thin text-xl"><span class="material-symbols-outlined  text-3xl text-right cursor-pointer font-extralight ">picture_as_pdf</span></th>
+                            <th class=" text-lg text-left"><a href="{{  asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).$ruta.'/'.$archivo->nombre) }}">{{$archivo->nombre}}</a></th>
                             <th>
                             <div class="grid grid-cols-3">
-                                <span class="material-symbols-outlined font-thin text-3xl text-right cursor-pointer"><a href="{{  asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).$ruta.'/'.$archivo->nombre) }}"> visibility</a></span>
+                                <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer"><a href="{{  asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).$ruta.'/'.$archivo->nombre) }}"> visibility</a></span>
                                 <form action="{{route("eliminar_archivo",['id'=>$archivo->id])}}" method="post" class="Eliminar">
                                     @csrf
-                                    <button class="material-symbols-outlined  text-3xl cursor-pointer font-thin ">delete</button>
+                                    <button class="material-symbols-outlined  text-3xl cursor-pointer font-extralight ">delete</button>
                                 </form>
                                 
                             </div>
@@ -76,16 +76,16 @@
                                 <th class="font-thin text-xl text-left">{{$archivo->nombre}}</th>
                                 <th>
                                 <div class="grid grid-cols-3">
-                                    <span class="material-symbols-outlined  text-3xl text-right cursor-pointer" onclick="showModal({{$archivo->id}})">add</span>
+                                    <span class="material-symbols-outlined  text-3xl text-right cursor-pointer font-extralight" onclick="showModal({{$archivo->id}})">add</span>
                                     
                                     @if ($archivo->carrera_id!=null)
                                     <form action="{{route("eliminar_folder",['id'=>$archivo->id])}}" method="post" class="Eliminar">
                                         @csrf
-                                        <button class="material-symbols-outlined  text-3xl cursor-pointer">delete</button>
+                                        <button class="material-symbols-outlined  text-3xl cursor-pointer font-extralight">delete</button>
                                     </form>
                                     @endif
                                     
-                                    <span class="material-symbols-outlined  text-3xl text-left cursor-pointer" onclick="editar('{{$archivo->nombre}}','{{$archivo->id}}')">edit_square</span>
+                                    <span class="material-symbols-outlined  text-3xl text-left cursor-pointer font-extralight" onclick="editar('{{$archivo->nombre}}','{{$archivo->id}}')">edit_square</span>
                                 </div>
                                 </th>
                             </tr>
