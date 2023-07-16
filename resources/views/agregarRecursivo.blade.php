@@ -23,14 +23,15 @@
                                 <div class="grid grid-cols-3">
                                     @if ($archivo->carrera_id!=null)
                                     <span class="material-symbols-outlined font-thin text-3xl text-right cursor-pointer" ><a href="{{ asset('/storage\/'.str_replace(' ','_',$archivo->carrera->name).'/'.$archivo->nombre) }}"> visibility</a></span>
-                                    @else
-                                    <span class="material-symbols-outlined font-thin text-3xl text-right cursor-pointer" ><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)}}"> visibility</a></span>
-                                    @endif
-                                    
                                     <form action="{{route("eliminar_archivo",['id'=>$archivo->id])}}" method="post" class="Eliminar">
                                         @csrf
                                         <button class="material-symbols-outlined  text-3xl cursor-pointer">delete</button>
                                     </form>
+                                    @else
+                                    <span class="material-symbols-outlined font-thin text-3xl text-right cursor-pointer" ><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)}}"> visibility</a></span>
+                                    @endif
+                                    
+                                    
                                     
                                 </div>
                                 </th>
@@ -76,10 +77,14 @@
                                 <th>
                                 <div class="grid grid-cols-3">
                                     <span class="material-symbols-outlined  text-3xl text-right cursor-pointer" onclick="showModal({{$archivo->id}})">add</span>
+                                    
+                                    @if ($archivo->carrera_id!=null)
                                     <form action="{{route("eliminar_folder",['id'=>$archivo->id])}}" method="post" class="Eliminar">
                                         @csrf
                                         <button class="material-symbols-outlined  text-3xl cursor-pointer">delete</button>
                                     </form>
+                                    @endif
+                                    
                                     <span class="material-symbols-outlined  text-3xl text-left cursor-pointer" onclick="editar('{{$archivo->nombre}}','{{$archivo->id}}')">edit_square</span>
                                 </div>
                                 </th>
@@ -91,7 +96,9 @@
                     
                     
                     @else
-                
+                        @if ( $archivo->carrera_id==null)
+                            
+                       
                         <tr class="border border-y-stone-300 border-x-white folder {{$id_folder}}" style="display:none;" id="{{$archivo->id}}">
                             <th class="font-thin text-xl"><span class="material-symbols-outlined  text-4xl text-right cursor-pointer"   onclick="mostrar({{$archivo->id}})">folder</span></th>
                             <th class="font-thin text-xl text-left">{{$archivo->nombre}}</th>
@@ -110,7 +117,7 @@
                         
                         @includeWhen($archivo->archivos->isNotEmpty(), 'agregarRecursivo', ['archivos' => $archivo->archivos,'id_folder'=>$archivo->id,'ruta'=>$ruta.'/'.$archivo->nombre])
                         
-                        
+                        @endif
                     @endif
                     
 

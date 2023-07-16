@@ -106,13 +106,13 @@
                 <input type="checkbox" name="Tabla" @if (old('Tabla')=='on')
                     checked
                 @endif> Tabla<br>
-                <input type="radio"  name="Nivel" checked value="1"> Nivel 1  
+                <input type="radio"  name="Nivel" checked value="1"> Nivel 1: Áreas
                 <input type="radio" name="Nivel" value="2" @if (old('Nivel')=='2')
                     checked
-                @endif> Nivel 2
+                @endif> Nivel 2: Variables
                 <input type="radio" name="Nivel" value="3" @if (old('Nivel')=='3')
                     
-                @endif> Nivel 3
+                @endif> Nivel 3: Indicadores
                 <br>
                 <label class="font-thin" >Gráficos</label><br>
                 <input type="checkbox" name="Roseta" @if (old('Roseta')=='on')

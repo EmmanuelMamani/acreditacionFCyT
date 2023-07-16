@@ -113,8 +113,7 @@ class archivoController extends Controller
             
         }
 
-       // $folder->url=Storage::url($archivo->storeAs('public/files',$folder->nombre)) ;
-       $folder->url='';
+      
         $folder->folder_id=$request->folderId==0?null:$request->folderId;
         $folder->tipo='archivo';
         $folder->save();

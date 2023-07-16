@@ -72,11 +72,15 @@
                                     <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)}}"> visibility</a></span>
                                     @endif
                                     
-                                    <!--------Boton eliminar para archivos--------->
+                                    @if ( $archivo->carrera_id!=null)
+                                         <!--------Boton eliminar para archivos--------->
                                     <form action="{{route("eliminar_archivo",['id'=>$archivo->id])}}" method="post" class="Eliminar">
                                         @csrf
                                         <button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
                                     </form>
+
+                                    @endif
+                                   
                                     
                                 </div>
                                 </th>
@@ -126,10 +130,13 @@
                                     <!------------boton añadir------------>
                                     <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" onclick="showModal({{$archivo->id}})">add</span>
                                     <!---------------boton eliminar---------->
+                                    @if ($archivo->carrera_id!=null)
                                     <form action="{{route("eliminar_folder",['id'=>$archivo->id])}}" method="post" class="Eliminar">
                                         @csrf
                                         <button class="material-symbols-outlined font-extralight text-3xl cursor-pointer">delete</button>
-                                    </form>
+                                    </form> 
+                                    @endif
+                                   
                                     <!-----------------boton editar------------>
                                     <span class="material-symbols-outlined font-extralight text-3xl text-left cursor-pointer" onclick="editar('{{$archivo->nombre}}','{{$archivo->id}}')">edit_square</span>
                                 </div>
