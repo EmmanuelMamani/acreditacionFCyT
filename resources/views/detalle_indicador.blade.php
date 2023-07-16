@@ -58,9 +58,9 @@
                                     @endphp
                                 <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
                                 @if ($archivo->carrera_id!=null)
-                                <th class="font-thin text-lg text-left"><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->carrera->name).'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
+                                <th class="font-medium text-lg text-left"><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->carrera->name).'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
                                 @else
-                                <th class="font-thin text-lg text-left"><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
+                                <th class="font-medium text-lg text-left"><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
                                 @endif
                                 
                                 <th>
@@ -96,7 +96,7 @@
                                         
                                     @endphp
                             <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
-                            <th class="font-thin text-lg text-left"><a href="{{asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
+                            <th class="font-medium text-lg text-left"><a href="{{asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
                             <th>
                             <div class="grid grid-cols-3">
                                
@@ -124,7 +124,7 @@
                         @if ($archivo->carrera_id==Auth::user()->carrera_id || $archivo->carrera_id==null)
                             <tr class="border border-y-stone-400 border-x-white">
                                 <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-4xl text-right cursor-pointer" onclick="mostrar({{$archivo->id}})">folder</span></th>
-                                <th class="font-thin text-lg text-left">{{$archivo->nombre}}</th>
+                                <th class="font-medium text-lg text-left">{{$archivo->nombre}}</th>
                                 <th>
                                 <div class="grid grid-cols-3">
                                     <!------------boton añadir------------>
@@ -154,7 +154,7 @@
                         @if ($archivo->carrera_id==null)
                         <tr class="border border-y-stone-400 border-x-white">
                             <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-4xl text-right cursor-pointer" onclick="mostrar({{$archivo->id}})">folder</span></th>
-                            <th class="font-thin text-lg text-left">{{$archivo->nombre}}</th>
+                            <th class="font-medium text-lg text-left">{{$archivo->nombre}}</th>
                             <th>
                             <div class="grid grid-cols-3">
                                <!------------boton añadir------------>

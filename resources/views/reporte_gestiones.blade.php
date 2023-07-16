@@ -18,7 +18,7 @@
                     <th class="text-lg md:text-2xl">#</th>
                     <th class="text-lg md:text-2xl">Año</th>
                     <th class="text-lg md:text-2xl">Activo</th>
-                    <th class="text-lg md:text-2xl">Accciones</th>
+                    <th class="text-lg md:text-2xl">Acciones</th>
                 </tr>
             </thead>
             <tbody>
