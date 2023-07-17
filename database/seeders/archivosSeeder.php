@@ -297,13 +297,14 @@ class archivosSeeder extends Seeder
 
         foreach ($archivos as $archivo) {
             archivo::create([
-                'numero_area' => $archivo['area_number'],
-                'name' => $archivo['label'],
-                'valor' => $archivo['weight'],
+                'indicador_id' => $archivo['indicador_id'],
+                'nombre' => $archivo['nombre'],
+                'tipo' => $archivo['tipo'],
+                'folder_id'=>$archivo['folder_id']
             ]);
 
           
-            File::makeDirectory('',0777,true,true);
+           // File::makeDirectory('',0777,true,true);
         }
     }
 }

@@ -24,7 +24,7 @@ class folderRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre_archivo'=>['bail','required','regex:/^[a-z A-Z \s 0-9 áéíóú ÁÉÍÓÚñÑ .,:_]+$/u','max:100','min:2','unique:archivos,nombre']
+            'nombre_archivo'=>['bail','required','regex:/^[a-z A-Z \s 0-9 áéíóú ÁÉÍÓÚñÑ .,:_-]+$/u','max:100','min:2','unique:archivos,nombre']
         ];
     }
 
