@@ -12,7 +12,8 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300&family=Raleway:wght@200&family=Tajawal:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('css/login.css')}}">
-    <title>Sis-EA</title>
+    <link rel="shortcut icon" href="{{asset('img/ave.ico')}}" type="image/x-icon">
+    <title>AVE</title>
 </head>
 <body>
     <div id="header">

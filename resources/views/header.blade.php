@@ -16,8 +16,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300&family=Raleway:wght@200&family=Tajawal:wght@300&display=swap" rel="stylesheet">
-
-<title>SIS-EA</title>
+<link rel="shortcut icon" href="{{asset('img/ave.ico')}}" type="image/x-icon">
+<title>AVE</title>
 </head>
 <body>
     <div id="navbar" class="grid grid-cols-6 contenedor-item sm:grid-cols-12">
