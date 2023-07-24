@@ -22,8 +22,8 @@
 <body>
     <div id="navbar" class="grid grid-cols-6 contenedor-item sm:grid-cols-12">
         <span class="material-symbols-outlined cursor-pointer lg:ml-5 etiqueta " id="menu">menu</span>
-        <div class="col-span-2 sm:col-span-5 lg:col-span-8 flex">
-            <h1  class="text-sm md:text-xl ">SIS-EA:</h1>
+        <div class="col-span-2 sm:col-span-5 lg:col-span-8 flex justify-start items-center">
+            <img src="{{asset('img/logo_ave.JPG')}}" id="logo_ave">
             @if (Auth::user()->carrera_id==null)
             <h1 class="ml-2 text-sm md:text-xl">ADMINISTRACIÓN</h1>
             @else

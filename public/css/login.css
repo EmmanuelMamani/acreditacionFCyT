@@ -6,12 +6,16 @@ body{
     width: 10%;
     height: 10%;
 }
+#logo_ave{
+    height: 100%;
+}
 #header{
-    background-color: #060926;
+    background-color: #0a0f3d;
     color: white;
     padding-top: 1%;
     padding-bottom: 1%;
     padding-left: 5%;
+    height: 13vh;
 }
 #header h1{
     font-weight: 100;

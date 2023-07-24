@@ -16,12 +16,12 @@
 </head>
 <body>
     <div id="header">
-        <h1>SIS-EA</h1>
+        <img src="{{asset('img/logo_ave.JPG')}}" id="logo_ave">
     </div>
     <div id="main">
         <div class="d-flex flex-content">
             <img src="{{asset('img/logoFCYT.png')}}" alt="logo FCyt" class="flex-item" id="logo">
-            <div class="flex-item" id="titulo"><h3>Sistema de Evaluacion y Acreditacion</h3></div>
+            <div class="flex-item" id="titulo"><h3>Sistema para la Acreditación Valoración y Evaluación</h3></div>
         </div>
         <div id="formulario">
             <form action="{{route('login')}}" method="post">
