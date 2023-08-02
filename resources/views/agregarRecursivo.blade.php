@@ -14,9 +14,9 @@
                                 <th class="font-thin text-xl"><span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer">picture_as_pdf</span></th>
                                 
                                 @if ($archivo->carrera_id!=null)
-                                <th class=" text-lg text-left"><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->carrera->name).'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
+                                <th class=" text-lg text-left"><a href="{{ asset('/storage\/'.str_replace(' ','_',$archivo->carrera->name).'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
                                 @else
-                                <th class=" text-lg text-left"><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
+                                <th class=" text-lg text-left"><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).$ruta.'/'.$archivo->nombre)  }}" target="_blank" >{{$archivo->nombre}}</a></th>
                                 @endif
 
                                 <th>
@@ -28,7 +28,7 @@
                                         <button class="material-symbols-outlined  text-3xl cursor-pointer">delete</button>
                                     </form>
                                     @else
-                                    <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).'/'.$archivo->nombre)}}"> visibility</a></span>
+                                    <span class="material-symbols-outlined font-extralight text-3xl text-right cursor-pointer" ><a href="{{ asset('/storage/files/'.str_replace(' ','_',$archivo->indicador->variable->area->name).'/'.str_replace(' ','_',$archivo->indicador->variable->name).'/'.str_replace($caracteres_noaceptados,'_',$archivo->indicador->descripcion).$ruta.'/'.$archivo->nombre)}}"> visibility</a></span>
                                     @endif
                                     
                                     
