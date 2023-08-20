@@ -1,6 +1,6 @@
 
 !.gitignore
-./LICENCIATURA_EN_INGENIERIA_DE_SISTEMAS
+
 ./files/Administracion_Financiera
 ./files/Administración_y_Gestión_Academica
 ./files/Currículo
@@ -9,3 +9,4 @@
 ./files/Infraestructura
 ./files/Investigacion_e_Interaccion_Social
 ./files/Normas_Jurídicas_e_Institucionales
+./files/Recursos_Educativos
