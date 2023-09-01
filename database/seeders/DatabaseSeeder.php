@@ -18,7 +18,13 @@ class DatabaseSeeder extends Seeder
             areasSeeder::class,
             variablesSeeder::class,
             indicadoresSeeder::class,
-            
+            archivosSeeder::class,
+            archivosSisSeeder::class,
+            criteriosSeeder::class,
+            indicador_criterios::class,
+            permisosSeeder::class,
+            userSeeder::class,
+            asignacionesSeeder::class
         ]);
     }
 }
