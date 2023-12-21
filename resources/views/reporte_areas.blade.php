@@ -116,7 +116,7 @@
                 modal_editar.showModal()
 
                 var editar=document.getElementById("editar");
-                editar.action="/editar_area/"+{{$errors->first('id')}}
+                editar.action="{{route('editar_area')}}"+"/"+{{$errors->first('id')}}
             </script>
             
     @endif
@@ -145,7 +145,7 @@
                 ponderacionE.value=ponderacion;
 
                 var editar=document.getElementById("editar");
-                editar.action="/editar_area/"+id
+                editar.action="{{route('editar_area')}}"+"/"+id
             }
             var guardarE=document.getElementById("guardarE");   
         guardarE.onclick=function(){

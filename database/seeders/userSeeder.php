@@ -47,3 +47,4 @@ class userSeeder extends Seeder
         $this->command->info("SuperAdministrator User created with email {$superAdmin->email} and password dekumentor");
     }
 }
+ 
