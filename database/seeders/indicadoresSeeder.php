@@ -864,10 +864,10 @@ class indicadoresSeeder extends Seeder
                 'peso'=>$indicador['weight'],
            ]);
 
-           $variable=variable::find($indicador['variable_id']);
-           $caracteres_noaceptados=array("/","\\",":","*","?",'"',"<",">","|");
-           $ruta=storage_path('app/public/files/'. str_replace(' ','_',$variable->area->name).'/'.str_replace(' ','_',$variable->name).'/'.str_replace($caracteres_noaceptados,'_',$indicador['description']));
-           File::makeDirectory($ruta,0777,true,true);
+          // $variable=variable::find($indicador['variable_id']);
+          // $caracteres_noaceptados=array("/","\\",":","*","?",'"',"<",">","|");
+          // $ruta=storage_path('app/public/files/'. str_replace(' ','_',$variable->area->name).'/'.str_replace(' ','_',$variable->name).'/'.str_replace($caracteres_noaceptados,'_',$indicador['description']));
+          // File::makeDirectory($ruta,0777,true,true);
         }
     }
 }

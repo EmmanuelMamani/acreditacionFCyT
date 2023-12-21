@@ -34,7 +34,7 @@ class areaEditRequest extends FormRequest
         return [
             'EditDescripcion'=>['bail','required','regex:/^[a-zA-Z\s áéíóúÁÉÍÓÚñÑ 0-9]+$/u','min:3','max:60'],
             'EditPonderacion'=>['bail','required','numeric'],
-            'numero'=>['bail','required','integer',new numeroArea],
+            
             'id'=>'required',
         ];
     }

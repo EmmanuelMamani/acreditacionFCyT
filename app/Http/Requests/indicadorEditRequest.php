@@ -43,13 +43,13 @@ class indicadorEditRequest extends FormRequest
     public function messages(){
      
         return [
-             'EditDescripcion.required'=> 'El nombre de variable es obligatorio',
+             'EditDescripcion.required'=> 'El nombre del indicador es obligatorio',
              'EditDescripcion.string'=>'Solo se aceptan caracteres literales',
-             'EditDescripcion.min'=>'El tamaño del nombre debere ser min 3',
+             'EditDescripcion.min'=>'El tamaño del nombre debe ser min 3',
              
              'EditNumero_indicador.required'=>'El campo es obligatorio',
              'EditNumero_indicador.integer'=> 'El campo debe ser un número entero',
-             'EditNumero_indicador.between'=> 'El debe ser un número mayor a 0',
+             'EditNumero_indicador.between'=> 'El debe ser un número mayor a 0 y menor a 100',
              'EditCriterios.required'=>'Debe elegir minimamente un criterio',
              'id.required'=>$this->route('id')
          ];

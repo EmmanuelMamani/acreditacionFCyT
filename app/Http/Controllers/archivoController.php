@@ -167,7 +167,7 @@ class archivoController extends Controller
     private function recursivo($folder,$ruta){
         if($folder->folder==null){
             $ruta=$ruta.'/'.$folder->nombre;
-            
+           
         }else{
             $ruta=$this->recursivo($folder->folder,$ruta).'/'.$folder->nombre;
         }
@@ -237,19 +237,26 @@ class archivoController extends Controller
         $indicadores=$indicadores->reject(function ($value, int $key) {
             $carrera=null;
             if(Auth::user()!=null){
-                $carrera=Auth::user()->carrera_id;
+                if(Auth::user()->carrera_id!=null){
+                    $carrera=Auth::user()->carrera_id;
+                }
+                
             }
+            
             return $this->archivos($value->archivos,$carrera);
         });       
-                   
         return view('reporte_archivos_PDF',['indicadores'=>$indicadores]);
     }
 
     public function archivos($archivos,$carrera){
         $bool=false;
+        
         foreach ($archivos as $archivo) {
-           
+            
+            
             if($archivo->tipo =='archivo' && ($archivo->carrera_id==null || $archivo->carrera_id==$carrera)){
+              
+               
                 $bool=true;
                 break;
                
@@ -257,7 +264,7 @@ class archivoController extends Controller
                 $bool=$this->archivos($archivo->archivos,$carrera);
             }
         }
-       // print($bool);
+        
         return $bool;
     }
 
@@ -281,25 +288,44 @@ class archivoController extends Controller
                 if ($archivo->isDir()) {
                     $zip->addEmptyDir($nombreArchivo);
                 }else{
-
+                   
                     $zip->addFile($rutaAbsoluta, $nombreArchivo);
                 }
                 
             }
 
+           // set_time_limit(400);
+           
             if(Auth::user()->carrera_id!=null){
                 $archivosCarrera=archivo::where('carrera_id',Auth::user()->carrera_id)->where('tipo','archivo')->get();
+                //$archivosCarrera=scandir(public_path('storage/'.str_replace(' ','_',Auth::user()->carrera->name)));
+                
+               
                 foreach ($archivosCarrera as $archivoCarrera) {
-                    $ruta='les/Area'.$archivoCarrera->indicador->variable->area->numero_area.'/'.$archivoCarrera->indicador->variable->numero_variable.'/'.$archivoCarrera->indicador->numero_indicador;
+                  
+                    $ruta='les/Area'.$archivoCarrera->indicador->variable->area->name.'/'.$archivoCarrera->indicador->variable->name.'/'.$archivoCarrera->indicador->descripcion;
+                   
                     if($archivoCarrera->folder!=null){
-                        $ruta=$this->recursivo($archivoCarrera->folder,$ruta).'/'.$archivoCarrera->nombre;
+                        $ruta=$archivoCarrera->nombre;
+                        $folder=$archivoCarrera->folder;
+                       /* while($folder!=null){
+                            $ruta=$archivoCarrera->folder->nombre.'/'.$ruta;
+                            $folder->makeHidden('folder');
+                            $folder=$folder->folder;
+                        }
+*/
+                       // print($ruta);
+                        
+                      //  $ruta=$this->recursivo($archivoCarrera->folder,$ruta).'/'.$archivoCarrera->nombre;
                     }else{
                         $ruta=$ruta.'/'.$archivoCarrera->nombre;
                     }
-                    $rutaCarrera=public_path('storage/'.Auth::user()->carrera->name.'/'.$archivoCarrera->nombre);
+                    $rutaCarrera=storage_path('app\public\\'.str_replace(' ','_',Auth::user()->carrera->name).'\\'.$archivoCarrera->nombre);
+                   // print($ruta);
 
-                    $zip->addFile($rutaCarrera,$ruta);
+                   // $zip->addFile($rutaCarrera,$ruta);
                 }
+              
             }
 
             $zip->close();
